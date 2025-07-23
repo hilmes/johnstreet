@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Force dark mode globally */
+html {
+  color-scheme: dark;
+}
+
+/* Base body styles - will be overridden by theme */
+body {
+  background: var(--theme-background, #131722) !important;
+  color: var(--theme-text, #d1d4dc) !important;
+  font-family: var(--theme-font-primary, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif) !important;
+  font-size: 14px !important;
+  transition: all 0.3s ease;
+  margin: 0;
+  padding: 0;
+}
+
+/* Basic utility classes that work with both themes */
+.price-up {
+  color: var(--theme-success) !important;
+}
+
+.price-down {
+  color: var(--theme-error) !important;
+}
+
+.price-neutral {
+  color: var(--theme-text-secondary) !important;
+}
+
+/* Legacy support for retro classes - will be enhanced by theme CSS */
+.retro-scanline {
+  position: relative;
+}
+
+.crypto-container {
+  background: var(--theme-surface);
+  border: 1px solid var(--theme-border);
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.crypto-container:hover {
+  border-color: var(--theme-primary);
+}

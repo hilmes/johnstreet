@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for page in dashboard trading analysis portfolio settings strategies)",
+      "Bash(do echo:*)",
+      "Bash(test:*)",
+      "Bash(done)",
+      "Bash(git push:*)",
+      "Bash(vercel:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(npm install:*)",
+      "Bash(unzip:*)",
+      "Bash(find:*)",
+      "Bash(mv:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npm run:*)",
+      "Bash(cp:*)"
+    ],
+    "deny": []
+  }
+}

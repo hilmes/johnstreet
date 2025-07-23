@@ -1,0 +1,1115 @@
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+/* Base theme variables */
+:root {
+  /* Theme variables will be set by ThemeContext */
+  --theme-primary: #2962ff;
+  --theme-secondary: #1976d2;
+  --theme-accent: #00bcd4;
+  --theme-background: #131722;
+  --theme-surface: #1e222d;
+  --theme-text: #d1d4dc;
+  --theme-text-secondary: #787b86;
+  --theme-success: #4caf50;
+  --theme-warning: #ff9800;
+  --theme-error: #f44336;
+  --theme-border: #2a2e39;
+  --theme-font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --theme-font-secondary: Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Force dark mode globally */
+html {
+  color-scheme: dark;
+}
+
+/* Base body styles */
+body {
+  background: var(--theme-background) !important;
+  color: var(--theme-text) !important;
+  font-family: var(--theme-font-primary) !important;
+  font-size: 14px !important;
+  transition: all 0.3s ease;
+}
+
+/* CryptoWatch Theme */
+.theme-cryptowatch {
+  background: linear-gradient(135deg, #131722 0%, #1e222d 100%) !important;
+}
+
+.theme-cryptowatch .MuiPaper-root {
+  background: var(--theme-surface) !important;
+  border: 1px solid var(--theme-border) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.theme-cryptowatch .MuiCard-root {
+  background: var(--theme-surface) !important;
+  border: 1px solid var(--theme-border) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.theme-cryptowatch .MuiButton-root {
+  font-family: var(--theme-font-primary) !important;
+  font-size: 14px !important;
+  border-radius: 6px !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+.theme-cryptowatch .MuiButton-contained {
+  background: var(--theme-primary) !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(41, 98, 255, 0.3) !important;
+}
+
+.theme-cryptowatch .MuiButton-contained:hover {
+  background: var(--theme-secondary) !important;
+  box-shadow: 0 4px 8px rgba(41, 98, 255, 0.4) !important;
+  transform: translateY(-1px);
+}
+
+.theme-cryptowatch .MuiTypography-root {
+  font-family: var(--theme-font-primary) !important;
+  color: var(--theme-text) !important;
+}
+
+.theme-cryptowatch .MuiTypography-h1 {
+  font-size: 32px !important;
+  font-weight: 600 !important;
+  color: var(--theme-text) !important;
+}
+
+.theme-cryptowatch .MuiTypography-h2 {
+  font-size: 28px !important;
+  font-weight: 600 !important;
+  color: var(--theme-text) !important;
+}
+
+.theme-cryptowatch .MuiTypography-h3 {
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  color: var(--theme-text) !important;
+}
+
+.theme-cryptowatch .MuiTypography-h4 {
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  color: var(--theme-text) !important;
+}
+
+.theme-cryptowatch .MuiTypography-h5 {
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  color: var(--theme-text) !important;
+}
+
+.theme-cryptowatch .MuiTypography-h6 {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: var(--theme-text) !important;
+}
+
+.theme-cryptowatch .MuiTypography-body1 {
+  font-size: 14px !important;
+  color: var(--theme-text) !important;
+}
+
+.theme-cryptowatch .MuiTypography-body2 {
+  font-size: 12px !important;
+  color: var(--theme-text-secondary) !important;
+}
+
+/* CryptoWatch scrollbar */
+.theme-cryptowatch ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-cryptowatch ::-webkit-scrollbar-track {
+  background: var(--theme-background);
+}
+
+.theme-cryptowatch ::-webkit-scrollbar-thumb {
+  background: var(--theme-border);
+  border-radius: 4px;
+}
+
+.theme-cryptowatch ::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-text-secondary);
+}
+
+/* CryptoWatch input styling */
+.theme-cryptowatch .MuiTextField-root input,
+.theme-cryptowatch .MuiTextField-root textarea {
+  font-family: var(--theme-font-primary) !important;
+  font-size: 14px !important;
+  color: var(--theme-text) !important;
+  background: var(--theme-surface) !important;
+}
+
+.theme-cryptowatch .MuiTextField-root .MuiOutlinedInput-root {
+  border-radius: 6px !important;
+}
+
+.theme-cryptowatch .MuiTextField-root .MuiOutlinedInput-notchedOutline {
+  border: 1px solid var(--theme-border) !important;
+}
+
+.theme-cryptowatch .MuiTextField-root .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: var(--theme-primary) !important;
+}
+
+/* CryptoWatch table styling */
+.theme-cryptowatch .MuiTable-root {
+  border: 1px solid var(--theme-border) !important;
+}
+
+.theme-cryptowatch .MuiTableCell-root {
+  border-bottom: 1px solid var(--theme-border) !important;
+  background: var(--theme-surface) !important;
+  color: var(--theme-text) !important;
+  font-family: var(--theme-font-secondary) !important;
+  font-size: 12px !important;
+  padding: 8px 16px !important;
+}
+
+.theme-cryptowatch .MuiTableHead-root .MuiTableCell-root {
+  background: var(--theme-background) !important;
+  color: var(--theme-text-secondary) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+}
+
+/* CryptoWatch sidebar styling */
+.theme-cryptowatch .MuiDrawer-paper {
+  background: var(--theme-surface) !important;
+  border-right: 1px solid var(--theme-border) !important;
+}
+
+.theme-cryptowatch .MuiListItemButton-root {
+  border-radius: 6px !important;
+  margin: 2px 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+.theme-cryptowatch .MuiListItemButton-root:hover {
+  background: rgba(41, 98, 255, 0.1) !important;
+}
+
+.theme-cryptowatch .MuiListItemButton-root.Mui-selected {
+  background: rgba(41, 98, 255, 0.15) !important;
+  border-left: 3px solid var(--theme-primary) !important;
+}
+
+/* CryptoWatch utility classes */
+.theme-cryptowatch .crypto-container {
+  background: var(--theme-surface);
+  border: 1px solid var(--theme-border);
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.theme-cryptowatch .crypto-container:hover {
+  border-color: var(--theme-primary);
+  box-shadow: 0 4px 12px rgba(41, 98, 255, 0.1);
+}
+
+.theme-cryptowatch .price-up {
+  color: var(--theme-success) !important;
+}
+
+.theme-cryptowatch .price-down {
+  color: var(--theme-error) !important;
+}
+
+.theme-cryptowatch .price-neutral {
+  color: var(--theme-text-secondary) !important;
+}
+
+/* Cyberpunk Theme (existing retro styles) */
+.theme-cyberpunk {
+  background: linear-gradient(45deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%) !important;
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: 12px !important;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Cyberpunk scanlines effect */
+.theme-cyberpunk .retro-scanline {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-cyberpunk .retro-scanline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Cyberpunk glow effects */
+.theme-cyberpunk .animate-glow {
+  animation: retro-glow 3s ease-in-out infinite;
+}
+
+.theme-cyberpunk .animate-pulse {
+  animation: retro-pulse 2s ease-in-out infinite;
+}
+
+.theme-cyberpunk .animate-pixel-dance {
+  animation: pixel-dance 0.5s ease-in-out infinite;
+}
+
+@keyframes retro-pulse {
+  0%, 100% {
+    color: #00f5ff;
+    text-shadow: 0 0 5px #00f5ff;
+  }
+  50% {
+    color: #00ff41;
+    text-shadow: 0 0 10px #00ff41;
+  }
+}
+
+@keyframes retro-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px #00f5ff, inset 0 0 5px rgba(0, 245, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px #00f5ff, inset 0 0 10px rgba(0, 245, 255, 0.3);
+  }
+}
+
+@keyframes pixel-dance {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(1px, 0); }
+  50% { transform: translate(0, 1px); }
+  75% { transform: translate(-1px, 0); }
+  100% { transform: translate(0, -1px); }
+}
+
+/* Cyberpunk Material-UI overrides */
+.theme-cyberpunk .MuiPaper-root {
+  background: linear-gradient(135deg, #1a1a2e, #533a71) !important;
+  border: 2px solid #00f5ff !important;
+  border-radius: 0 !important;
+  box-shadow: 4px 4px 0 #a64ac9, 0 0 20px rgba(0, 245, 255, 0.3) !important;
+}
+
+.theme-cyberpunk .MuiCard-root {
+  background: linear-gradient(135deg, #1a1a2e, #533a71) !important;
+  border: 2px solid #00f5ff !important;
+  border-radius: 0 !important;
+  box-shadow: 4px 4px 0 #a64ac9, 0 0 20px rgba(0, 245, 255, 0.3) !important;
+}
+
+.theme-cyberpunk .MuiButton-root {
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: 10px !important;
+  border-radius: 0 !important;
+  border: 2px solid #00ff41 !important;
+  background: #1a1a2e !important;
+  color: #00ff41 !important;
+  box-shadow: 2px 2px 0 #00ff41 !important;
+  text-transform: uppercase !important;
+  transition: all 0.1s ease !important;
+}
+
+.theme-cyberpunk .MuiButton-root:hover {
+  background: #00ff41 !important;
+  color: #1a1a2e !important;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #00ff41 !important;
+}
+
+.theme-cyberpunk .MuiTypography-root {
+  font-family: 'Press Start 2P', monospace !important;
+}
+
+.theme-cyberpunk .MuiTypography-h1 {
+  font-size: 24px !important;
+  color: #ffff00 !important;
+  text-shadow: 2px 2px 0 #ff0040 !important;
+}
+
+.theme-cyberpunk .MuiTypography-h2 {
+  font-size: 20px !important;
+  color: #00f5ff !important;
+  text-shadow: 1px 1px 0 #16213e !important;
+}
+
+.theme-cyberpunk .MuiTypography-h3 {
+  font-size: 16px !important;
+  color: #00ff41 !important;
+}
+
+.theme-cyberpunk .MuiTypography-h4 {
+  font-size: 14px !important;
+  color: #a64ac9 !important;
+}
+
+.theme-cyberpunk .MuiTypography-h5 {
+  font-size: 12px !important;
+  color: #00f5ff !important;
+}
+
+.theme-cyberpunk .MuiTypography-h6 {
+  font-size: 10px !important;
+  color: #00ff41 !important;
+}
+
+.theme-cyberpunk .MuiTypography-body1 {
+  font-size: 10px !important;
+  color: #ffffff !important;
+}
+
+.theme-cyberpunk .MuiTypography-body2 {
+  font-size: 8px !important;
+  color: #8b949e !important;
+}
+
+/* Cyberpunk utility classes */
+.theme-cyberpunk .retro-container {
+  background: linear-gradient(135deg, #1a1a2e, #533a71);
+  border: 2px solid #00f5ff;
+  padding: 16px;
+  box-shadow: 4px 4px 0 #a64ac9;
+}
+
+.theme-cyberpunk .retro-text-glow {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+/* Legacy support for existing retro classes */
+.retro-container {
+  background: var(--theme-surface);
+  border: 1px solid var(--theme-border);
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.theme-cyberpunk .retro-container {
+  background: linear-gradient(135deg, #1a1a2e, #533a71);
+  border: 2px solid #00f5ff;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 #a64ac9;
+}
+
+/* Financial Excellence Theme - Tufte + Swiss Design + Japanese Aesthetics */
+.theme-financial-excellence {
+  background: #fafafa !important;
+  color: #09090b !important;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  letter-spacing: -0.011em !important;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1 !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Financial Excellence Material-UI overrides */
+.theme-financial-excellence .MuiPaper-root {
+  background: #ffffff !important;
+  border: 1px solid #e4e4e7 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  transition: all 200ms ease !important;
+}
+
+.theme-financial-excellence .MuiPaper-root:hover {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+.theme-financial-excellence .MuiCard-root {
+  background: #ffffff !important;
+  border: 1px solid #e4e4e7 !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  padding: 24px !important;
+}
+
+/* Financial Excellence Typography - Ellen Lupton Principles */
+.theme-financial-excellence .MuiTypography-root {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
+  color: #09090b !important;
+}
+
+.theme-financial-excellence .MuiTypography-h1 {
+  font-size: 3.157rem !important;
+  font-weight: 300 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+  color: #09090b !important;
+}
+
+.theme-financial-excellence .MuiTypography-h2 {
+  font-size: 2.369rem !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+  color: #09090b !important;
+}
+
+.theme-financial-excellence .MuiTypography-h3 {
+  font-size: 1.777rem !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.01em !important;
+  color: #09090b !important;
+}
+
+.theme-financial-excellence .MuiTypography-h4 {
+  font-size: 1.333rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  color: #09090b !important;
+}
+
+.theme-financial-excellence .MuiTypography-h5 {
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  color: #09090b !important;
+}
+
+.theme-financial-excellence .MuiTypography-h6 {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  color: #09090b !important;
+}
+
+.theme-financial-excellence .MuiTypography-body1 {
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  color: #09090b !important;
+}
+
+.theme-financial-excellence .MuiTypography-body2 {
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  color: #71717a !important;
+}
+
+.theme-financial-excellence .MuiTypography-caption {
+  font-size: 0.75rem !important;
+  line-height: 1.5 !important;
+  color: #71717a !important;
+  letter-spacing: 0.03em !important;
+}
+
+/* Financial Excellence Buttons - Dieter Rams: Less but Better */
+.theme-financial-excellence .MuiButton-root {
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  text-transform: none !important;
+  transition: all 200ms ease !important;
+  box-shadow: none !important;
+}
+
+.theme-financial-excellence .MuiButton-contained {
+  background: #2e3b5f !important;
+  color: #ffffff !important;
+  border: 1px solid #2e3b5f !important;
+}
+
+.theme-financial-excellence .MuiButton-contained:hover {
+  background: #242f51 !important;
+  border-color: #242f51 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(46, 59, 95, 0.15) !important;
+}
+
+.theme-financial-excellence .MuiButton-outlined {
+  background: transparent !important;
+  color: #2e3b5f !important;
+  border: 1px solid #e4e4e7 !important;
+}
+
+.theme-financial-excellence .MuiButton-outlined:hover {
+  background: #fafafa !important;
+  border-color: #d4d4d8 !important;
+}
+
+/* Financial Excellence Tables - Tufte's Minimal Lines */
+.theme-financial-excellence .MuiTable-root {
+  border: none !important;
+  border-collapse: collapse !important;
+}
+
+.theme-financial-excellence .MuiTableCell-root {
+  border: none !important;
+  border-bottom: 1px solid #f4f4f5 !important;
+  background: transparent !important;
+  padding: 12px 16px !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  color: #09090b !important;
+  font-family: "IBM Plex Mono", monospace !important;
+}
+
+.theme-financial-excellence .MuiTableHead-root .MuiTableCell-root {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #71717a !important;
+  background: transparent !important;
+  border-bottom: 2px solid #e4e4e7 !important;
+}
+
+/* Financial Excellence Input Fields */
+.theme-financial-excellence .MuiTextField-root input,
+.theme-financial-excellence .MuiTextField-root textarea {
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.875rem !important;
+  color: #09090b !important;
+  background: #ffffff !important;
+}
+
+.theme-financial-excellence .MuiTextField-root .MuiOutlinedInput-root {
+  border-radius: 4px !important;
+}
+
+.theme-financial-excellence .MuiTextField-root .MuiOutlinedInput-notchedOutline {
+  border: 1px solid #e4e4e7 !important;
+}
+
+.theme-financial-excellence .MuiTextField-root .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #d4d4d8 !important;
+}
+
+.theme-financial-excellence .MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #2e3b5f !important;
+  border-width: 1px !important;
+}
+
+/* Financial Excellence Sidebar - Japanese Ma (negative space) */
+.theme-financial-excellence .MuiDrawer-paper {
+  background: #ffffff !important;
+  border-right: 1px solid #e4e4e7 !important;
+  box-shadow: none !important;
+}
+
+.theme-financial-excellence .MuiListItemButton-root {
+  border-radius: 4px !important;
+  margin: 4px 12px !important;
+  padding: 8px 12px !important;
+  transition: all 200ms ease !important;
+}
+
+.theme-financial-excellence .MuiListItemButton-root:hover {
+  background: #fafafa !important;
+}
+
+.theme-financial-excellence .MuiListItemButton-root.Mui-selected {
+  background: #f4f4f5 !important;
+  color: #2e3b5f !important;
+  font-weight: 500 !important;
+}
+
+/* Financial Excellence Scrollbar - Minimal */
+.theme-financial-excellence ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-financial-excellence ::-webkit-scrollbar-track {
+  background: #fafafa;
+}
+
+.theme-financial-excellence ::-webkit-scrollbar-thumb {
+  background: #d4d4d8;
+  border-radius: 4px;
+}
+
+.theme-financial-excellence ::-webkit-scrollbar-thumb:hover {
+  background: #a1a1aa;
+}
+
+/* Financial Excellence Utility Classes */
+.theme-financial-excellence .data-positive {
+  color: #22c55e !important;
+  font-weight: 500 !important;
+}
+
+.theme-financial-excellence .data-negative {
+  color: #ef4444 !important;
+  font-weight: 500 !important;
+}
+
+.theme-financial-excellence .data-neutral {
+  color: #71717a !important;
+}
+
+.theme-financial-excellence .sparkline {
+  height: 20px !important;
+  width: 100px !important;
+}
+
+/* Financial Excellence Focus States - Subtle but Clear */
+.theme-financial-excellence *:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px #2e3b5f20, 0 0 0 4px #2e3b5f10 !important;
+}
+
+/* Financial Excellence Data Tables - Maximum Data-Ink Ratio */
+.theme-financial-excellence .data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.theme-financial-excellence .data-table th {
+  text-align: left;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #71717a;
+  padding: 12px 16px;
+  border-bottom: 2px solid #e4e4e7;
+}
+
+.theme-financial-excellence .data-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f4f4f5;
+  color: #09090b;
+}
+
+.theme-financial-excellence .data-table tbody tr:hover {
+  background: #fafafa;
+}
+
+/* Financial Excellence Charts - Clean Data Presentation */
+.theme-financial-excellence .chart-container {
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 4px;
+  padding: 24px;
+}
+
+.theme-financial-excellence .chart-grid-line {
+  stroke: #f4f4f5;
+  stroke-width: 1;
+  stroke-dasharray: 2,2;
+}
+
+.theme-financial-excellence .chart-axis {
+  stroke: #e4e4e7;
+  stroke-width: 1;
+}
+
+.theme-financial-excellence .chart-axis-label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem;
+  fill: #71717a;
+}
+
+/* Financial Excellence Dark Theme - Sophisticated Black */
+.theme-financial-excellence-dark {
+  background: #000000 !important;
+  color: #f4f4f5 !important;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  letter-spacing: -0.011em !important;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1 !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Financial Excellence Dark Material-UI overrides */
+.theme-financial-excellence-dark .MuiPaper-root {
+  background: #0a0a0a !important;
+  border: 1px solid #27272a !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  transition: all 200ms ease !important;
+}
+
+.theme-financial-excellence-dark .MuiPaper-root:hover {
+  box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.05) !important;
+  border-color: #3f3f46 !important;
+}
+
+.theme-financial-excellence-dark .MuiCard-root {
+  background: #0a0a0a !important;
+  border: 1px solid #27272a !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  padding: 24px !important;
+}
+
+/* Financial Excellence Dark Typography */
+.theme-financial-excellence-dark .MuiTypography-root {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif !important;
+  color: #f4f4f5 !important;
+}
+
+.theme-financial-excellence-dark .MuiTypography-h1 {
+  font-size: 3.157rem !important;
+  font-weight: 300 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+  color: #f4f4f5 !important;
+}
+
+.theme-financial-excellence-dark .MuiTypography-h2 {
+  font-size: 2.369rem !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+  color: #f4f4f5 !important;
+}
+
+.theme-financial-excellence-dark .MuiTypography-h3 {
+  font-size: 1.777rem !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.01em !important;
+  color: #f4f4f5 !important;
+}
+
+.theme-financial-excellence-dark .MuiTypography-h4 {
+  font-size: 1.333rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  color: #f4f4f5 !important;
+}
+
+.theme-financial-excellence-dark .MuiTypography-h5 {
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  color: #f4f4f5 !important;
+}
+
+.theme-financial-excellence-dark .MuiTypography-h6 {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  color: #f4f4f5 !important;
+}
+
+.theme-financial-excellence-dark .MuiTypography-body1 {
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  color: #f4f4f5 !important;
+}
+
+.theme-financial-excellence-dark .MuiTypography-body2 {
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  color: #a1a1aa !important;
+}
+
+.theme-financial-excellence-dark .MuiTypography-caption {
+  font-size: 0.75rem !important;
+  line-height: 1.5 !important;
+  color: #a1a1aa !important;
+  letter-spacing: 0.03em !important;
+}
+
+/* Financial Excellence Dark Buttons */
+.theme-financial-excellence-dark .MuiButton-root {
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+  text-transform: none !important;
+  transition: all 200ms ease !important;
+  box-shadow: none !important;
+}
+
+.theme-financial-excellence-dark .MuiButton-contained {
+  background: #5b7dd8 !important;
+  color: #000000 !important;
+  border: 1px solid #5b7dd8 !important;
+}
+
+.theme-financial-excellence-dark .MuiButton-contained:hover {
+  background: #6f8fe3 !important;
+  border-color: #6f8fe3 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 8px rgba(91, 125, 216, 0.25) !important;
+}
+
+.theme-financial-excellence-dark .MuiButton-outlined {
+  background: transparent !important;
+  color: #5b7dd8 !important;
+  border: 1px solid #3f3f46 !important;
+}
+
+.theme-financial-excellence-dark .MuiButton-outlined:hover {
+  background: #18181b !important;
+  border-color: #52525b !important;
+}
+
+/* Financial Excellence Dark Tables */
+.theme-financial-excellence-dark .MuiTable-root {
+  border: none !important;
+  border-collapse: collapse !important;
+}
+
+.theme-financial-excellence-dark .MuiTableCell-root {
+  border: none !important;
+  border-bottom: 1px solid #18181b !important;
+  background: transparent !important;
+  padding: 12px 16px !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  color: #f4f4f5 !important;
+  font-family: "IBM Plex Mono", monospace !important;
+}
+
+.theme-financial-excellence-dark .MuiTableHead-root .MuiTableCell-root {
+  font-family: "Inter", sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #a1a1aa !important;
+  background: transparent !important;
+  border-bottom: 2px solid #27272a !important;
+}
+
+/* Financial Excellence Dark Input Fields */
+.theme-financial-excellence-dark .MuiTextField-root input,
+.theme-financial-excellence-dark .MuiTextField-root textarea {
+  font-family: "Inter", sans-serif !important;
+  font-size: 0.875rem !important;
+  color: #f4f4f5 !important;
+  background: #0a0a0a !important;
+}
+
+.theme-financial-excellence-dark .MuiTextField-root .MuiOutlinedInput-root {
+  border-radius: 4px !important;
+}
+
+.theme-financial-excellence-dark .MuiTextField-root .MuiOutlinedInput-notchedOutline {
+  border: 1px solid #27272a !important;
+}
+
+.theme-financial-excellence-dark .MuiTextField-root .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #3f3f46 !important;
+}
+
+.theme-financial-excellence-dark .MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #5b7dd8 !important;
+  border-width: 1px !important;
+}
+
+/* Financial Excellence Dark Sidebar */
+.theme-financial-excellence-dark .MuiDrawer-paper {
+  background: #0a0a0a !important;
+  border-right: 1px solid #27272a !important;
+  box-shadow: none !important;
+}
+
+.theme-financial-excellence-dark .MuiListItemButton-root {
+  border-radius: 4px !important;
+  margin: 4px 12px !important;
+  padding: 8px 12px !important;
+  transition: all 200ms ease !important;
+}
+
+.theme-financial-excellence-dark .MuiListItemButton-root:hover {
+  background: #18181b !important;
+}
+
+.theme-financial-excellence-dark .MuiListItemButton-root.Mui-selected {
+  background: #18181b !important;
+  color: #5b7dd8 !important;
+  font-weight: 500 !important;
+  border-left: 3px solid #5b7dd8 !important;
+}
+
+/* Financial Excellence Dark Scrollbar */
+.theme-financial-excellence-dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-financial-excellence-dark ::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+.theme-financial-excellence-dark ::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 4px;
+}
+
+.theme-financial-excellence-dark ::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+/* Financial Excellence Dark Utility Classes */
+.theme-financial-excellence-dark .data-positive {
+  color: #34d399 !important;
+  font-weight: 500 !important;
+}
+
+.theme-financial-excellence-dark .data-negative {
+  color: #f87171 !important;
+  font-weight: 500 !important;
+}
+
+.theme-financial-excellence-dark .data-neutral {
+  color: #a1a1aa !important;
+}
+
+.theme-financial-excellence-dark .sparkline {
+  height: 20px !important;
+  width: 100px !important;
+}
+
+/* Financial Excellence Dark Focus States */
+.theme-financial-excellence-dark *:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px #5b7dd820, 0 0 0 4px #5b7dd810 !important;
+}
+
+/* Financial Excellence Dark Data Tables */
+.theme-financial-excellence-dark .data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.theme-financial-excellence-dark .data-table th {
+  text-align: left;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #a1a1aa;
+  padding: 12px 16px;
+  border-bottom: 2px solid #27272a;
+}
+
+.theme-financial-excellence-dark .data-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #18181b;
+  color: #f4f4f5;
+}
+
+.theme-financial-excellence-dark .data-table tbody tr:hover {
+  background: #0a0a0a;
+}
+
+/* Financial Excellence Dark Charts */
+.theme-financial-excellence-dark .chart-container {
+  background: #0a0a0a;
+  border: 1px solid #27272a;
+  border-radius: 4px;
+  padding: 24px;
+}
+
+.theme-financial-excellence-dark .chart-grid-line {
+  stroke: #18181b;
+  stroke-width: 1;
+  stroke-dasharray: 2,2;
+}
+
+.theme-financial-excellence-dark .chart-axis {
+  stroke: #27272a;
+  stroke-width: 1;
+}
+
+.theme-financial-excellence-dark .chart-axis-label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem;
+  fill: #a1a1aa;
+}
+
+/* Financial Excellence Dark Crypto Container */
+.theme-financial-excellence-dark .crypto-container {
+  background: #0a0a0a;
+  border: 1px solid #27272a;
+  border-radius: 4px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.theme-financial-excellence-dark .crypto-container:hover {
+  border-color: #3f3f46;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.02);
+}
+
+/* Financial Excellence Dark Price Colors */
+.theme-financial-excellence-dark .price-up {
+  color: #34d399 !important;
+}
+
+.theme-financial-excellence-dark .price-down {
+  color: #f87171 !important;
+}
+
+.theme-financial-excellence-dark .price-neutral {
+  color: #a1a1aa !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .theme-cyberpunk {
+    font-size: 10px !important;
+  }
+  
+  .theme-cyberpunk .MuiTypography-h1 {
+    font-size: 18px !important;
+  }
+  
+  .theme-cyberpunk .MuiTypography-h2 {
+    font-size: 16px !important;
+  }
+  
+  .theme-financial-excellence,
+  .theme-financial-excellence-dark {
+    font-size: 14px !important;
+  }
+  
+  .theme-financial-excellence .MuiTypography-h1,
+  .theme-financial-excellence-dark .MuiTypography-h1 {
+    font-size: 2.369rem !important;
+  }
+  
+  .theme-financial-excellence .MuiTypography-h2,
+  .theme-financial-excellence-dark .MuiTypography-h2 {
+    font-size: 1.777rem !important;
+  }
+}

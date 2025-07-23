@@ -1,0 +1,69 @@
+/* 
+  === PORTFOLIO SUMMARY & ITEMS ===
+*/
+
+/* A widget with id="portfolio-summary" in the Python code */
+#portfolio-summary {
+    layout: vertical;
+    gap: 20; /* vertical spacing between each row */
+}
+
+/* A widget (or container) with classes="portfolio-row" in Python */
+.portfolio-row {
+    layout: horizontal;
+    gap: 5; /* horizontal spacing between labels/digits */
+}
+
+
+/* 
+  === OPTION LIST STYLES ===
+*/
+
+/* Overall OptionList widget styling */
+OptionList {
+    background: $surface;
+    color: $text;
+    border: solid $primary;
+    height: auto; /* or '1fr' if you want it to fill available space */
+    scrollbar-gutter: stable; /* keeps scrollbars from shifting layout */
+    padding: 1;
+}
+
+/* Individual option styling */
+OptionList:option-list--option {
+    padding: 1;
+    background: $surface;
+    color: $text;
+    text-style: none;
+}
+
+/* Highlighted option (focused/hovered) */
+OptionList:option-list--option-highlighted {
+    background: $accent;
+    color: $text;
+    text-style: bold;
+}
+
+/* Selected option styling */
+OptionList:option-list--option-selected {
+    background: $primary;
+    color: $text;
+    text-style: bold;
+}
+
+/* Hover effect, if separate from “highlighted” */
+OptionList:option-list--option-hover {
+    background: $accent;
+    color: $text;
+}
+#pairs-outer-container {
+    width: 1fr;
+    /* keep existing border, etc. */
+    border: solid $primary;
+    overflow: hidden;  /* or remove this to ensure inner scrolling is allowed */
+}
+
+#pairs-container {
+    height: 4;        /* Show exactly 4 lines of PairRows before scrolling */
+    overflow-y: auto; /* Make it scrollable */
+}

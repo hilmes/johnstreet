@@ -1,0 +1,315 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import retro 8-bit font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* 8-bit color palette */
+:root {
+  --retro-black: #0f0f23;
+  --retro-dark-blue: #1a1a2e;
+  --retro-blue: #16213e;
+  --retro-purple: #533a71;
+  --retro-pink: #a64ac9;
+  --retro-cyan: #00f5ff;
+  --retro-green: #00ff41;
+  --retro-yellow: #ffff00;
+  --retro-orange: #ff8c00;
+  --retro-red: #ff0040;
+  --retro-white: #ffffff;
+  --retro-gray: #8b949e;
+}
+
+/* Force dark mode globally */
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: linear-gradient(45deg, var(--retro-black) 0%, var(--retro-dark-blue) 50%, var(--retro-blue) 100%) !important;
+  color: var(--retro-cyan) !important;
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: 12px !important;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* 8-bit pixelated borders */
+.retro-border {
+  border: 3px solid var(--retro-cyan);
+  border-image: 
+    url("data:image/svg+xml,%3csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m10 10h10v10h-10v-10zm20 0h10v10h-10v-10zm20 0h10v10h-10v-10zm20 0h10v10h-10v-10zm20 0h10v10h-10v-10z' fill='%2300f5ff'/%3e%3c/svg%3e") 30;
+  box-shadow: 
+    0 0 0 1px var(--retro-cyan),
+    0 0 10px var(--retro-cyan),
+    inset 0 0 10px rgba(0, 245, 255, 0.1);
+}
+
+/* Ensure all cards and papers use 8-bit theme */
+.MuiPaper-root {
+  background: linear-gradient(135deg, var(--retro-dark-blue), var(--retro-purple)) !important;
+  border: 2px solid var(--retro-cyan) !important;
+  border-radius: 0 !important;
+  box-shadow: 
+    4px 4px 0 var(--retro-pink),
+    0 0 20px rgba(0, 245, 255, 0.3) !important;
+}
+
+.MuiCard-root {
+  background: linear-gradient(135deg, var(--retro-dark-blue), var(--retro-purple)) !important;
+  border: 2px solid var(--retro-cyan) !important;
+  border-radius: 0 !important;
+  box-shadow: 
+    4px 4px 0 var(--retro-pink),
+    0 0 20px rgba(0, 245, 255, 0.3) !important;
+}
+
+/* 8-bit button styling */
+.MuiButton-root {
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: 10px !important;
+  border-radius: 0 !important;
+  border: 2px solid var(--retro-green) !important;
+  background: var(--retro-dark-blue) !important;
+  color: var(--retro-green) !important;
+  box-shadow: 2px 2px 0 var(--retro-green) !important;
+  text-transform: uppercase !important;
+  transition: all 0.1s ease !important;
+}
+
+.MuiButton-root:hover {
+  background: var(--retro-green) !important;
+  color: var(--retro-dark-blue) !important;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--retro-green) !important;
+}
+
+/* 8-bit typography */
+.MuiTypography-root {
+  font-family: 'Press Start 2P', monospace !important;
+}
+
+.MuiTypography-h1 {
+  font-size: 24px !important;
+  color: var(--retro-yellow) !important;
+  text-shadow: 2px 2px 0 var(--retro-red) !important;
+}
+
+.MuiTypography-h2 {
+  font-size: 20px !important;
+  color: var(--retro-cyan) !important;
+  text-shadow: 1px 1px 0 var(--retro-blue) !important;
+}
+
+.MuiTypography-h3 {
+  font-size: 16px !important;
+  color: var(--retro-green) !important;
+}
+
+.MuiTypography-h4 {
+  font-size: 14px !important;
+  color: var(--retro-pink) !important;
+}
+
+.MuiTypography-h5 {
+  font-size: 12px !important;
+  color: var(--retro-cyan) !important;
+}
+
+.MuiTypography-h6 {
+  font-size: 10px !important;
+  color: var(--retro-green) !important;
+}
+
+.MuiTypography-body1 {
+  font-size: 10px !important;
+  color: var(--retro-white) !important;
+}
+
+.MuiTypography-body2 {
+  font-size: 8px !important;
+  color: var(--retro-gray) !important;
+}
+
+/* 8-bit scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--retro-dark-blue);
+  border: 1px solid var(--retro-cyan);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--retro-cyan);
+  border: 1px solid var(--retro-green);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--retro-green);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--retro-dark-blue);
+}
+
+/* 8-bit animations */
+@keyframes retro-pulse {
+  0%, 100% {
+    color: var(--retro-cyan);
+    text-shadow: 0 0 5px var(--retro-cyan);
+  }
+  50% {
+    color: var(--retro-green);
+    text-shadow: 0 0 10px var(--retro-green);
+  }
+}
+
+@keyframes retro-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--retro-cyan), inset 0 0 5px rgba(0, 245, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--retro-cyan), inset 0 0 10px rgba(0, 245, 255, 0.3);
+  }
+}
+
+@keyframes pixel-dance {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(1px, 0); }
+  50% { transform: translate(0, 1px); }
+  75% { transform: translate(-1px, 0); }
+  100% { transform: translate(0, -1px); }
+}
+
+.animate-pulse {
+  animation: retro-pulse 2s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: retro-glow 3s ease-in-out infinite;
+}
+
+.animate-pixel-dance {
+  animation: pixel-dance 0.5s ease-in-out infinite;
+}
+
+/* 8-bit input styling */
+.MuiTextField-root input,
+.MuiTextField-root textarea {
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: 10px !important;
+  color: var(--retro-green) !important;
+  background: var(--retro-black) !important;
+  border: 2px solid var(--retro-cyan) !important;
+  border-radius: 0 !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-root {
+  border-radius: 0 !important;
+}
+
+.MuiTextField-root .MuiOutlinedInput-notchedOutline {
+  border: 2px solid var(--retro-cyan) !important;
+  border-radius: 0 !important;
+}
+
+/* 8-bit table styling */
+.MuiTable-root {
+  border: 2px solid var(--retro-cyan) !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+.MuiTableCell-root {
+  border: 1px solid var(--retro-cyan) !important;
+  background: var(--retro-dark-blue) !important;
+  color: var(--retro-white) !important;
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: 8px !important;
+  padding: 8px !important;
+}
+
+.MuiTableHead-root .MuiTableCell-root {
+  background: var(--retro-purple) !important;
+  color: var(--retro-yellow) !important;
+  font-weight: bold !important;
+}
+
+/* 8-bit tabs */
+.MuiTabs-root .MuiTab-root {
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: 8px !important;
+  color: var(--retro-cyan) !important;
+  border: 2px solid var(--retro-cyan) !important;
+  border-radius: 0 !important;
+  margin-right: 4px !important;
+  background: var(--retro-dark-blue) !important;
+}
+
+.MuiTabs-root .MuiTab-root.Mui-selected {
+  background: var(--retro-cyan) !important;
+  color: var(--retro-dark-blue) !important;
+}
+
+/* 8-bit chip styling */
+.MuiChip-root {
+  font-family: 'Press Start 2P', monospace !important;
+  font-size: 6px !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--retro-cyan) !important;
+  background: var(--retro-dark-blue) !important;
+  color: var(--retro-cyan) !important;
+}
+
+/* 8-bit sidebar styling */
+.MuiDrawer-paper {
+  background: linear-gradient(180deg, var(--retro-dark-blue), var(--retro-black)) !important;
+  border-right: 3px solid var(--retro-cyan) !important;
+}
+
+.MuiListItemButton-root {
+  border-radius: 0 !important;
+  margin: 2px !important;
+  border: 1px solid transparent !important;
+}
+
+.MuiListItemButton-root:hover {
+  background: var(--retro-purple) !important;
+  border: 1px solid var(--retro-cyan) !important;
+}
+
+/* 8-bit utility classes */
+.retro-container {
+  background: linear-gradient(135deg, var(--retro-dark-blue), var(--retro-purple));
+  border: 2px solid var(--retro-cyan);
+  padding: 16px;
+  box-shadow: 4px 4px 0 var(--retro-pink);
+}
+
+.retro-text-glow {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+.retro-scanline {
+  position: relative;
+  overflow: hidden;
+}
+
+.retro-scanline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(transparent 50%, rgba(0, 255, 65, 0.03) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 1;
+}

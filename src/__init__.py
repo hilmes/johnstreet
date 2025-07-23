@@ -1,0 +1,3 @@
+"""
+JohnStreet trading system
+"""
