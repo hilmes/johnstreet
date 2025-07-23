@@ -38,119 +38,200 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import PauseIcon from '@mui/icons-material/Pause'
 import SettingsIcon from '@mui/icons-material/Settings'
 import ShowChartIcon from '@mui/icons-material/ShowChart'
+import ViewListIcon from '@mui/icons-material/ViewList'
+import TableChartIcon from '@mui/icons-material/TableChart'
+import ExpandableStrategyList from '@/components/ExpandableStrategyList'
 
 interface Strategy {
   id: string
   name: string
-  type: string
-  status: 'active' | 'paused' | 'testing'
-  pnl: number
-  winRate: number
-  trades: number
-  description: string
+  type: 'momentum' | 'mean_reversion' | 'scalping' | 'market_making' | 'ai_generated'
+  active: boolean
+  totalRuns: number
+  successfulRuns: number
+  totalPnl: number
+  lastRun?: Date
+  runs: StrategyRun[]
 }
 
-const strategies: Strategy[] = [
+interface StrategyRun {
+  id: string
+  runId: string
+  startTime: Date
+  endTime?: Date
+  status: 'running' | 'completed' | 'failed' | 'stopped'
+  pnl?: number
+  trades?: number
+  winRate?: number
+  sharpeRatio?: number
+}
+
+// Mock data with run history
+const mockStrategies: Strategy[] = [
   {
     id: '1',
     name: 'Mean Reversion Strategy',
-    type: 'Mean Reversion',
-    status: 'active',
-    pnl: 12840,
-    winRate: 78,
-    trades: 156,
-    description: 'Profits from price movements reverting to historical average using z-score analysis'
+    type: 'mean_reversion',
+    active: true,
+    totalRuns: 15,
+    successfulRuns: 12,
+    totalPnl: 12840,
+    lastRun: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+    runs: [
+      {
+        id: 'run-1-1',
+        runId: 'a1b2c3d4',
+        startTime: new Date(Date.now() - 2 * 60 * 60 * 1000),
+        status: 'running',
+        trades: 23,
+        winRate: 0.78,
+        sharpeRatio: 1.85
+      },
+      {
+        id: 'run-1-2',
+        runId: 'e5f6g7h8',
+        startTime: new Date(Date.now() - 24 * 60 * 60 * 1000),
+        endTime: new Date(Date.now() - 20 * 60 * 60 * 1000),
+        status: 'completed',
+        pnl: 2340,
+        trades: 45,
+        winRate: 0.82,
+        sharpeRatio: 2.1
+      },
+      {
+        id: 'run-1-3',
+        runId: 'i9j0k1l2',
+        startTime: new Date(Date.now() - 48 * 60 * 60 * 1000),
+        endTime: new Date(Date.now() - 46 * 60 * 60 * 1000),
+        status: 'failed',
+        pnl: -450,
+        trades: 12,
+        winRate: 0.25,
+        sharpeRatio: -0.8
+      }
+    ]
   },
   {
     id: '2',
     name: 'Momentum Trading Strategy',
-    type: 'Momentum',
-    status: 'active',
-    pnl: 18760,
-    winRate: 73,
-    trades: 89,
-    description: 'Capitalizes on trend continuation with dynamic position sizing and trailing stops'
+    type: 'momentum',
+    active: true,
+    totalRuns: 8,
+    successfulRuns: 6,
+    totalPnl: 18760,
+    lastRun: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
+    runs: [
+      {
+        id: 'run-2-1',
+        runId: 'm3n4o5p6',
+        startTime: new Date(Date.now() - 30 * 60 * 1000),
+        status: 'running',
+        trades: 8,
+        winRate: 0.75,
+        sharpeRatio: 1.95
+      },
+      {
+        id: 'run-2-2',
+        runId: 'q7r8s9t0',
+        startTime: new Date(Date.now() - 12 * 60 * 60 * 1000),
+        endTime: new Date(Date.now() - 8 * 60 * 60 * 1000),
+        status: 'completed',
+        pnl: 5680,
+        trades: 18,
+        winRate: 0.72,
+        sharpeRatio: 1.68
+      }
+    ]
   },
   {
     id: '3',
-    name: 'Statistical Arbitrage',
-    type: 'Market Neutral',
-    status: 'active',
-    pnl: 9435,
-    winRate: 68,
-    trades: 234,
-    description: 'Exploits price inefficiencies between cointegrated cryptocurrency pairs'
+    name: 'AI-Generated Scalper',
+    type: 'ai_generated',
+    active: false,
+    totalRuns: 23,
+    successfulRuns: 18,
+    totalPnl: 9435,
+    lastRun: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
+    runs: [
+      {
+        id: 'run-3-1',
+        runId: 'u1v2w3x4',
+        startTime: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+        endTime: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000 + 4 * 60 * 60 * 1000),
+        status: 'stopped',
+        pnl: 890,
+        trades: 124,
+        winRate: 0.68,
+        sharpeRatio: 1.45
+      }
+    ]
   },
   {
     id: '4',
-    name: 'Market Making Strategy',
-    type: 'Market Making',
-    status: 'active',
-    pnl: 15220,
-    winRate: 85,
-    trades: 1247,
-    description: 'Provides liquidity by continuously quoting bid-ask spreads with inventory management'
+    name: 'Market Making Bot',
+    type: 'market_making',
+    active: true,
+    totalRuns: 45,
+    successfulRuns: 38,
+    totalPnl: 15220,
+    lastRun: new Date(Date.now() - 10 * 60 * 1000), // 10 minutes ago
+    runs: [
+      {
+        id: 'run-4-1',
+        runId: 'y5z6a7b8',
+        startTime: new Date(Date.now() - 10 * 60 * 1000),
+        status: 'running',
+        trades: 234,
+        winRate: 0.85,
+        sharpeRatio: 2.34
+      },
+      {
+        id: 'run-4-2',
+        runId: 'c9d0e1f2',
+        startTime: new Date(Date.now() - 6 * 60 * 60 * 1000),
+        endTime: new Date(Date.now() - 2 * 60 * 60 * 1000),
+        status: 'completed',
+        pnl: 1340,
+        trades: 567,
+        winRate: 0.83,
+        sharpeRatio: 2.15
+      },
+      {
+        id: 'run-4-3',
+        runId: 'g3h4i5j6',
+        startTime: new Date(Date.now() - 12 * 60 * 60 * 1000),
+        endTime: new Date(Date.now() - 8 * 60 * 60 * 1000),
+        status: 'completed',
+        pnl: 980,
+        trades: 423,
+        winRate: 0.86,
+        sharpeRatio: 2.45
+      }
+    ]
   },
   {
     id: '5',
-    name: 'Bollinger Bands Strategy',
-    type: 'Mean Reversion',
-    status: 'testing',
-    pnl: 4680,
-    winRate: 71,
-    trades: 67,
-    description: 'Uses volatility bands to identify overbought/oversold conditions for entry signals'
-  },
-  {
-    id: '6',
-    name: 'RSI Divergence Strategy',
-    type: 'Technical Analysis',
-    status: 'paused',
-    pnl: 3120,
-    winRate: 64,
-    trades: 42,
-    description: 'Identifies divergences between price and RSI momentum for trend reversal detection'
-  },
-  {
-    id: '7',
-    name: 'VWAP Trading Strategy',
-    type: 'Volume Analysis',
-    status: 'active',
-    pnl: 7290,
-    winRate: 69,
-    trades: 98,
-    description: 'Trades based on price deviations from Volume Weighted Average Price benchmark'
-  },
-  {
-    id: '8',
-    name: 'Pairs Trading Strategy',
-    type: 'Market Neutral',
-    status: 'testing',
-    pnl: 5560,
-    winRate: 76,
-    trades: 58,
-    description: 'Market-neutral strategy trading relative performance between correlated assets'
-  },
-  {
-    id: '9',
-    name: 'Grid Trading Strategy',
-    type: 'Grid Trading',
-    status: 'active',
-    pnl: 6840,
-    winRate: 82,
-    trades: 312,
-    description: 'Places multiple limit orders at different price levels creating a grid pattern'
+    name: 'High-Frequency Scalper',
+    type: 'scalping',
+    active: false,
+    totalRuns: 12,
+    successfulRuns: 7,
+    totalPnl: -2340,
+    lastRun: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
+    runs: []
   }
 ]
 
 
 export default function StrategiesPage() {
   const [tabValue, setTabValue] = useState(0)
+  const [viewMode, setViewMode] = useState<'table' | 'expandable'>('expandable')
   const [openDialog, setOpenDialog] = useState(false)
   const [selectedStrategy, setSelectedStrategy] = useState<Strategy | null>(null)
+  const [strategies, setStrategies] = useState(mockStrategies)
   const [formData, setFormData] = useState({
     name: '',
-    type: 'Trend Following',
+    type: 'momentum',
     description: '',
     entryCondition: '',
     exitCondition: '',
@@ -160,8 +241,37 @@ export default function StrategiesPage() {
   })
 
   const handleStatusToggle = (strategyId: string) => {
-    // Toggle strategy status
-    console.log('Toggle status for strategy:', strategyId)
+    setStrategies(prev => 
+      prev.map(s => 
+        s.id === strategyId ? { ...s, active: !s.active } : s
+      )
+    )
+  }
+
+  const handleRunClick = (strategyId: string, runId: string) => {
+    console.log('View run details:', strategyId, runId)
+    // Navigate to run details or open dialog
+  }
+
+  const handleStrategyClick = (strategyId: string) => {
+    console.log('View strategy details:', strategyId)
+    // Navigate to strategy details
+  }
+
+  const handleStartStrategy = (strategyId: string) => {
+    setStrategies(prev => 
+      prev.map(s => 
+        s.id === strategyId ? { ...s, active: true } : s
+      )
+    )
+  }
+
+  const handleStopStrategy = (strategyId: string) => {
+    setStrategies(prev => 
+      prev.map(s => 
+        s.id === strategyId ? { ...s, active: false } : s
+      )
+    )
   }
 
   const handleEdit = (strategy: Strategy) => {
@@ -169,7 +279,7 @@ export default function StrategiesPage() {
     setFormData({
       name: strategy.name,
       type: strategy.type,
-      description: strategy.description,
+      description: '',
       entryCondition: '',
       exitCondition: '',
       stopLoss: '2',
@@ -180,8 +290,7 @@ export default function StrategiesPage() {
   }
 
   const handleDelete = (strategyId: string) => {
-    // Delete strategy
-    console.log('Delete strategy:', strategyId)
+    setStrategies(prev => prev.filter(s => s.id !== strategyId))
   }
 
   const handleSave = () => {
@@ -191,14 +300,15 @@ export default function StrategiesPage() {
     setSelectedStrategy(null)
   }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'success'
-      case 'paused': return 'warning'
-      case 'testing': return 'info'
-      default: return 'default'
-    }
+  const getStatusColor = (active: boolean) => {
+    return active ? 'success' : 'default'
   }
+
+  const filteredStrategies = tabValue === 0 
+    ? strategies 
+    : tabValue === 1 
+    ? strategies.filter(s => s.active)
+    : strategies.filter(s => !s.active)
 
   return (
     <div className="px-2 sm:px-3 md:px-4 lg:px-5 py-4 min-h-screen w-full">
@@ -206,100 +316,117 @@ export default function StrategiesPage() {
         <Typography variant="h4" sx={{ color: 'primary.main' }}>
           Trading Strategies
         </Typography>
-        <Button
-          variant="contained"
-          startIcon={<AddIcon />}
-          onClick={() => setOpenDialog(true)}
-        >
-          New Strategy
-        </Button>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <IconButton
+            onClick={() => setViewMode(viewMode === 'table' ? 'expandable' : 'table')}
+            sx={{ color: 'primary.main' }}
+          >
+            {viewMode === 'table' ? <ViewListIcon /> : <TableChartIcon />}
+          </IconButton>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={() => setOpenDialog(true)}
+          >
+            New Strategy
+          </Button>
+        </Box>
       </Box>
 
       <Paper sx={{ mb: 3 }}>
         <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
           <Tab label="All Strategies" />
           <Tab label="Active" />
-          <Tab label="Testing" />
+          <Tab label="Inactive" />
           <Tab label="Performance" />
         </Tabs>
       </Paper>
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Strategy Name</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell align="right">P&L</TableCell>
-              <TableCell align="right">Win Rate</TableCell>
-              <TableCell align="right">Trades</TableCell>
-              <TableCell align="center">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {strategies.map((strategy) => (
-              <TableRow key={strategy.id}>
-                <TableCell>
-                  <Box>
+      {viewMode === 'expandable' ? (
+        <ExpandableStrategyList
+          strategies={filteredStrategies}
+          onRunClick={handleRunClick}
+          onStrategyClick={handleStrategyClick}
+          onStartStrategy={handleStartStrategy}
+          onStopStrategy={handleStopStrategy}
+        />
+      ) : (
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Strategy Name</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell align="right">Total P&L</TableCell>
+                <TableCell align="right">Success Rate</TableCell>
+                <TableCell align="right">Total Runs</TableCell>
+                <TableCell align="center">Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredStrategies.map((strategy) => (
+                <TableRow key={strategy.id}>
+                  <TableCell>
                     <Typography variant="body1" fontWeight="medium">
                       {strategy.name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {strategy.description}
+                  </TableCell>
+                  <TableCell>
+                    <Chip label={strategy.type.replace('_', ' ').toUpperCase()} size="small" />
+                  </TableCell>
+                  <TableCell>
+                    <Chip 
+                      label={strategy.active ? 'ACTIVE' : 'INACTIVE'} 
+                      color={getStatusColor(strategy.active)} 
+                      size="small"
+                    />
+                  </TableCell>
+                  <TableCell align="right">
+                    <Typography 
+                      color={strategy.totalPnl > 0 ? 'success.main' : 'error.main'}
+                      fontWeight="medium"
+                    >
+                      ${strategy.totalPnl.toLocaleString()}
                     </Typography>
-                  </Box>
-                </TableCell>
-                <TableCell>
-                  <Chip label={strategy.type} size="small" />
-                </TableCell>
-                <TableCell>
-                  <Chip 
-                    label={strategy.status} 
-                    color={getStatusColor(strategy.status)} 
-                    size="small"
-                  />
-                </TableCell>
-                <TableCell align="right">
-                  <Typography 
-                    color={strategy.pnl > 0 ? 'success.main' : 'error.main'}
-                    fontWeight="medium"
-                  >
-                    ${strategy.pnl.toLocaleString()}
-                  </Typography>
-                </TableCell>
-                <TableCell align="right">{strategy.winRate}%</TableCell>
-                <TableCell align="right">{strategy.trades}</TableCell>
-                <TableCell align="center">
-                  <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
-                    <IconButton
-                      size="small"
-                      onClick={() => handleStatusToggle(strategy.id)}
-                      color={strategy.status === 'active' ? 'error' : 'success'}
-                    >
-                      {strategy.status === 'active' ? <PauseIcon /> : <PlayArrowIcon />}
-                    </IconButton>
-                    <IconButton
-                      size="small"
-                      onClick={() => handleEdit(strategy)}
-                    >
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton
-                      size="small"
-                      onClick={() => handleDelete(strategy.id)}
-                      color="error"
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Box>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
+                  </TableCell>
+                  <TableCell align="right">
+                    {strategy.totalRuns > 0 
+                      ? `${((strategy.successfulRuns / strategy.totalRuns) * 100).toFixed(0)}%`
+                      : '-'
+                    }
+                  </TableCell>
+                  <TableCell align="right">{strategy.totalRuns}</TableCell>
+                  <TableCell align="center">
+                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleStatusToggle(strategy.id)}
+                        color={strategy.active ? 'error' : 'success'}
+                      >
+                        {strategy.active ? <PauseIcon /> : <PlayArrowIcon />}
+                      </IconButton>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleEdit(strategy)}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleDelete(strategy.id)}
+                        color="error"
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
 
       {/* Strategy Form Dialog */}
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="md" fullWidth>
@@ -321,17 +448,14 @@ export default function StrategiesPage() {
                 <InputLabel>Strategy Type</InputLabel>
                 <Select
                   value={formData.type}
-                  onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
                   label="Strategy Type"
                 >
-                  <MenuItem value="Mean Reversion">Mean Reversion</MenuItem>
-                  <MenuItem value="Momentum">Momentum</MenuItem>
-                  <MenuItem value="Market Neutral">Market Neutral</MenuItem>
-                  <MenuItem value="Market Making">Market Making</MenuItem>
-                  <MenuItem value="Technical Analysis">Technical Analysis</MenuItem>
-                  <MenuItem value="Volume Analysis">Volume Analysis</MenuItem>
-                  <MenuItem value="Grid Trading">Grid Trading</MenuItem>
-                  <MenuItem value="Statistical Arbitrage">Statistical Arbitrage</MenuItem>
+                  <MenuItem value="mean_reversion">Mean Reversion</MenuItem>
+                  <MenuItem value="momentum">Momentum</MenuItem>
+                  <MenuItem value="scalping">Scalping</MenuItem>
+                  <MenuItem value="market_making">Market Making</MenuItem>
+                  <MenuItem value="ai_generated">AI Generated</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
