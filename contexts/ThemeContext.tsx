@@ -147,13 +147,16 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [currentThemeName, setCurrentThemeName] = useState<ThemeName>('cryptowatch')
+  const [currentThemeName, setCurrentThemeName] = useState<ThemeName>('financial-excellence-dark')
 
   useEffect(() => {
     // Load theme from localStorage
     const savedTheme = localStorage.getItem('johnstreet-theme') as ThemeName
     if (savedTheme && themes[savedTheme]) {
       setCurrentThemeName(savedTheme)
+    } else {
+      // If no saved theme, ensure we use financial-excellence-dark
+      setCurrentThemeName('financial-excellence-dark')
     }
   }, [])
 
