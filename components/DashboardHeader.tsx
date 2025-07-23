@@ -207,7 +207,7 @@ export default function DashboardHeader({ strategies = [] }: DashboardHeaderProp
         </Box>
       </Paper>
 
-      {/* Combined Performance Dashboard */}
+      {/* Strategy Performance Summary with All Metrics */}
       <Paper className="retro-container animate-glow" sx={{ mb: 3, p: 3 }}>
         <Typography variant="h5" sx={{ 
           color: 'var(--retro-yellow)', 
@@ -217,7 +217,7 @@ export default function DashboardHeader({ strategies = [] }: DashboardHeaderProp
           fontSize: '14px',
           textAlign: 'center'
         }} className="retro-text-glow">
-          &gt;&gt; SYSTEM PERFORMANCE METRICS &lt;&lt;
+          &gt;&gt; STRATEGY PERFORMANCE SUMMARY &lt;&lt;
         </Typography>
         
         <Grid container spacing={2}>
