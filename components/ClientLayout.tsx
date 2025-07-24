@@ -25,15 +25,23 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
   const getPageTitle = (path: string) => {
     const routes: Record<string, { title: string; subtitle?: string }> = {
       '/dashboard': { title: 'Market Overview', subtitle: 'Real-time market data and portfolio performance' },
-      '/trading': { title: 'Live Trading', subtitle: 'Execute trades and manage positions' },
-      '/strategies': { title: 'Trading Strategies', subtitle: 'Configure and monitor algorithmic strategies' },
-      '/ai-strategy': { title: 'AI Strategy Builder', subtitle: 'Create bespoke trading strategies with Claude AI' },
-      '/analysis': { title: 'Market Analysis', subtitle: 'Technical analysis and market insights' },
-      '/analysis/performance': { title: 'Performance Analysis', subtitle: 'Strategy performance and risk metrics' },
+      // Trading
+      '/trading/live': { title: 'Live Trading', subtitle: 'Execute trades with real capital' },
+      '/trading/paper': { title: 'Paper Trading', subtitle: 'Practice trading without risk' },
+      '/trading/orders': { title: 'Order Management', subtitle: 'Monitor and manage your orders' },
+      // Strategies
+      '/strategies': { title: 'Strategy Hub', subtitle: 'Create, manage and deploy trading strategies' },
+      '/strategies/backtest': { title: 'Backtesting Laboratory', subtitle: 'Test and optimize trading algorithms' },
+      '/strategies/performance': { title: 'Strategy Performance', subtitle: 'Analyze strategy metrics and returns' },
+      // Analytics
+      '/analytics/market': { title: 'Market Analysis', subtitle: 'Technical analysis and market insights' },
+      '/analytics/portfolio': { title: 'Portfolio Analytics', subtitle: 'Deep dive into portfolio performance' },
+      // Risk & Monitoring
+      '/risk/dashboard': { title: 'Risk Dashboard', subtitle: 'Monitor and manage trading risks' },
+      '/risk/pump-detector': { title: 'Pump Detector', subtitle: 'Detect market manipulation patterns' },
+      '/risk/alerts': { title: 'Alerts Center', subtitle: 'Configure and manage trading alerts' },
+      // Other
       '/portfolio': { title: 'Portfolio', subtitle: 'View balances and manage your assets' },
-      '/pump-detector': { title: 'Pump Detector', subtitle: 'Social sentiment and anomaly detection' },
-      '/backtesting': { title: 'Backtesting Laboratory', subtitle: 'Test and optimize trading algorithms' },
-      '/financial-excellence': { title: 'Financial Excellence', subtitle: 'Professional trading dashboard with Tufte-inspired visualizations' },
       '/settings': { title: 'Settings', subtitle: 'Configure platform preferences and API connections' },
     }
     return routes[path] || { title: 'JohnStreet', subtitle: 'Cryptocurrency Algorithmic Trading Platform' }

@@ -33,6 +33,13 @@ import {
   CandlestickChart,
   AutoGraph,
   SmartToy as AIIcon,
+  Shield as ShieldIcon,
+  Warning as WarningIcon,
+  Notifications as NotificationsIcon,
+  Science as ScienceIcon,
+  Assessment as AssessmentIcon,
+  ShoppingCart as OrdersIcon,
+  AccountBalanceWallet as PaperIcon,
 } from '@mui/icons-material'
 
 const DRAWER_WIDTH = 220
@@ -57,44 +64,76 @@ const navItems: NavItem[] = [
     children: [
       {
         title: 'Live Trading',
-        path: '/trading',
+        path: '/trading/live',
         icon: <CandlestickChart />,
       },
       {
-        title: 'Trading Strategies',
-        path: '/strategies',
-        icon: <StrategiesIcon />,
+        title: 'Paper Trading',
+        path: '/trading/paper',
+        icon: <PaperIcon />,
       },
       {
-        title: 'AI Strategy Builder',
-        path: '/ai-strategy',
-        icon: <AIIcon />,
+        title: 'Order Management',
+        path: '/trading/orders',
+        icon: <OrdersIcon />,
       },
     ],
   },
   {
-    title: 'Analysis',
+    title: 'Strategies',
+    icon: <StrategiesIcon />,
+    children: [
+      {
+        title: 'Strategy Hub',
+        path: '/strategies',
+        icon: <AIIcon />,
+      },
+      {
+        title: 'Backtesting Lab',
+        path: '/strategies/backtest',
+        icon: <ScienceIcon />,
+      },
+      {
+        title: 'Performance',
+        path: '/strategies/performance',
+        icon: <AssessmentIcon />,
+      },
+    ],
+  },
+  {
+    title: 'Analytics',
     icon: <AnalyticsIcon />,
     children: [
       {
         title: 'Market Analysis',
-        path: '/analysis',
+        path: '/analytics/market',
         icon: <TrendingUp />,
       },
       {
-        title: 'Performance',
-        path: '/analysis/performance',
+        title: 'Portfolio Analytics',
+        path: '/analytics/portfolio',
         icon: <AutoGraph />,
+      },
+    ],
+  },
+  {
+    title: 'Risk & Monitoring',
+    icon: <ShieldIcon />,
+    children: [
+      {
+        title: 'Risk Dashboard',
+        path: '/risk/dashboard',
+        icon: <ShieldIcon />,
       },
       {
         title: 'Pump Detector',
-        path: '/pump-detector',
-        icon: <SettingsIcon />,
+        path: '/risk/pump-detector',
+        icon: <WarningIcon />,
       },
       {
-        title: 'Backtesting',
-        path: '/backtesting',
-        icon: <AutoGraph />,
+        title: 'Alerts Center',
+        path: '/risk/alerts',
+        icon: <NotificationsIcon />,
       },
     ],
   },
@@ -102,11 +141,6 @@ const navItems: NavItem[] = [
     title: 'Portfolio',
     path: '/portfolio',
     icon: <PortfolioIcon />,
-  },
-  {
-    title: 'Financial Excellence',
-    path: '/financial-excellence',
-    icon: <TrendingUp />,
   },
   {
     title: 'Settings',
