@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { dataOrchestrator } from '@/lib/feeds/DataOrchestrator'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest) {
   try {
+    // Dynamic import to avoid build-time issues
+    const { dataOrchestrator } = await import('@/lib/feeds/DataOrchestrator')
+    
     // Initialize the data orchestrator with default configuration
     const config = {
       rss: {
@@ -77,6 +79,9 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    // Dynamic import to avoid build-time issues
+    const { dataOrchestrator } = await import('@/lib/feeds/DataOrchestrator')
+    
     const isActive = dataOrchestrator.isActive()
     const stats = dataOrchestrator.getStats()
     const config = dataOrchestrator.getConfig()
@@ -107,6 +112,9 @@ export async function GET(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    // Dynamic import to avoid build-time issues
+    const { dataOrchestrator } = await import('@/lib/feeds/DataOrchestrator')
+    
     await dataOrchestrator.stop()
 
     return NextResponse.json({

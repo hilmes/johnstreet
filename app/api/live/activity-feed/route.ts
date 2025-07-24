@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { activityLoggerKV } from '@/lib/sentiment/ActivityLoggerKV'
-import { dataOrchestrator } from '@/lib/feeds/DataOrchestrator'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -11,6 +9,10 @@ export async function GET(request: NextRequest) {
   const limit = parseInt(searchParams.get('limit') || '50')
 
   try {
+    // Dynamic imports to avoid build-time issues
+    const { activityLoggerKV } = await import('@/lib/sentiment/ActivityLoggerKV')
+    const { dataOrchestrator } = await import('@/lib/feeds/DataOrchestrator')
+    
     // Get recent activity since the last timestamp
     const timeSince = lastTimestamp > 0 ? Date.now() - lastTimestamp : 5 * 60 * 1000 // Default: last 5 minutes
     const recentActivity = await activityLoggerKV.getRecentActivity(timeSince)
@@ -126,6 +128,9 @@ export async function POST(request: NextRequest) {
       // Set up interval to send updates every second
       const interval = setInterval(async () => {
         try {
+          // Dynamic import for runtime
+          const { activityLoggerKV } = await import('@/lib/sentiment/ActivityLoggerKV')
+          
           // Get recent activity (last 2 seconds to catch new events)
           const recentActivity = await activityLoggerKV.getRecentActivity(2000)
           

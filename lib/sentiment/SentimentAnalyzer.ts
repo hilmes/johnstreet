@@ -1,4 +1,4 @@
-import { Sentiment } from 'sentiment'
+import Sentiment from 'sentiment'
 import { WordTokenizer, SentimentAnalyzer as NaturalSentiment, PorterStemmer } from 'natural'
 import fetch from 'node-fetch'
 import { CryptoSymbolExtractor, ExtractedSymbol } from './CryptoSymbolExtractor'
@@ -59,7 +59,7 @@ export class SentimentAnalyzer {
   private negativeModifiers: Set<string>
 
   constructor() {
-    this.sentiment = new Sentiment()
+    this.sentiment = new (Sentiment as any)()
     this.naturalSentiment = new NaturalSentiment('English', PorterStemmer.tokenizeAndStem, ['buy', 'pump', 'moon'])
     this.tokenizer = new WordTokenizer()
     
