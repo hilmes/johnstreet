@@ -50,9 +50,10 @@ export default function LiveSentimentDashboard() {
   const [symbolMetrics, setSymbolMetrics] = useState<Map<string, SymbolMetrics>>(new Map())
   const [dataSourceStatus, setDataSourceStatus] = useState<DataSourceStatus[]>([
     { name: 'RSS Monitor', isActive: true, eventsPerSecond: 0.5, totalEvents: 0, errors: 0, lastActivity: Date.now() },
-    { name: 'Twitter Stream', isActive: true, eventsPerSecond: 2.3, totalEvents: 0, errors: 0, lastActivity: Date.now() },
-    { name: 'CryptoPanic', isActive: true, eventsPerSecond: 0.3, totalEvents: 0, errors: 0, lastActivity: Date.now() },
-    { name: 'LunarCrush', isActive: true, eventsPerSecond: 0.2, totalEvents: 0, errors: 0, lastActivity: Date.now() },
+    { name: 'Twitter Stream', isActive: false, eventsPerSecond: 0, totalEvents: 0, errors: 0, lastActivity: Date.now() },
+    { name: 'CryptoPanic', isActive: false, eventsPerSecond: 0, totalEvents: 0, errors: 0, lastActivity: Date.now() },
+    { name: 'LunarCrush', isActive: false, eventsPerSecond: 0, totalEvents: 0, errors: 0, lastActivity: Date.now() },
+    { name: 'Pushshift', isActive: true, eventsPerSecond: 0.3, totalEvents: 0, errors: 0, lastActivity: Date.now() },
   ])
   const [totalSymbolsDetected, setTotalSymbolsDetected] = useState(0)
   const [totalMentionsToday, setTotalMentionsToday] = useState(0)
@@ -247,10 +248,10 @@ export default function LiveSentimentDashboard() {
           // Update data source status (mock)
           setDataSourceStatus(prev => prev.map(source => ({
             ...source,
-            totalEvents: source.totalEvents + Math.floor(Math.random() * 3),
-            eventsPerSecond: 0.1 + Math.random() * 2,
-            lastActivity: Date.now(),
-            errors: source.errors + (Math.random() < 0.01 ? 1 : 0) // 1% chance of error
+            totalEvents: source.isActive ? source.totalEvents + Math.floor(Math.random() * 3) : source.totalEvents,
+            eventsPerSecond: source.isActive ? (0.1 + Math.random() * 2) : 0,
+            lastActivity: source.isActive ? Date.now() : source.lastActivity,
+            errors: source.isActive ? source.errors + (Math.random() < 0.01 ? 1 : 0) : source.errors // Only generate errors for active sources
           })))
         }
       }, 1000) // Update every second

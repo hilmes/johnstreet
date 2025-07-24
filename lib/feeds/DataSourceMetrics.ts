@@ -34,17 +34,38 @@ export class DataSourceMetricsTracker {
     if (this.isInitialized) return
 
     try {
+      // Check if KV is available
+      if (!kv) {
+        console.warn('Vercel KV not available, using in-memory metrics only')
+        this.initializeInMemoryMetrics()
+        this.isInitialized = true
+        return
+      }
+
       // Load all data source metrics from KV
       const sources = ['rss_monitor', 'twitter_stream', 'cryptopanic', 'lunarcrush', 'pushshift']
       
       for (const source of sources) {
         const key = `metrics:datasource:${source}`
-        const stored = await kv.get<DataSourceMetrics>(key)
-        
-        if (stored) {
-          this.metrics.set(source, stored)
-        } else {
-          // Initialize new metrics
+        try {
+          const stored = await kv.get<DataSourceMetrics>(key)
+          
+          if (stored) {
+            this.metrics.set(source, stored)
+          } else {
+            // Initialize new metrics
+            this.metrics.set(source, {
+              name: source,
+              totalEvents: 0,
+              totalErrors: 0,
+              firstSeen: Date.now(),
+              lastActivity: Date.now(),
+              dailyEvents: {},
+              hourlyRate: new Array(24).fill(0)
+            })
+          }
+        } catch (error) {
+          console.warn(`Failed to load metrics for ${source}, initializing fresh:`, error)
           this.metrics.set(source, {
             name: source,
             totalEvents: 0,
@@ -65,6 +86,24 @@ export class DataSourceMetricsTracker {
       this.isInitialized = true
     } catch (error) {
       console.error('Failed to initialize DataSourceMetricsTracker:', error)
+      // Fall back to in-memory only
+      this.initializeInMemoryMetrics()
+      this.isInitialized = true
+    }
+  }
+
+  private initializeInMemoryMetrics(): void {
+    const sources = ['rss_monitor', 'twitter_stream', 'cryptopanic', 'lunarcrush', 'pushshift']
+    for (const source of sources) {
+      this.metrics.set(source, {
+        name: source,
+        totalEvents: 0,
+        totalErrors: 0,
+        firstSeen: Date.now(),
+        lastActivity: Date.now(),
+        dailyEvents: {},
+        hourlyRate: new Array(24).fill(0)
+      })
     }
   }
 
@@ -166,6 +205,9 @@ export class DataSourceMetricsTracker {
 
   private async flushMetrics(): Promise<void> {
     if (this.updateQueue.size === 0) return
+    
+    // Skip if KV is not available
+    if (!kv) return
 
     try {
       // Persist all queued updates
@@ -175,6 +217,8 @@ export class DataSourceMetricsTracker {
         updates.map(([sourceName, metrics]) => 
           kv.set(`metrics:datasource:${sourceName}`, metrics, {
             ex: 30 * 24 * 60 * 60 // 30 days expiration
+          }).catch(error => {
+            console.warn(`Failed to persist metrics for ${sourceName}:`, error)
           })
         )
       )
@@ -184,12 +228,15 @@ export class DataSourceMetricsTracker {
       await kv.set('metrics:datasource:aggregate', {
         ...stats,
         lastUpdated: Date.now()
-      }, { ex: 30 * 24 * 60 * 60 })
+      }, { ex: 30 * 24 * 60 * 60 }).catch(error => {
+        console.warn('Failed to persist aggregate stats:', error)
+      })
 
       // Clear the update queue
       this.updateQueue.clear()
     } catch (error) {
       console.error('Failed to flush metrics:', error)
+      // Don't clear queue on error, retry next time
     }
   }
 

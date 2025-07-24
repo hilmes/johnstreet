@@ -32,9 +32,9 @@ export async function GET(request: NextRequest) {
             bearerToken: process.env.TWITTER_BEARER_TOKEN,
             maxResults: 100,
             streamRules: [
-              { value: '(bitcoin OR ethereum OR crypto OR $BTC OR $ETH) lang:en -is:retweet', tag: 'crypto_keywords' },
-              { value: 'from:elonmusk crypto', tag: 'influencer_musk' },
-              { value: 'from:VitalikButerin', tag: 'influencer_vitalik' }
+              { value: '(bitcoin OR ethereum OR crypto OR memecoin OR $PEPE OR $SHIB OR $DOGE OR $BONK) lang:en -is:retweet', tag: 'crypto_keywords' },
+              { value: 'from:elonmusk (doge OR crypto)', tag: 'influencer_musk' },
+              { value: '#memecoin OR #memecoins OR #1000x', tag: 'memecoin_tags' }
             ]
           } : undefined
         },

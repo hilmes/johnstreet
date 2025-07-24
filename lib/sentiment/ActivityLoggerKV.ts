@@ -62,15 +62,34 @@ export class ActivityLoggerKV {
       timestamp: Date.now()
     }
 
+    // Check if KV is available
+    if (!kv) {
+      console.warn('Vercel KV not available, logging to console only')
+      console.log('[ActivityLog]', logEntry)
+      // Still notify listeners even without persistence
+      this.listeners.forEach(listener => {
+        try {
+          listener(logEntry)
+        } catch (error) {
+          console.error('Listener error:', error)
+        }
+      })
+      return logEntry
+    }
+
     // Store in multiple locations for efficient querying
-    await Promise.all([
-      this.storeInRecent(logEntry),
-      this.storeInDaily(logEntry),
-      this.updateStatistics(logEntry),
-      this.trackSymbols(logEntry),
-      this.storeAlerts(logEntry),
-      this.storeErrors(logEntry)
-    ])
+    try {
+      await Promise.all([
+        this.storeInRecent(logEntry).catch(e => console.warn('Failed to store in recent:', e)),
+        this.storeInDaily(logEntry).catch(e => console.warn('Failed to store in daily:', e)),
+        this.updateStatistics(logEntry).catch(e => console.warn('Failed to update stats:', e)),
+        this.trackSymbols(logEntry).catch(e => console.warn('Failed to track symbols:', e)),
+        this.storeAlerts(logEntry).catch(e => console.warn('Failed to store alerts:', e)),
+        this.storeErrors(logEntry).catch(e => console.warn('Failed to store errors:', e))
+      ])
+    } catch (error) {
+      console.error('Failed to persist activity log:', error)
+    }
 
     // Notify all listeners
     this.listeners.forEach(listener => {
