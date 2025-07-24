@@ -1,58 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import {
-  Box,
-  Grid,
-  Paper,
-  Typography,
-  Button,
-  Card,
-  CardContent,
-  Chip,
-  IconButton,
-  Alert,
-  TextField,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tabs,
-  Tab
-} from '@mui/material'
-import {
-  SmartToy as AIIcon,
-  PlayArrow as RunIcon,
-  Save as SaveIcon,
-  Code as CodeIcon,
-  Settings as SettingsIcon,
-  Key as KeyIcon,
-  TrendingUp as TrendingUpIcon,
-  Speed as SpeedIcon,
-  Security as SecurityIcon,
-  Assessment as TestIcon,
-  DateRange as DateRangeIcon,
-  Add as AddIcon,
-  Edit as EditIcon,
-  Delete as DeleteIcon,
-  PlayArrow as PlayArrowIcon,
-  Pause as PauseIcon,
-  ShowChart as ShowChartIcon,
-  ViewList as ViewListIcon,
-  TableChart as TableChartIcon,
-  Send as SendIcon,
-  Chat as ChatIcon,
-} from '@mui/icons-material'
+import { dieterRamsDesign as ds, designHelpers } from '@/lib/design/DieterRamsDesignSystem'
 import ExpandableStrategyList from '@/components/ExpandableStrategyList'
 import StrategyChat from '@/components/StrategyChat'
 import { GeneratedStrategy } from '@/lib/anthropic/client'
@@ -85,7 +34,7 @@ interface StrategyRun {
   sharpeRatio?: number
 }
 
-// Mock data with run history
+// Mock data
 const mockStrategies: Strategy[] = [
   {
     id: '1',
@@ -95,7 +44,7 @@ const mockStrategies: Strategy[] = [
     totalRuns: 15,
     successfulRuns: 12,
     totalPnl: 12840,
-    lastRun: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+    lastRun: new Date(Date.now() - 2 * 60 * 60 * 1000),
     runs: [
       {
         id: 'run-1-1',
@@ -117,17 +66,6 @@ const mockStrategies: Strategy[] = [
         winRate: 0.82,
         sharpeRatio: 2.1
       },
-      {
-        id: 'run-1-3',
-        runId: 'i9j0k1l2',
-        startTime: new Date(Date.now() - 48 * 60 * 60 * 1000),
-        endTime: new Date(Date.now() - 46 * 60 * 60 * 1000),
-        status: 'failed',
-        pnl: -450,
-        trades: 12,
-        winRate: 0.25,
-        sharpeRatio: -0.8
-      }
     ]
   },
   {
@@ -138,7 +76,7 @@ const mockStrategies: Strategy[] = [
     totalRuns: 8,
     successfulRuns: 6,
     totalPnl: 18760,
-    lastRun: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
+    lastRun: new Date(Date.now() - 30 * 60 * 1000),
     runs: [
       {
         id: 'run-2-1',
@@ -149,17 +87,6 @@ const mockStrategies: Strategy[] = [
         winRate: 0.75,
         sharpeRatio: 1.95
       },
-      {
-        id: 'run-2-2',
-        runId: 'q7r8s9t0',
-        startTime: new Date(Date.now() - 12 * 60 * 60 * 1000),
-        endTime: new Date(Date.now() - 8 * 60 * 60 * 1000),
-        status: 'completed',
-        pnl: 5680,
-        trades: 18,
-        winRate: 0.72,
-        sharpeRatio: 1.68
-      }
     ]
   },
   {
@@ -170,20 +97,8 @@ const mockStrategies: Strategy[] = [
     totalRuns: 23,
     successfulRuns: 18,
     totalPnl: 9435,
-    lastRun: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
-    runs: [
-      {
-        id: 'run-3-1',
-        runId: 'u1v2w3x4',
-        startTime: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-        endTime: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000 + 4 * 60 * 60 * 1000),
-        status: 'stopped',
-        pnl: 890,
-        trades: 124,
-        winRate: 0.68,
-        sharpeRatio: 1.45
-      }
-    ]
+    lastRun: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+    runs: []
   },
   {
     id: '4',
@@ -193,40 +108,8 @@ const mockStrategies: Strategy[] = [
     totalRuns: 45,
     successfulRuns: 38,
     totalPnl: 15220,
-    lastRun: new Date(Date.now() - 10 * 60 * 1000), // 10 minutes ago
-    runs: [
-      {
-        id: 'run-4-1',
-        runId: 'y5z6a7b8',
-        startTime: new Date(Date.now() - 10 * 60 * 1000),
-        status: 'running',
-        trades: 234,
-        winRate: 0.85,
-        sharpeRatio: 2.34
-      },
-      {
-        id: 'run-4-2',
-        runId: 'c9d0e1f2',
-        startTime: new Date(Date.now() - 6 * 60 * 60 * 1000),
-        endTime: new Date(Date.now() - 2 * 60 * 60 * 1000),
-        status: 'completed',
-        pnl: 1340,
-        trades: 567,
-        winRate: 0.83,
-        sharpeRatio: 2.15
-      },
-      {
-        id: 'run-4-3',
-        runId: 'g3h4i5j6',
-        startTime: new Date(Date.now() - 12 * 60 * 60 * 1000),
-        endTime: new Date(Date.now() - 8 * 60 * 60 * 1000),
-        status: 'completed',
-        pnl: 980,
-        trades: 423,
-        winRate: 0.86,
-        sharpeRatio: 2.45
-      }
-    ]
+    lastRun: new Date(Date.now() - 10 * 60 * 1000),
+    runs: []
   },
   {
     id: '5',
@@ -236,11 +119,10 @@ const mockStrategies: Strategy[] = [
     totalRuns: 12,
     successfulRuns: 7,
     totalPnl: -2340,
-    lastRun: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
+    lastRun: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
     runs: []
   }
 ]
-
 
 export default function StrategiesPage() {
   const [tabValue, setTabValue] = useState(0)
@@ -271,7 +153,7 @@ export default function StrategiesPage() {
   const [backtestResults, setBacktestResults] = useState<BacktestResult | null>(null)
   const [isBacktesting, setIsBacktesting] = useState(false)
 
-  // Simple chat interface states
+  // Chat interface states
   const [chatInput, setChatInput] = useState('')
   const [chatMessages, setChatMessages] = useState<Array<{id: string, text: string, timestamp: Date, type: 'user' | 'system'}>>([
     {
@@ -290,30 +172,8 @@ export default function StrategiesPage() {
     )
   }
 
-  const handleRunClick = (strategyId: string, runId: string) => {
-    console.log('View run details:', strategyId, runId)
-    // Navigate to run details or open dialog
-  }
-
-  const handleStrategyClick = (strategyId: string) => {
-    console.log('View strategy details:', strategyId)
-    // Navigate to strategy details
-  }
-
-  const handleStartStrategy = (strategyId: string) => {
-    setStrategies(prev => 
-      prev.map(s => 
-        s.id === strategyId ? { ...s, active: true } : s
-      )
-    )
-  }
-
-  const handleStopStrategy = (strategyId: string) => {
-    setStrategies(prev => 
-      prev.map(s => 
-        s.id === strategyId ? { ...s, active: false } : s
-      )
-    )
+  const handleDelete = (strategyId: string) => {
+    setStrategies(prev => prev.filter(s => s.id !== strategyId))
   }
 
   const handleEdit = (strategy: Strategy) => {
@@ -331,7 +191,12 @@ export default function StrategiesPage() {
     setOpenDialog(true)
   }
 
-  // AI Strategy Builder handlers
+  const handleSave = () => {
+    console.log('Save strategy:', formData)
+    setOpenDialog(false)
+    setSelectedStrategyForEdit(null)
+  }
+
   const handleStrategyGenerated = (strategy: GeneratedStrategy) => {
     setGeneratedStrategies(prev => [strategy, ...prev])
     setSelectedStrategy(strategy)
@@ -389,7 +254,6 @@ export default function StrategiesPage() {
     }
   }, [])
 
-  // Simple chat handlers
   const handleChatSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!chatInput.trim()) return
@@ -404,7 +268,6 @@ export default function StrategiesPage() {
     setChatMessages(prev => [...prev, userMessage])
     setChatInput('')
 
-    // Simple response logic
     setTimeout(() => {
       const systemResponse = {
         id: (Date.now() + 1).toString(),
@@ -432,21 +295,6 @@ export default function StrategiesPage() {
     }
   }
 
-  const handleDelete = (strategyId: string) => {
-    setStrategies(prev => prev.filter(s => s.id !== strategyId))
-  }
-
-  const handleSave = () => {
-    // Save strategy
-    console.log('Save strategy:', formData)
-    setOpenDialog(false)
-    setSelectedStrategyForEdit(null)
-  }
-
-  const getStatusColor = (active: boolean) => {
-    return active ? 'success' : 'default'
-  }
-
   const filteredStrategies = tabValue === 0 
     ? strategies 
     : tabValue === 1 
@@ -457,615 +305,1495 @@ export default function StrategiesPage() {
     {
       title: 'Momentum Strategy',
       prompt: 'Create a momentum trading strategy that identifies strong trends using multiple timeframes',
-      icon: <TrendingUpIcon />,
-      color: '#4caf50'
+      icon: '📈',
+      color: ds.colors.semantic.success
     },
     {
       title: 'Mean Reversion',
       prompt: 'Build a mean reversion strategy that trades oversold and overbought conditions',
-      icon: <AIIcon />,
-      color: '#2196f3'
+      icon: '🤖',
+      color: ds.colors.semantic.info
     },
     {
       title: 'Scalping Bot',
       prompt: 'Generate a high-frequency scalping strategy for 1-minute charts with tight risk management',
-      icon: <SpeedIcon />,
-      color: '#ff9800'
+      icon: '⚡',
+      color: ds.colors.semantic.warning
     },
     {
       title: 'Risk-Adjusted',
       prompt: 'Create a conservative strategy focused on capital preservation with 2:1 risk-reward ratio',
-      icon: <SecurityIcon />,
-      color: '#9c27b0'
+      icon: '🛡️',
+      color: ds.colors.semantic.primary
     }
   ]
 
   return (
-    <div className="px-2 sm:px-3 md:px-4 lg:px-5 py-4 space-y-4 min-h-screen w-full">
-      {/* AI Strategy Builder Header */}
-      <Paper sx={{ p: 3, background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Box>
-            <Typography variant="h4" sx={{ color: 'white', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 1 }}>
-              <AIIcon sx={{ fontSize: 32 }} />
+    <div style={{
+      backgroundColor: ds.colors.semantic.background.primary,
+      color: ds.colors.grayscale[90],
+      minHeight: '100vh',
+      fontFamily: ds.typography.families.interface,
+    }}>
+      {/* Header */}
+      <header style={{
+        padding: ds.spacing.large,
+        borderBottom: `1px solid ${ds.colors.grayscale[20]}`,
+        backgroundColor: ds.colors.semantic.background.secondary,
+      }}>
+        <div style={{
+          maxWidth: ds.grid.maxWidth,
+          margin: '0 auto',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+          <div>
+            <h1 style={{
+              fontSize: ds.typography.scale.xlarge,
+              fontWeight: ds.typography.weights.semibold,
+              margin: 0,
+              marginBottom: ds.spacing.mini,
+            }}>
               AI Strategy Builder & Management
-            </Typography>
-            <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.8)', mt: 1 }}>
+            </h1>
+            <p style={{
+              fontSize: ds.typography.scale.small,
+              color: ds.colors.grayscale[70],
+              margin: 0,
+            }}>
               Create bespoke trading strategies using Claude AI or manage existing strategies
-            </Typography>
-          </Box>
-          <Button
-            variant="contained"
-            startIcon={<KeyIcon />}
+            </p>
+          </div>
+
+          <button
             onClick={() => setShowApiKeyDialog(true)}
-            sx={{ 
-              bgcolor: 'rgba(255,255,255,0.2)', 
-              '&:hover': { bgcolor: 'rgba(255,255,255,0.3)' },
-              color: 'white'
+            style={{
+              padding: `${ds.spacing.small} ${ds.spacing.large}`,
+              backgroundColor: 'transparent',
+              color: ds.colors.semantic.primary,
+              border: `1px solid ${ds.colors.semantic.primary}`,
+              borderRadius: ds.interactive.radius.medium,
+              fontSize: ds.typography.scale.small,
+              fontWeight: ds.typography.weights.medium,
+              cursor: 'pointer',
+              transition: designHelpers.animate('all', ds.animation.durations.fast),
+              display: 'flex',
+              alignItems: 'center',
+              gap: ds.spacing.small,
             }}
           >
-            {apiKey ? 'Update API Key' : 'Set API Key'}
-          </Button>
-        </Box>
-      </Paper>
+            🔑 {apiKey ? 'Update API Key' : 'Set API Key'}
+          </button>
+        </div>
+      </header>
 
-      {!apiKey && (
-        <Alert severity="info" sx={{ mb: 2 }}>
-          To use the AI Strategy Builder, please set your Anthropic API key. You can get one from{' '}
-          <a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer">
-            console.anthropic.com
-          </a>
-        </Alert>
-      )}
+      {/* Main Content */}
+      <main style={{
+        maxWidth: ds.grid.maxWidth,
+        margin: '0 auto',
+        padding: ds.spacing.large,
+      }}>
+        {!apiKey && (
+          <div style={{
+            padding: ds.spacing.large,
+            backgroundColor: `${ds.colors.semantic.info}10`,
+            border: `1px solid ${ds.colors.semantic.info}`,
+            borderRadius: ds.interactive.radius.medium,
+            marginBottom: ds.spacing.xlarge,
+          }}>
+            <p style={{
+              fontSize: ds.typography.scale.small,
+              margin: 0,
+            }}>
+              To use the AI Strategy Builder, please set your Anthropic API key. You can get one from{' '}
+              <a 
+                href="https://console.anthropic.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{ color: ds.colors.semantic.info }}
+              >
+                console.anthropic.com
+              </a>
+            </p>
+          </div>
+        )}
 
-      {/* Simple Chat Interface */}
-      <Paper sx={{ p: 3, mb: 3 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-          <ChatIcon sx={{ color: 'primary.main' }} />
-          <Typography variant="h6">Quick Chat</Typography>
-        </Box>
-        
-        <Box sx={{ 
-          maxHeight: 300, 
-          minHeight: 200,
-          overflow: 'auto', 
-          border: '1px solid #e0e0e0', 
-          borderRadius: 1, 
-          p: 2, 
-          mb: 2,
-          backgroundColor: '#fafafa'
+        {/* Simple Chat Interface */}
+        <section style={{
+          backgroundColor: ds.colors.semantic.background.secondary,
+          borderRadius: ds.interactive.radius.medium,
+          padding: ds.spacing.large,
+          marginBottom: ds.spacing.xlarge,
+          border: `1px solid ${ds.colors.grayscale[20]}`,
         }}>
-          {chatMessages.map((message) => (
-            <Box 
-              key={message.id} 
-              sx={{ 
-                mb: 1, 
-                display: 'flex', 
-                justifyContent: message.type === 'user' ? 'flex-end' : 'flex-start' 
-              }}
-            >
-              <Box
-                sx={{
-                  maxWidth: '80%',
-                  p: 1.5,
-                  borderRadius: 2,
-                  backgroundColor: message.type === 'user' ? '#1976d2' : '#e3f2fd',
-                  color: message.type === 'user' ? 'white' : 'black',
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: ds.spacing.small,
+            marginBottom: ds.spacing.medium,
+          }}>
+            <span style={{ fontSize: ds.typography.scale.large }}>💬</span>
+            <h2 style={{
+              fontSize: ds.typography.scale.medium,
+              fontWeight: ds.typography.weights.semibold,
+              margin: 0,
+            }}>
+              Quick Chat
+            </h2>
+          </div>
+          
+          <div style={{ 
+            maxHeight: '300px',
+            minHeight: '200px',
+            overflow: 'auto',
+            backgroundColor: ds.colors.semantic.background.primary,
+            borderRadius: ds.interactive.radius.small,
+            padding: ds.spacing.medium,
+            marginBottom: ds.spacing.medium,
+            border: `1px solid ${ds.colors.grayscale[20]}`,
+          }}>
+            {chatMessages.map((message) => (
+              <div 
+                key={message.id} 
+                style={{ 
+                  marginBottom: ds.spacing.medium,
+                  display: 'flex', 
+                  justifyContent: message.type === 'user' ? 'flex-end' : 'flex-start' 
                 }}
               >
-                <Typography variant="body2" sx={{ fontSize: '0.875rem' }}>
-                  {message.text}
-                </Typography>
-                <Typography 
-                  variant="caption" 
-                  sx={{ 
-                    fontSize: '0.7rem', 
-                    opacity: 0.7, 
-                    display: 'block', 
-                    mt: 0.5 
+                <div
+                  style={{
+                    maxWidth: '80%',
+                    padding: ds.spacing.medium,
+                    borderRadius: ds.interactive.radius.medium,
+                    backgroundColor: message.type === 'user' ? 
+                      ds.colors.semantic.primary : 
+                      ds.colors.semantic.background.tertiary,
+                    color: message.type === 'user' ? 
+                      ds.colors.grayscale[5] : 
+                      ds.colors.grayscale[90],
                   }}
                 >
-                  {message.timestamp.toLocaleTimeString()}
-                </Typography>
-              </Box>
-            </Box>
-          ))}
-        </Box>
+                  <p style={{
+                    fontSize: ds.typography.scale.small,
+                    margin: 0,
+                    marginBottom: ds.spacing.mini,
+                  }}>
+                    {message.text}
+                  </p>
+                  <span style={{
+                    fontSize: ds.typography.scale.mini,
+                    opacity: 0.7,
+                  }}>
+                    {message.timestamp.toLocaleTimeString()}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
 
-        <Box 
-          component="form" 
-          onSubmit={handleChatSubmit}
-          sx={{ display: 'flex', gap: 1 }}
-        >
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Ask me about trading strategies, market analysis, or risk management..."
-            value={chatInput}
-            onChange={(e) => setChatInput(e.target.value)}
-            size="small"
-            sx={{ flexGrow: 1 }}
-          />
-          <Button 
-            type="submit" 
-            variant="contained" 
-            endIcon={<SendIcon />}
-            disabled={!chatInput.trim()}
-            sx={{ minWidth: 100 }}
+          <form 
+            onSubmit={handleChatSubmit}
+            style={{ display: 'flex', gap: ds.spacing.small }}
           >
-            Send
-          </Button>
-        </Box>
-      </Paper>
+            <input
+              type="text"
+              placeholder="Ask me about trading strategies, market analysis, or risk management..."
+              value={chatInput}
+              onChange={(e) => setChatInput(e.target.value)}
+              style={{
+                flex: 1,
+                padding: ds.spacing.small,
+                backgroundColor: ds.colors.semantic.background.primary,
+                color: ds.colors.grayscale[90],
+                border: `1px solid ${ds.colors.grayscale[30]}`,
+                borderRadius: ds.interactive.radius.small,
+                fontSize: ds.typography.scale.small,
+              }}
+            />
+            <button 
+              type="submit" 
+              disabled={!chatInput.trim()}
+              style={{
+                padding: `${ds.spacing.small} ${ds.spacing.large}`,
+                backgroundColor: ds.colors.semantic.primary,
+                color: ds.colors.grayscale[5],
+                border: 'none',
+                borderRadius: ds.interactive.radius.medium,
+                fontSize: ds.typography.scale.small,
+                fontWeight: ds.typography.weights.medium,
+                cursor: !chatInput.trim() ? 'not-allowed' : 'pointer',
+                opacity: !chatInput.trim() ? 0.5 : 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: ds.spacing.small,
+              }}
+            >
+              Send →
+            </button>
+          </form>
+        </section>
 
-      {/* Quick Start Templates */}
-      <Box sx={{ mb: 3 }}>
-        <Typography variant="h6" gutterBottom>Quick Start Templates</Typography>
-        <Grid container spacing={2}>
-          {quickPrompts.map((prompt, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <Card 
-                sx={{ 
-                  cursor: 'pointer',
-                  transition: 'all 0.3s',
-                  '&:hover': { transform: 'translateY(-4px)', boxShadow: 3 }
-                }}
+        {/* Quick Start Templates */}
+        <section style={{ marginBottom: ds.spacing.xlarge }}>
+          <h3 style={{
+            fontSize: ds.typography.scale.medium,
+            fontWeight: ds.typography.weights.semibold,
+            marginBottom: ds.spacing.medium,
+          }}>
+            Quick Start Templates
+          </h3>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: ds.spacing.medium,
+          }}>
+            {quickPrompts.map((prompt, index) => (
+              <button
+                key={index}
                 onClick={() => {
-                  const chatInput = document.querySelector('textarea[placeholder*="Ask me to create"]') as HTMLTextAreaElement
-                  if (chatInput) {
-                    chatInput.value = prompt.prompt
-                    chatInput.focus()
+                  const chatArea = document.querySelector('textarea[placeholder*="Ask me to create"]') as HTMLTextAreaElement
+                  if (chatArea) {
+                    chatArea.value = prompt.prompt
+                    chatArea.focus()
                     const event = new Event('input', { bubbles: true })
-                    chatInput.dispatchEvent(event)
+                    chatArea.dispatchEvent(event)
                   }
                 }}
+                style={{
+                  padding: ds.spacing.large,
+                  backgroundColor: ds.colors.semantic.background.secondary,
+                  border: `1px solid ${ds.colors.grayscale[20]}`,
+                  borderRadius: ds.interactive.radius.medium,
+                  cursor: 'pointer',
+                  transition: designHelpers.animate('all', ds.animation.durations.fast),
+                  textAlign: 'left',
+                }}
               >
-                <CardContent>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                    <Box sx={{ color: prompt.color }}>{prompt.icon}</Box>
-                    <Typography variant="h6">{prompt.title}</Typography>
-                  </Box>
-                  <Typography variant="body2" color="text.secondary">
-                    {prompt.prompt}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: ds.spacing.small,
+                  marginBottom: ds.spacing.small,
+                }}>
+                  <span style={{ fontSize: ds.typography.scale.large }}>{prompt.icon}</span>
+                  <h4 style={{
+                    fontSize: ds.typography.scale.base,
+                    fontWeight: ds.typography.weights.medium,
+                    margin: 0,
+                  }}>
+                    {prompt.title}
+                  </h4>
+                </div>
+                <p style={{
+                  fontSize: ds.typography.scale.small,
+                  color: ds.colors.grayscale[70],
+                  margin: 0,
+                }}>
+                  {prompt.prompt}
+                </p>
+              </button>
+            ))}
+          </div>
+        </section>
 
-      {/* AI Strategy Builder */}
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ height: 600, display: 'flex', flexDirection: 'column' }}>
+        {/* AI Strategy Builder */}
+        <section style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: ds.spacing.xlarge,
+          marginBottom: ds.spacing.xlarge,
+        }}>
+          <div style={{
+            backgroundColor: ds.colors.semantic.background.secondary,
+            borderRadius: ds.interactive.radius.medium,
+            border: `1px solid ${ds.colors.grayscale[20]}`,
+            height: '600px',
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
             <StrategyChat 
               apiKey={apiKey} 
               onStrategyGenerated={handleStrategyGenerated}
             />
-          </Paper>
-        </Grid>
+          </div>
 
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ height: 600, p: 2, overflow: 'auto' }}>
+          <div style={{
+            backgroundColor: ds.colors.semantic.background.secondary,
+            borderRadius: ds.interactive.radius.medium,
+            border: `1px solid ${ds.colors.grayscale[20]}`,
+            padding: ds.spacing.large,
+            height: '600px',
+            overflow: 'auto',
+          }}>
             {selectedStrategy ? (
-              <Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="h6">{selectedStrategy.name}</Typography>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      startIcon={<TestIcon />}
+              <div>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: ds.spacing.large,
+                }}>
+                  <h3 style={{
+                    fontSize: ds.typography.scale.medium,
+                    fontWeight: ds.typography.weights.semibold,
+                    margin: 0,
+                  }}>
+                    {selectedStrategy.name}
+                  </h3>
+                  <div style={{ display: 'flex', gap: ds.spacing.small }}>
+                    <button
                       onClick={() => setShowBacktestDialog(true)}
                       disabled={isBacktesting}
+                      style={{
+                        padding: `${ds.spacing.small} ${ds.spacing.medium}`,
+                        backgroundColor: ds.colors.semantic.primary,
+                        color: ds.colors.grayscale[5],
+                        border: 'none',
+                        borderRadius: ds.interactive.radius.small,
+                        fontSize: ds.typography.scale.small,
+                        fontWeight: ds.typography.weights.medium,
+                        cursor: isBacktesting ? 'not-allowed' : 'pointer',
+                        opacity: isBacktesting ? 0.5 : 1,
+                      }}
                     >
-                      Test Strategy
-                    </Button>
-                    <IconButton size="small">
-                      <SaveIcon />
-                    </IconButton>
-                    <IconButton size="small">
-                      <RunIcon />
-                    </IconButton>
-                  </Box>
-                </Box>
+                      📊 Test Strategy
+                    </button>
+                    <button
+                      style={{
+                        padding: ds.spacing.small,
+                        backgroundColor: 'transparent',
+                        border: `1px solid ${ds.colors.grayscale[30]}`,
+                        borderRadius: ds.interactive.radius.small,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      💾
+                    </button>
+                    <button
+                      style={{
+                        padding: ds.spacing.small,
+                        backgroundColor: 'transparent',
+                        border: `1px solid ${ds.colors.grayscale[30]}`,
+                        borderRadius: ds.interactive.radius.small,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      ▶️
+                    </button>
+                  </div>
+                </div>
 
-                <Typography variant="body2" paragraph color="text.secondary">
+                <p style={{
+                  fontSize: ds.typography.scale.small,
+                  color: ds.colors.grayscale[70],
+                  marginBottom: ds.spacing.large,
+                }}>
                   {selectedStrategy.description}
-                </Typography>
+                </p>
 
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="subtitle2" gutterBottom>Required Indicators</Typography>
-                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                <div style={{ marginBottom: ds.spacing.large }}>
+                  <h4 style={{
+                    fontSize: ds.typography.scale.small,
+                    fontWeight: ds.typography.weights.medium,
+                    marginBottom: ds.spacing.small,
+                  }}>
+                    Required Indicators
+                  </h4>
+                  <div style={{ display: 'flex', gap: ds.spacing.small, flexWrap: 'wrap' }}>
                     {selectedStrategy.requiredIndicators.map(indicator => (
-                      <Chip key={indicator} label={indicator} size="small" />
+                      <span
+                        key={indicator}
+                        style={{
+                          padding: `${ds.spacing.mini} ${ds.spacing.small}`,
+                          backgroundColor: ds.colors.semantic.background.tertiary,
+                          borderRadius: ds.interactive.radius.small,
+                          fontSize: ds.typography.scale.mini,
+                        }}
+                      >
+                        {indicator}
+                      </span>
                     ))}
-                  </Box>
-                </Box>
+                  </div>
+                </div>
 
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="subtitle2" gutterBottom>Risk Metrics</Typography>
-                  <Grid container spacing={1}>
+                <div style={{ marginBottom: ds.spacing.large }}>
+                  <h4 style={{
+                    fontSize: ds.typography.scale.small,
+                    fontWeight: ds.typography.weights.medium,
+                    marginBottom: ds.spacing.small,
+                  }}>
+                    Risk Metrics
+                  </h4>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gap: ds.spacing.small,
+                  }}>
                     {Object.entries(selectedStrategy.riskMetrics).map(([key, value]) => (
-                      <Grid item xs={6} key={key}>
-                        <Box sx={{ p: 1, bgcolor: 'background.default', borderRadius: 1 }}>
-                          <Typography variant="caption" color="text.secondary">
-                            {key.replace(/([A-Z])/g, ' $1').trim()}
-                          </Typography>
-                          <Typography variant="body2" fontWeight="medium">
-                            {typeof value === 'number' ? 
-                              (key.includes('Rate') || key.includes('ratio') ? 
-                                (value * 100).toFixed(1) + '%' : 
-                                value.toFixed(2)
-                              ) : value}
-                          </Typography>
-                        </Box>
-                      </Grid>
+                      <div
+                        key={key}
+                        style={{
+                          padding: ds.spacing.small,
+                          backgroundColor: ds.colors.semantic.background.primary,
+                          borderRadius: ds.interactive.radius.small,
+                        }}
+                      >
+                        <div style={{
+                          fontSize: ds.typography.scale.mini,
+                          color: ds.colors.grayscale[70],
+                          marginBottom: ds.spacing.micro,
+                        }}>
+                          {key.replace(/([A-Z])/g, ' $1').trim()}
+                        </div>
+                        <div style={{
+                          fontSize: ds.typography.scale.small,
+                          fontWeight: ds.typography.weights.medium,
+                          fontFamily: ds.typography.families.data,
+                        }}>
+                          {typeof value === 'number' ? 
+                            (key.includes('Rate') || key.includes('ratio') ? 
+                              (value * 100).toFixed(1) + '%' : 
+                              value.toFixed(2)
+                            ) : value}
+                        </div>
+                      </div>
                     ))}
-                  </Grid>
-                </Box>
+                  </div>
+                </div>
 
-                <Box>
-                  <Typography variant="subtitle2" gutterBottom>Strategy Code</Typography>
-                  <Box sx={{ maxHeight: 300, overflow: 'auto' }}>
+                <div>
+                  <h4 style={{
+                    fontSize: ds.typography.scale.small,
+                    fontWeight: ds.typography.weights.medium,
+                    marginBottom: ds.spacing.small,
+                  }}>
+                    Strategy Code
+                  </h4>
+                  <div style={{ 
+                    maxHeight: '250px', 
+                    overflow: 'auto',
+                    borderRadius: ds.interactive.radius.small,
+                  }}>
                     <SyntaxHighlighter
                       language={selectedStrategy.language}
                       style={vscDarkPlus}
-                      customStyle={{ margin: 0, fontSize: '0.875rem' }}
+                      customStyle={{ 
+                        margin: 0, 
+                        fontSize: ds.typography.scale.small,
+                      }}
                     >
                       {selectedStrategy.code}
                     </SyntaxHighlighter>
-                  </Box>
-                </Box>
-              </Box>
+                  </div>
+                </div>
+              </div>
             ) : (
-              <Box sx={{ 
+              <div style={{ 
                 height: '100%', 
                 display: 'flex', 
                 flexDirection: 'column', 
                 alignItems: 'center', 
                 justifyContent: 'center',
-                color: 'text.secondary'
+                color: ds.colors.grayscale[70],
               }}>
-                <CodeIcon sx={{ fontSize: 64, mb: 2 }} />
-                <Typography variant="h6" gutterBottom>No Strategy Selected</Typography>
-                <Typography variant="body2" textAlign="center">
+                <span style={{ fontSize: '48px', marginBottom: ds.spacing.medium }}>📝</span>
+                <h3 style={{
+                  fontSize: ds.typography.scale.medium,
+                  fontWeight: ds.typography.weights.medium,
+                  marginBottom: ds.spacing.small,
+                }}>
+                  No Strategy Selected
+                </h3>
+                <p style={{
+                  fontSize: ds.typography.scale.small,
+                  textAlign: 'center',
+                }}>
                   Generate a strategy using the chat interface or select from your saved strategies
-                </Typography>
-              </Box>
+                </p>
+              </div>
             )}
-          </Paper>
-        </Grid>
-      </Grid>
+          </div>
+        </section>
 
-      {/* Generated Strategies List */}
-      {generatedStrategies.length > 0 && (
-        <Paper sx={{ p: 2 }}>
-          <Typography variant="h6" gutterBottom>Generated Strategies</Typography>
-          <Grid container spacing={2}>
-            {generatedStrategies.map((strategy, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card 
-                  sx={{ 
-                    cursor: 'pointer',
-                    bgcolor: selectedStrategy?.name === strategy.name ? 'action.selected' : 'background.paper'
-                  }}
+        {/* Generated Strategies List */}
+        {generatedStrategies.length > 0 && (
+          <section style={{
+            backgroundColor: ds.colors.semantic.background.secondary,
+            borderRadius: ds.interactive.radius.medium,
+            padding: ds.spacing.large,
+            marginBottom: ds.spacing.xlarge,
+            border: `1px solid ${ds.colors.grayscale[20]}`,
+          }}>
+            <h3 style={{
+              fontSize: ds.typography.scale.medium,
+              fontWeight: ds.typography.weights.semibold,
+              marginBottom: ds.spacing.medium,
+            }}>
+              Generated Strategies
+            </h3>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+              gap: ds.spacing.medium,
+            }}>
+              {generatedStrategies.map((strategy, index) => (
+                <button
+                  key={index}
                   onClick={() => setSelectedStrategy(strategy)}
+                  style={{
+                    padding: ds.spacing.medium,
+                    backgroundColor: selectedStrategy?.name === strategy.name ? 
+                      ds.colors.semantic.background.tertiary : 
+                      ds.colors.semantic.background.primary,
+                    border: `1px solid ${selectedStrategy?.name === strategy.name ? 
+                      ds.colors.semantic.primary : 
+                      ds.colors.grayscale[20]}`,
+                    borderRadius: ds.interactive.radius.medium,
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    transition: designHelpers.animate('all', ds.animation.durations.fast),
+                  }}
                 >
-                  <CardContent>
-                    <Typography variant="h6" gutterBottom>{strategy.name}</Typography>
-                    <Typography variant="body2" color="text.secondary" paragraph>
-                      {strategy.description.substring(0, 100)}...
-                    </Typography>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                      <Chip label={strategy.timeframe} size="small" />
-                      <Chip label={strategy.language} size="small" color="primary" />
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Paper>
-      )}
-
-      {/* Backtest Results */}
-      {(backtestResults || isBacktesting) && (
-        <Paper sx={{ p: 2, mt: 3 }}>
-          <Typography variant="h6" gutterBottom>
-            Backtest Results
-          </Typography>
-          <BacktestResults results={backtestResults!} isLoading={isBacktesting} />
-        </Paper>
-      )}
-
-      {/* Existing Strategies Management */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h5" sx={{ color: 'primary.main' }}>
-          Manage Existing Strategies
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <IconButton
-            onClick={() => setViewMode(viewMode === 'table' ? 'expandable' : 'table')}
-            sx={{ color: 'primary.main' }}
-          >
-            {viewMode === 'table' ? <ViewListIcon /> : <TableChartIcon />}
-          </IconButton>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={() => setOpenDialog(true)}
-          >
-            New Strategy
-          </Button>
-        </Box>
-      </Box>
-
-      <Paper sx={{ mb: 3 }}>
-        <Tabs value={tabValue} onChange={(e, v) => setTabValue(v)}>
-          <Tab label="All Strategies" />
-          <Tab label="Active" />
-          <Tab label="Inactive" />
-          <Tab label="Performance" />
-        </Tabs>
-      </Paper>
-
-      {viewMode === 'expandable' ? (
-        <ExpandableStrategyList
-          strategies={filteredStrategies}
-          onRunClick={handleRunClick}
-          onStrategyClick={handleStrategyClick}
-          onStartStrategy={handleStartStrategy}
-          onStopStrategy={handleStopStrategy}
-        />
-      ) : (
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Strategy Name</TableCell>
-                <TableCell>Type</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell align="right">Total P&L</TableCell>
-                <TableCell align="right">Success Rate</TableCell>
-                <TableCell align="right">Total Runs</TableCell>
-                <TableCell align="center">Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredStrategies.map((strategy) => (
-                <TableRow key={strategy.id}>
-                  <TableCell>
-                    <Typography variant="body1" fontWeight="medium">
-                      {strategy.name}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Chip label={strategy.type.replace('_', ' ').toUpperCase()} size="small" />
-                  </TableCell>
-                  <TableCell>
-                    <Chip 
-                      label={strategy.active ? 'ACTIVE' : 'INACTIVE'} 
-                      color={getStatusColor(strategy.active)} 
-                      size="small"
-                    />
-                  </TableCell>
-                  <TableCell align="right">
-                    <Typography 
-                      color={strategy.totalPnl > 0 ? 'success.main' : 'error.main'}
-                      fontWeight="medium"
-                    >
-                      ${strategy.totalPnl.toLocaleString()}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="right">
-                    {strategy.totalRuns > 0 
-                      ? `${((strategy.successfulRuns / strategy.totalRuns) * 100).toFixed(0)}%`
-                      : '-'
-                    }
-                  </TableCell>
-                  <TableCell align="right">{strategy.totalRuns}</TableCell>
-                  <TableCell align="center">
-                    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
-                      <IconButton
-                        size="small"
-                        onClick={() => handleStatusToggle(strategy.id)}
-                        color={strategy.active ? 'error' : 'success'}
-                      >
-                        {strategy.active ? <PauseIcon /> : <PlayArrowIcon />}
-                      </IconButton>
-                      <IconButton
-                        size="small"
-                        onClick={() => handleEdit(strategy)}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton
-                        size="small"
-                        onClick={() => handleDelete(strategy.id)}
-                        color="error"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Box>
-                  </TableCell>
-                </TableRow>
+                  <h4 style={{
+                    fontSize: ds.typography.scale.base,
+                    fontWeight: ds.typography.weights.medium,
+                    margin: 0,
+                    marginBottom: ds.spacing.small,
+                  }}>
+                    {strategy.name}
+                  </h4>
+                  <p style={{
+                    fontSize: ds.typography.scale.small,
+                    color: ds.colors.grayscale[70],
+                    margin: 0,
+                    marginBottom: ds.spacing.small,
+                  }}>
+                    {strategy.description.substring(0, 100)}...
+                  </p>
+                  <div style={{ display: 'flex', gap: ds.spacing.small }}>
+                    <span style={{
+                      padding: `${ds.spacing.micro} ${ds.spacing.mini}`,
+                      backgroundColor: ds.colors.semantic.background.tertiary,
+                      borderRadius: ds.interactive.radius.small,
+                      fontSize: ds.typography.scale.mini,
+                    }}>
+                      {strategy.timeframe}
+                    </span>
+                    <span style={{
+                      padding: `${ds.spacing.micro} ${ds.spacing.mini}`,
+                      backgroundColor: `${ds.colors.semantic.primary}20`,
+                      color: ds.colors.semantic.primary,
+                      borderRadius: ds.interactive.radius.small,
+                      fontSize: ds.typography.scale.mini,
+                    }}>
+                      {strategy.language}
+                    </span>
+                  </div>
+                </button>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+            </div>
+          </section>
+        )}
 
-      {/* API Key Dialog */}
-      <Dialog open={showApiKeyDialog} onClose={() => setShowApiKeyDialog(false)} maxWidth="sm" fullWidth>
-        <DialogTitle>Set Anthropic API Key</DialogTitle>
-        <DialogContent>
-          <Alert severity="info" sx={{ mb: 2 }}>
-            Your API key is stored locally and never sent to our servers. It's only used to communicate directly with Anthropic's API.
-          </Alert>
-          <TextField
-            fullWidth
-            label="API Key"
-            type="password"
-            value={tempApiKey}
-            onChange={(e) => setTempApiKey(e.target.value)}
-            placeholder="sk-ant-..."
-            sx={{ mt: 2 }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowApiKeyDialog(false)}>Cancel</Button>
-          <Button onClick={handleSaveApiKey} variant="contained">Save</Button>
-        </DialogActions>
-      </Dialog>
+        {/* Backtest Results */}
+        {(backtestResults || isBacktesting) && (
+          <section style={{
+            backgroundColor: ds.colors.semantic.background.secondary,
+            borderRadius: ds.interactive.radius.medium,
+            padding: ds.spacing.large,
+            marginBottom: ds.spacing.xlarge,
+            border: `1px solid ${ds.colors.grayscale[20]}`,
+          }}>
+            <h3 style={{
+              fontSize: ds.typography.scale.medium,
+              fontWeight: ds.typography.weights.semibold,
+              marginBottom: ds.spacing.medium,
+            }}>
+              Backtest Results
+            </h3>
+            <BacktestResults results={backtestResults!} isLoading={isBacktesting} />
+          </section>
+        )}
+
+        {/* Existing Strategies Management */}
+        <section>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: ds.spacing.large,
+          }}>
+            <h2 style={{
+              fontSize: ds.typography.scale.large,
+              fontWeight: ds.typography.weights.semibold,
+              margin: 0,
+            }}>
+              Manage Existing Strategies
+            </h2>
+            <div style={{ display: 'flex', gap: ds.spacing.medium }}>
+              <button
+                onClick={() => setViewMode(viewMode === 'table' ? 'expandable' : 'table')}
+                style={{
+                  padding: ds.spacing.small,
+                  backgroundColor: 'transparent',
+                  border: `1px solid ${ds.colors.grayscale[30]}`,
+                  borderRadius: ds.interactive.radius.small,
+                  cursor: 'pointer',
+                }}
+              >
+                {viewMode === 'table' ? '📋' : '📊'}
+              </button>
+              <button
+                onClick={() => setOpenDialog(true)}
+                style={{
+                  padding: `${ds.spacing.small} ${ds.spacing.medium}`,
+                  backgroundColor: ds.colors.semantic.primary,
+                  color: ds.colors.grayscale[5],
+                  border: 'none',
+                  borderRadius: ds.interactive.radius.medium,
+                  fontSize: ds.typography.scale.small,
+                  fontWeight: ds.typography.weights.medium,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: ds.spacing.small,
+                }}
+              >
+                + New Strategy
+              </button>
+            </div>
+          </div>
+
+          <div style={{
+            marginBottom: ds.spacing.large,
+          }}>
+            <div style={{ display: 'flex', gap: ds.spacing.mini }}>
+              {['All Strategies', 'Active', 'Inactive', 'Performance'].map((tab, index) => (
+                <button
+                  key={tab}
+                  onClick={() => setTabValue(index)}
+                  style={{
+                    padding: `${ds.spacing.small} ${ds.spacing.medium}`,
+                    backgroundColor: tabValue === index ? 
+                      ds.colors.semantic.background.secondary : 
+                      'transparent',
+                    color: tabValue === index ? 
+                      ds.colors.grayscale[90] : 
+                      ds.colors.grayscale[70],
+                    border: `1px solid ${tabValue === index ? 
+                      ds.colors.grayscale[30] : 
+                      'transparent'}`,
+                    borderRadius: ds.interactive.radius.medium,
+                    borderBottomLeftRadius: 0,
+                    borderBottomRightRadius: 0,
+                    fontSize: ds.typography.scale.small,
+                    fontWeight: ds.typography.weights.medium,
+                    cursor: 'pointer',
+                    transition: designHelpers.animate('all', ds.animation.durations.fast),
+                  }}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {viewMode === 'expandable' ? (
+            <ExpandableStrategyList
+              strategies={filteredStrategies}
+              onRunClick={(strategyId, runId) => console.log('View run:', strategyId, runId)}
+              onStrategyClick={(strategyId) => console.log('View strategy:', strategyId)}
+              onStartStrategy={handleStatusToggle}
+              onStopStrategy={handleStatusToggle}
+            />
+          ) : (
+            <div style={{
+              backgroundColor: ds.colors.semantic.background.secondary,
+              borderRadius: ds.interactive.radius.medium,
+              overflow: 'hidden',
+              border: `1px solid ${ds.colors.grayscale[20]}`,
+            }}>
+              <table style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+              }}>
+                <thead>
+                  <tr style={{
+                    backgroundColor: ds.colors.semantic.background.tertiary,
+                  }}>
+                    <th style={{
+                      padding: ds.spacing.medium,
+                      textAlign: 'left',
+                      fontSize: ds.typography.scale.small,
+                      fontWeight: ds.typography.weights.medium,
+                      color: ds.colors.grayscale[70],
+                      borderBottom: `1px solid ${ds.colors.grayscale[20]}`,
+                    }}>
+                      Strategy Name
+                    </th>
+                    <th style={{
+                      padding: ds.spacing.medium,
+                      textAlign: 'left',
+                      fontSize: ds.typography.scale.small,
+                      fontWeight: ds.typography.weights.medium,
+                      color: ds.colors.grayscale[70],
+                      borderBottom: `1px solid ${ds.colors.grayscale[20]}`,
+                    }}>
+                      Type
+                    </th>
+                    <th style={{
+                      padding: ds.spacing.medium,
+                      textAlign: 'left',
+                      fontSize: ds.typography.scale.small,
+                      fontWeight: ds.typography.weights.medium,
+                      color: ds.colors.grayscale[70],
+                      borderBottom: `1px solid ${ds.colors.grayscale[20]}`,
+                    }}>
+                      Status
+                    </th>
+                    <th style={{
+                      padding: ds.spacing.medium,
+                      textAlign: 'right',
+                      fontSize: ds.typography.scale.small,
+                      fontWeight: ds.typography.weights.medium,
+                      color: ds.colors.grayscale[70],
+                      borderBottom: `1px solid ${ds.colors.grayscale[20]}`,
+                    }}>
+                      Total P&L
+                    </th>
+                    <th style={{
+                      padding: ds.spacing.medium,
+                      textAlign: 'right',
+                      fontSize: ds.typography.scale.small,
+                      fontWeight: ds.typography.weights.medium,
+                      color: ds.colors.grayscale[70],
+                      borderBottom: `1px solid ${ds.colors.grayscale[20]}`,
+                    }}>
+                      Success Rate
+                    </th>
+                    <th style={{
+                      padding: ds.spacing.medium,
+                      textAlign: 'right',
+                      fontSize: ds.typography.scale.small,
+                      fontWeight: ds.typography.weights.medium,
+                      color: ds.colors.grayscale[70],
+                      borderBottom: `1px solid ${ds.colors.grayscale[20]}`,
+                    }}>
+                      Total Runs
+                    </th>
+                    <th style={{
+                      padding: ds.spacing.medium,
+                      textAlign: 'center',
+                      fontSize: ds.typography.scale.small,
+                      fontWeight: ds.typography.weights.medium,
+                      color: ds.colors.grayscale[70],
+                      borderBottom: `1px solid ${ds.colors.grayscale[20]}`,
+                    }}>
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredStrategies.map((strategy) => (
+                    <tr key={strategy.id}>
+                      <td style={{
+                        padding: ds.spacing.medium,
+                        fontSize: ds.typography.scale.small,
+                        fontWeight: ds.typography.weights.medium,
+                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                      }}>
+                        {strategy.name}
+                      </td>
+                      <td style={{
+                        padding: ds.spacing.medium,
+                        fontSize: ds.typography.scale.small,
+                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                      }}>
+                        <span style={{
+                          padding: `${ds.spacing.mini} ${ds.spacing.small}`,
+                          backgroundColor: ds.colors.semantic.background.tertiary,
+                          borderRadius: ds.interactive.radius.small,
+                          fontSize: ds.typography.scale.mini,
+                          textTransform: 'uppercase',
+                        }}>
+                          {strategy.type.replace('_', ' ')}
+                        </span>
+                      </td>
+                      <td style={{
+                        padding: ds.spacing.medium,
+                        fontSize: ds.typography.scale.small,
+                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                      }}>
+                        <span style={{
+                          padding: `${ds.spacing.mini} ${ds.spacing.small}`,
+                          backgroundColor: strategy.active ? 
+                            `${ds.colors.semantic.success}20` : 
+                            ds.colors.semantic.background.tertiary,
+                          color: strategy.active ? 
+                            ds.colors.semantic.success : 
+                            ds.colors.grayscale[70],
+                          borderRadius: ds.interactive.radius.small,
+                          fontSize: ds.typography.scale.mini,
+                          textTransform: 'uppercase',
+                        }}>
+                          {strategy.active ? 'Active' : 'Inactive'}
+                        </span>
+                      </td>
+                      <td style={{
+                        padding: ds.spacing.medium,
+                        fontSize: ds.typography.scale.small,
+                        fontFamily: ds.typography.families.data,
+                        fontWeight: ds.typography.weights.medium,
+                        color: strategy.totalPnl > 0 ? 
+                          ds.colors.semantic.buy : 
+                          ds.colors.semantic.sell,
+                        textAlign: 'right',
+                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                      }}>
+                        ${strategy.totalPnl.toLocaleString()}
+                      </td>
+                      <td style={{
+                        padding: ds.spacing.medium,
+                        fontSize: ds.typography.scale.small,
+                        fontFamily: ds.typography.families.data,
+                        textAlign: 'right',
+                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                      }}>
+                        {strategy.totalRuns > 0 
+                          ? `${((strategy.successfulRuns / strategy.totalRuns) * 100).toFixed(0)}%`
+                          : '-'
+                        }
+                      </td>
+                      <td style={{
+                        padding: ds.spacing.medium,
+                        fontSize: ds.typography.scale.small,
+                        fontFamily: ds.typography.families.data,
+                        textAlign: 'right',
+                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                      }}>
+                        {strategy.totalRuns}
+                      </td>
+                      <td style={{
+                        padding: ds.spacing.medium,
+                        textAlign: 'center',
+                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                      }}>
+                        <div style={{ display: 'flex', justifyContent: 'center', gap: ds.spacing.small }}>
+                          <button
+                            onClick={() => handleStatusToggle(strategy.id)}
+                            style={{
+                              padding: ds.spacing.mini,
+                              backgroundColor: 'transparent',
+                              color: strategy.active ? 
+                                ds.colors.semantic.error : 
+                                ds.colors.semantic.success,
+                              border: 'none',
+                              fontSize: ds.typography.scale.small,
+                              cursor: 'pointer',
+                            }}
+                          >
+                            {strategy.active ? '⏸' : '▶'}
+                          </button>
+                          <button
+                            onClick={() => handleEdit(strategy)}
+                            style={{
+                              padding: ds.spacing.mini,
+                              backgroundColor: 'transparent',
+                              color: ds.colors.grayscale[70],
+                              border: 'none',
+                              fontSize: ds.typography.scale.small,
+                              cursor: 'pointer',
+                            }}
+                          >
+                            ✏️
+                          </button>
+                          <button
+                            onClick={() => handleDelete(strategy.id)}
+                            style={{
+                              padding: ds.spacing.mini,
+                              backgroundColor: 'transparent',
+                              color: ds.colors.semantic.error,
+                              border: 'none',
+                              fontSize: ds.typography.scale.small,
+                              cursor: 'pointer',
+                            }}
+                          >
+                            🗑️
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+      </main>
+
+      {/* Dialogs */}
+      {showApiKeyDialog && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+        }}>
+          <div style={{
+            backgroundColor: ds.colors.semantic.background.primary,
+            borderRadius: ds.interactive.radius.large,
+            padding: ds.spacing.xlarge,
+            maxWidth: '500px',
+            width: '90%',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+          }}>
+            <h2 style={{
+              fontSize: ds.typography.scale.large,
+              fontWeight: ds.typography.weights.semibold,
+              marginBottom: ds.spacing.medium,
+            }}>
+              Set Anthropic API Key
+            </h2>
+            
+            <div style={{
+              padding: ds.spacing.medium,
+              backgroundColor: `${ds.colors.semantic.info}10`,
+              border: `1px solid ${ds.colors.semantic.info}`,
+              borderRadius: ds.interactive.radius.medium,
+              marginBottom: ds.spacing.large,
+            }}>
+              <p style={{
+                fontSize: ds.typography.scale.small,
+                margin: 0,
+              }}>
+                Your API key is stored locally and never sent to our servers. It's only used to communicate directly with Anthropic's API.
+              </p>
+            </div>
+            
+            <input
+              type="password"
+              value={tempApiKey}
+              onChange={(e) => setTempApiKey(e.target.value)}
+              placeholder="sk-ant-..."
+              style={{
+                width: '100%',
+                padding: ds.spacing.medium,
+                backgroundColor: ds.colors.semantic.background.secondary,
+                color: ds.colors.grayscale[90],
+                border: `1px solid ${ds.colors.grayscale[30]}`,
+                borderRadius: ds.interactive.radius.small,
+                fontSize: ds.typography.scale.small,
+                marginBottom: ds.spacing.large,
+              }}
+            />
+            
+            <div style={{
+              display: 'flex',
+              gap: ds.spacing.medium,
+              justifyContent: 'flex-end',
+            }}>
+              <button
+                onClick={() => setShowApiKeyDialog(false)}
+                style={{
+                  padding: `${ds.spacing.small} ${ds.spacing.large}`,
+                  backgroundColor: 'transparent',
+                  color: ds.colors.grayscale[70],
+                  border: `1px solid ${ds.colors.grayscale[30]}`,
+                  borderRadius: ds.interactive.radius.medium,
+                  fontSize: ds.typography.scale.small,
+                  fontWeight: ds.typography.weights.medium,
+                  cursor: 'pointer',
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSaveApiKey}
+                style={{
+                  padding: `${ds.spacing.small} ${ds.spacing.large}`,
+                  backgroundColor: ds.colors.semantic.primary,
+                  color: ds.colors.grayscale[5],
+                  border: 'none',
+                  borderRadius: ds.interactive.radius.medium,
+                  fontSize: ds.typography.scale.small,
+                  fontWeight: ds.typography.weights.medium,
+                  cursor: 'pointer',
+                }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Backtest Dialog */}
-      <Dialog open={showBacktestDialog} onClose={() => setShowBacktestDialog(false)} maxWidth="sm" fullWidth>
-        <DialogTitle>Configure Backtest</DialogTitle>
-        <DialogContent>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
-            <FormControl fullWidth>
-              <InputLabel>Trading Pair</InputLabel>
-              <Select
-                value={backtestSymbol}
-                onChange={(e) => setBacktestSymbol(e.target.value)}
-                label="Trading Pair"
-              >
-                <MenuItem value="BTC/USD">BTC/USD</MenuItem>
-                <MenuItem value="ETH/USD">ETH/USD</MenuItem>
-                <MenuItem value="SOL/USD">SOL/USD</MenuItem>
-                <MenuItem value="ADA/USD">ADA/USD</MenuItem>
-              </Select>
-            </FormControl>
+      {showBacktestDialog && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+        }}>
+          <div style={{
+            backgroundColor: ds.colors.semantic.background.primary,
+            borderRadius: ds.interactive.radius.large,
+            padding: ds.spacing.xlarge,
+            maxWidth: '500px',
+            width: '90%',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+          }}>
+            <h2 style={{
+              fontSize: ds.typography.scale.large,
+              fontWeight: ds.typography.weights.semibold,
+              marginBottom: ds.spacing.large,
+            }}>
+              Configure Backtest
+            </h2>
             
-            <FormControl fullWidth>
-              <InputLabel>Time Period</InputLabel>
-              <Select
-                value={backtestPeriod}
-                onChange={(e) => setBacktestPeriod(e.target.value)}
-                label="Time Period"
-              >
-                <MenuItem value="7">Last 7 days</MenuItem>
-                <MenuItem value="30">Last 30 days</MenuItem>
-                <MenuItem value="90">Last 90 days</MenuItem>
-                <MenuItem value="180">Last 180 days</MenuItem>
-                <MenuItem value="365">Last year</MenuItem>
-              </Select>
-            </FormControl>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: ds.spacing.medium,
+              marginBottom: ds.spacing.large,
+            }}>
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: ds.typography.scale.small,
+                  color: ds.colors.grayscale[70],
+                  marginBottom: ds.spacing.small,
+                }}>
+                  Trading Pair
+                </label>
+                <select
+                  value={backtestSymbol}
+                  onChange={(e) => setBacktestSymbol(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: ds.spacing.small,
+                    backgroundColor: ds.colors.semantic.background.secondary,
+                    color: ds.colors.grayscale[90],
+                    border: `1px solid ${ds.colors.grayscale[30]}`,
+                    borderRadius: ds.interactive.radius.small,
+                    fontSize: ds.typography.scale.small,
+                    cursor: 'pointer',
+                  }}
+                >
+                  <option value="BTC/USD">BTC/USD</option>
+                  <option value="ETH/USD">ETH/USD</option>
+                  <option value="SOL/USD">SOL/USD</option>
+                  <option value="ADA/USD">ADA/USD</option>
+                </select>
+              </div>
+              
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: ds.typography.scale.small,
+                  color: ds.colors.grayscale[70],
+                  marginBottom: ds.spacing.small,
+                }}>
+                  Time Period
+                </label>
+                <select
+                  value={backtestPeriod}
+                  onChange={(e) => setBacktestPeriod(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: ds.spacing.small,
+                    backgroundColor: ds.colors.semantic.background.secondary,
+                    color: ds.colors.grayscale[90],
+                    border: `1px solid ${ds.colors.grayscale[30]}`,
+                    borderRadius: ds.interactive.radius.small,
+                    fontSize: ds.typography.scale.small,
+                    cursor: 'pointer',
+                  }}
+                >
+                  <option value="7">Last 7 days</option>
+                  <option value="30">Last 30 days</option>
+                  <option value="90">Last 90 days</option>
+                  <option value="180">Last 180 days</option>
+                  <option value="365">Last year</option>
+                </select>
+              </div>
+              
+              <div style={{
+                padding: ds.spacing.medium,
+                backgroundColor: `${ds.colors.semantic.info}10`,
+                border: `1px solid ${ds.colors.semantic.info}`,
+                borderRadius: ds.interactive.radius.medium,
+              }}>
+                <p style={{
+                  fontSize: ds.typography.scale.small,
+                  margin: 0,
+                }}>
+                  This will run a historical backtest using {selectedStrategy?.timeframe || '1h'} candles for {selectedStrategy?.name}.
+                </p>
+              </div>
+            </div>
             
-            <Alert severity="info">
-              This will run a historical backtest using {selectedStrategy?.timeframe || '1h'} candles for {selectedStrategy?.name}.
-            </Alert>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowBacktestDialog(false)}>Cancel</Button>
-          <Button onClick={handleRunBacktest} variant="contained" startIcon={<TestIcon />}>
-            Run Backtest
-          </Button>
-        </DialogActions>
-      </Dialog>
+            <div style={{
+              display: 'flex',
+              gap: ds.spacing.medium,
+              justifyContent: 'flex-end',
+            }}>
+              <button
+                onClick={() => setShowBacktestDialog(false)}
+                style={{
+                  padding: `${ds.spacing.small} ${ds.spacing.large}`,
+                  backgroundColor: 'transparent',
+                  color: ds.colors.grayscale[70],
+                  border: `1px solid ${ds.colors.grayscale[30]}`,
+                  borderRadius: ds.interactive.radius.medium,
+                  fontSize: ds.typography.scale.small,
+                  fontWeight: ds.typography.weights.medium,
+                  cursor: 'pointer',
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleRunBacktest}
+                style={{
+                  padding: `${ds.spacing.small} ${ds.spacing.large}`,
+                  backgroundColor: ds.colors.semantic.primary,
+                  color: ds.colors.grayscale[5],
+                  border: 'none',
+                  borderRadius: ds.interactive.radius.medium,
+                  fontSize: ds.typography.scale.small,
+                  fontWeight: ds.typography.weights.medium,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: ds.spacing.small,
+                }}
+              >
+                📊 Run Backtest
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Strategy Form Dialog */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="md" fullWidth>
-        <DialogTitle>
-          {selectedStrategyForEdit ? 'Edit Strategy' : 'Create New Strategy'}
-        </DialogTitle>
-        <DialogContent>
-          <Grid container spacing={2} sx={{ mt: 1 }}>
-            <Grid item xs={12} md={6}>
-              <TextField
-                fullWidth
-                label="Strategy Name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <FormControl fullWidth>
-                <InputLabel>Strategy Type</InputLabel>
-                <Select
+      {openDialog && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+        }}>
+          <div style={{
+            backgroundColor: ds.colors.semantic.background.primary,
+            borderRadius: ds.interactive.radius.large,
+            padding: ds.spacing.xlarge,
+            maxWidth: '700px',
+            width: '90%',
+            maxHeight: '90vh',
+            overflow: 'auto',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+          }}>
+            <h2 style={{
+              fontSize: ds.typography.scale.large,
+              fontWeight: ds.typography.weights.semibold,
+              marginBottom: ds.spacing.large,
+            }}>
+              {selectedStrategyForEdit ? 'Edit Strategy' : 'Create New Strategy'}
+            </h2>
+            
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: ds.spacing.medium,
+              marginBottom: ds.spacing.large,
+            }}>
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: ds.typography.scale.small,
+                  color: ds.colors.grayscale[70],
+                  marginBottom: ds.spacing.small,
+                }}>
+                  Strategy Name
+                </label>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: ds.spacing.small,
+                    backgroundColor: ds.colors.semantic.background.secondary,
+                    color: ds.colors.grayscale[90],
+                    border: `1px solid ${ds.colors.grayscale[30]}`,
+                    borderRadius: ds.interactive.radius.small,
+                    fontSize: ds.typography.scale.small,
+                  }}
+                />
+              </div>
+              
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: ds.typography.scale.small,
+                  color: ds.colors.grayscale[70],
+                  marginBottom: ds.spacing.small,
+                }}>
+                  Strategy Type
+                </label>
+                <select
                   value={formData.type}
                   onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
-                  label="Strategy Type"
+                  style={{
+                    width: '100%',
+                    padding: ds.spacing.small,
+                    backgroundColor: ds.colors.semantic.background.secondary,
+                    color: ds.colors.grayscale[90],
+                    border: `1px solid ${ds.colors.grayscale[30]}`,
+                    borderRadius: ds.interactive.radius.small,
+                    fontSize: ds.typography.scale.small,
+                    cursor: 'pointer',
+                  }}
                 >
-                  <MenuItem value="mean_reversion">Mean Reversion</MenuItem>
-                  <MenuItem value="momentum">Momentum</MenuItem>
-                  <MenuItem value="scalping">Scalping</MenuItem>
-                  <MenuItem value="market_making">Market Making</MenuItem>
-                  <MenuItem value="ai_generated">AI Generated</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                multiline
-                rows={2}
-                label="Description"
+                  <option value="mean_reversion">Mean Reversion</option>
+                  <option value="momentum">Momentum</option>
+                  <option value="scalping">Scalping</option>
+                  <option value="market_making">Market Making</option>
+                  <option value="ai_generated">AI Generated</option>
+                </select>
+              </div>
+            </div>
+            
+            <div style={{ marginBottom: ds.spacing.medium }}>
+              <label style={{
+                display: 'block',
+                fontSize: ds.typography.scale.small,
+                color: ds.colors.grayscale[70],
+                marginBottom: ds.spacing.small,
+              }}>
+                Description
+              </label>
+              <textarea
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                rows={2}
+                style={{
+                  width: '100%',
+                  padding: ds.spacing.small,
+                  backgroundColor: ds.colors.semantic.background.secondary,
+                  color: ds.colors.grayscale[90],
+                  border: `1px solid ${ds.colors.grayscale[30]}`,
+                  borderRadius: ds.interactive.radius.small,
+                  fontSize: ds.typography.scale.small,
+                  resize: 'vertical',
+                }}
               />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                multiline
-                rows={3}
-                label="Entry Conditions"
-                placeholder="e.g., RSI < 30 AND Price > 20 EMA"
+            </div>
+            
+            <div style={{ marginBottom: ds.spacing.medium }}>
+              <label style={{
+                display: 'block',
+                fontSize: ds.typography.scale.small,
+                color: ds.colors.grayscale[70],
+                marginBottom: ds.spacing.small,
+              }}>
+                Entry Conditions
+              </label>
+              <textarea
                 value={formData.entryCondition}
                 onChange={(e) => setFormData({ ...formData, entryCondition: e.target.value })}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                multiline
+                placeholder="e.g., RSI < 30 AND Price > 20 EMA"
                 rows={3}
-                label="Exit Conditions"
-                placeholder="e.g., RSI > 70 OR Price < Entry - 2%"
+                style={{
+                  width: '100%',
+                  padding: ds.spacing.small,
+                  backgroundColor: ds.colors.semantic.background.secondary,
+                  color: ds.colors.grayscale[90],
+                  border: `1px solid ${ds.colors.grayscale[30]}`,
+                  borderRadius: ds.interactive.radius.small,
+                  fontSize: ds.typography.scale.small,
+                  fontFamily: ds.typography.families.data,
+                  resize: 'vertical',
+                }}
+              />
+            </div>
+            
+            <div style={{ marginBottom: ds.spacing.medium }}>
+              <label style={{
+                display: 'block',
+                fontSize: ds.typography.scale.small,
+                color: ds.colors.grayscale[70],
+                marginBottom: ds.spacing.small,
+              }}>
+                Exit Conditions
+              </label>
+              <textarea
                 value={formData.exitCondition}
                 onChange={(e) => setFormData({ ...formData, exitCondition: e.target.value })}
+                placeholder="e.g., RSI > 70 OR Price < Entry - 2%"
+                rows={3}
+                style={{
+                  width: '100%',
+                  padding: ds.spacing.small,
+                  backgroundColor: ds.colors.semantic.background.secondary,
+                  color: ds.colors.grayscale[90],
+                  border: `1px solid ${ds.colors.grayscale[30]}`,
+                  borderRadius: ds.interactive.radius.small,
+                  fontSize: ds.typography.scale.small,
+                  fontFamily: ds.typography.families.data,
+                  resize: 'vertical',
+                }}
               />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                label="Stop Loss (%)"
-                type="number"
-                value={formData.stopLoss}
-                onChange={(e) => setFormData({ ...formData, stopLoss: e.target.value })}
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                label="Take Profit (%)"
-                type="number"
-                value={formData.takeProfit}
-                onChange={(e) => setFormData({ ...formData, takeProfit: e.target.value })}
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                label="Position Size ($)"
-                type="number"
-                value={formData.positionSize}
-                onChange={(e) => setFormData({ ...formData, positionSize: e.target.value })}
-              />
-            </Grid>
-          </Grid>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button onClick={handleSave} variant="contained">
-            {selectedStrategyForEdit ? 'Update' : 'Create'}
-          </Button>
-        </DialogActions>
-      </Dialog>
+            </div>
+            
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr 1fr',
+              gap: ds.spacing.medium,
+              marginBottom: ds.spacing.large,
+            }}>
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: ds.typography.scale.small,
+                  color: ds.colors.grayscale[70],
+                  marginBottom: ds.spacing.small,
+                }}>
+                  Stop Loss (%)
+                </label>
+                <input
+                  type="number"
+                  value={formData.stopLoss}
+                  onChange={(e) => setFormData({ ...formData, stopLoss: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: ds.spacing.small,
+                    backgroundColor: ds.colors.semantic.background.secondary,
+                    color: ds.colors.grayscale[90],
+                    border: `1px solid ${ds.colors.grayscale[30]}`,
+                    borderRadius: ds.interactive.radius.small,
+                    fontSize: ds.typography.scale.small,
+                    fontFamily: ds.typography.families.data,
+                  }}
+                />
+              </div>
+              
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: ds.typography.scale.small,
+                  color: ds.colors.grayscale[70],
+                  marginBottom: ds.spacing.small,
+                }}>
+                  Take Profit (%)
+                </label>
+                <input
+                  type="number"
+                  value={formData.takeProfit}
+                  onChange={(e) => setFormData({ ...formData, takeProfit: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: ds.spacing.small,
+                    backgroundColor: ds.colors.semantic.background.secondary,
+                    color: ds.colors.grayscale[90],
+                    border: `1px solid ${ds.colors.grayscale[30]}`,
+                    borderRadius: ds.interactive.radius.small,
+                    fontSize: ds.typography.scale.small,
+                    fontFamily: ds.typography.families.data,
+                  }}
+                />
+              </div>
+              
+              <div>
+                <label style={{
+                  display: 'block',
+                  fontSize: ds.typography.scale.small,
+                  color: ds.colors.grayscale[70],
+                  marginBottom: ds.spacing.small,
+                }}>
+                  Position Size ($)
+                </label>
+                <input
+                  type="number"
+                  value={formData.positionSize}
+                  onChange={(e) => setFormData({ ...formData, positionSize: e.target.value })}
+                  style={{
+                    width: '100%',
+                    padding: ds.spacing.small,
+                    backgroundColor: ds.colors.semantic.background.secondary,
+                    color: ds.colors.grayscale[90],
+                    border: `1px solid ${ds.colors.grayscale[30]}`,
+                    borderRadius: ds.interactive.radius.small,
+                    fontSize: ds.typography.scale.small,
+                    fontFamily: ds.typography.families.data,
+                  }}
+                />
+              </div>
+            </div>
+            
+            <div style={{
+              display: 'flex',
+              gap: ds.spacing.medium,
+              justifyContent: 'flex-end',
+            }}>
+              <button
+                onClick={() => {
+                  setOpenDialog(false)
+                  setSelectedStrategyForEdit(null)
+                }}
+                style={{
+                  padding: `${ds.spacing.small} ${ds.spacing.large}`,
+                  backgroundColor: 'transparent',
+                  color: ds.colors.grayscale[70],
+                  border: `1px solid ${ds.colors.grayscale[30]}`,
+                  borderRadius: ds.interactive.radius.medium,
+                  fontSize: ds.typography.scale.small,
+                  fontWeight: ds.typography.weights.medium,
+                  cursor: 'pointer',
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSave}
+                style={{
+                  padding: `${ds.spacing.small} ${ds.spacing.large}`,
+                  backgroundColor: ds.colors.semantic.primary,
+                  color: ds.colors.grayscale[5],
+                  border: 'none',
+                  borderRadius: ds.interactive.radius.medium,
+                  fontSize: ds.typography.scale.small,
+                  fontWeight: ds.typography.weights.medium,
+                  cursor: 'pointer',
+                }}
+              >
+                {selectedStrategyForEdit ? 'Update' : 'Create'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
