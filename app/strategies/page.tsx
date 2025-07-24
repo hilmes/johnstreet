@@ -50,6 +50,8 @@ import {
   ShowChart as ShowChartIcon,
   ViewList as ViewListIcon,
   TableChart as TableChartIcon,
+  Send as SendIcon,
+  Chat as ChatIcon,
 } from '@mui/icons-material'
 import ExpandableStrategyList from '@/components/ExpandableStrategyList'
 import StrategyChat from '@/components/StrategyChat'
@@ -269,6 +271,17 @@ export default function StrategiesPage() {
   const [backtestResults, setBacktestResults] = useState<BacktestResult | null>(null)
   const [isBacktesting, setIsBacktesting] = useState(false)
 
+  // Simple chat interface states
+  const [chatInput, setChatInput] = useState('')
+  const [chatMessages, setChatMessages] = useState<Array<{id: string, text: string, timestamp: Date, type: 'user' | 'system'}>>([
+    {
+      id: '1',
+      text: 'Welcome! I can help you create trading strategies, analyze market conditions, or answer questions about your existing strategies. What would you like to do?',
+      timestamp: new Date(),
+      type: 'system'
+    }
+  ])
+
   const handleStatusToggle = (strategyId: string) => {
     setStrategies(prev => 
       prev.map(s => 
@@ -376,6 +389,49 @@ export default function StrategiesPage() {
     }
   }, [])
 
+  // Simple chat handlers
+  const handleChatSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!chatInput.trim()) return
+
+    const userMessage = {
+      id: Date.now().toString(),
+      text: chatInput,
+      timestamp: new Date(),
+      type: 'user' as const
+    }
+
+    setChatMessages(prev => [...prev, userMessage])
+    setChatInput('')
+
+    // Simple response logic
+    setTimeout(() => {
+      const systemResponse = {
+        id: (Date.now() + 1).toString(),
+        text: getSimpleResponse(chatInput),
+        timestamp: new Date(),
+        type: 'system' as const
+      }
+      setChatMessages(prev => [...prev, systemResponse])
+    }, 1000)
+  }
+
+  const getSimpleResponse = (input: string): string => {
+    const lowerInput = input.toLowerCase()
+    
+    if (lowerInput.includes('strategy') || lowerInput.includes('create')) {
+      return 'I can help you create trading strategies! Use the AI Strategy Builder below or try one of the quick start templates. What type of strategy are you interested in? (momentum, mean reversion, scalping, etc.)'
+    } else if (lowerInput.includes('market') || lowerInput.includes('price')) {
+      return 'For market analysis, I recommend checking the dashboard for real-time data. What specific market conditions are you looking to analyze?'
+    } else if (lowerInput.includes('risk') || lowerInput.includes('manage')) {
+      return 'Risk management is crucial! Check your existing strategies below - you can see their performance metrics, win rates, and P&L. Would you like help setting up stop losses or position sizing?'
+    } else if (lowerInput.includes('help') || lowerInput.includes('how')) {
+      return 'I can help with: 1) Creating new trading strategies, 2) Analyzing your existing strategies, 3) Market analysis, 4) Risk management. What would you like to focus on?'
+    } else {
+      return 'Interesting question! For detailed strategy creation, use the AI Strategy Builder below. For general trading questions, I recommend checking your dashboard or existing strategies. How can I help you specifically?'
+    }
+  }
+
   const handleDelete = (strategyId: string) => {
     setStrategies(prev => prev.filter(s => s.id !== strategyId))
   }
@@ -461,6 +517,86 @@ export default function StrategiesPage() {
           </a>
         </Alert>
       )}
+
+      {/* Simple Chat Interface */}
+      <Paper sx={{ p: 3, mb: 3 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+          <ChatIcon sx={{ color: 'primary.main' }} />
+          <Typography variant="h6">Quick Chat</Typography>
+        </Box>
+        
+        <Box sx={{ 
+          maxHeight: 300, 
+          minHeight: 200,
+          overflow: 'auto', 
+          border: '1px solid #e0e0e0', 
+          borderRadius: 1, 
+          p: 2, 
+          mb: 2,
+          backgroundColor: '#fafafa'
+        }}>
+          {chatMessages.map((message) => (
+            <Box 
+              key={message.id} 
+              sx={{ 
+                mb: 1, 
+                display: 'flex', 
+                justifyContent: message.type === 'user' ? 'flex-end' : 'flex-start' 
+              }}
+            >
+              <Box
+                sx={{
+                  maxWidth: '80%',
+                  p: 1.5,
+                  borderRadius: 2,
+                  backgroundColor: message.type === 'user' ? '#1976d2' : '#e3f2fd',
+                  color: message.type === 'user' ? 'white' : 'black',
+                }}
+              >
+                <Typography variant="body2" sx={{ fontSize: '0.875rem' }}>
+                  {message.text}
+                </Typography>
+                <Typography 
+                  variant="caption" 
+                  sx={{ 
+                    fontSize: '0.7rem', 
+                    opacity: 0.7, 
+                    display: 'block', 
+                    mt: 0.5 
+                  }}
+                >
+                  {message.timestamp.toLocaleTimeString()}
+                </Typography>
+              </Box>
+            </Box>
+          ))}
+        </Box>
+
+        <Box 
+          component="form" 
+          onSubmit={handleChatSubmit}
+          sx={{ display: 'flex', gap: 1 }}
+        >
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder="Ask me about trading strategies, market analysis, or risk management..."
+            value={chatInput}
+            onChange={(e) => setChatInput(e.target.value)}
+            size="small"
+            sx={{ flexGrow: 1 }}
+          />
+          <Button 
+            type="submit" 
+            variant="contained" 
+            endIcon={<SendIcon />}
+            disabled={!chatInput.trim()}
+            sx={{ minWidth: 100 }}
+          >
+            Send
+          </Button>
+        </Box>
+      </Paper>
 
       {/* Quick Start Templates */}
       <Box sx={{ mb: 3 }}>
