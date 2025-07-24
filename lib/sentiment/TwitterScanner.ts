@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import { SocialMediaPost, SentimentAnalyzer, CryptoPumpSignal } from './SentimentAnalyzer'
 import { CryptoSymbolExtractor } from './CryptoSymbolExtractor'
-import { ActivityLogger } from './ActivityLogger'
+import { activityLoggerKV } from './ActivityLoggerKV'
 
 export interface TwitterCredentials {
   bearerToken?: string
@@ -79,7 +79,6 @@ export interface TwitterAnalysis {
 export class TwitterScanner {
   private credentials: TwitterCredentials | null = null
   private sentimentAnalyzer: SentimentAnalyzer
-  private activityLogger: ActivityLogger
   private isConnected: boolean = false
   private baseUrl = 'https://api.twitter.com/2'
   
@@ -118,7 +117,6 @@ export class TwitterScanner {
 
   constructor() {
     this.sentimentAnalyzer = new SentimentAnalyzer()
-    this.activityLogger = ActivityLogger.getInstance()
   }
 
   async connect(credentials: TwitterCredentials): Promise<void> {
@@ -160,7 +158,7 @@ export class TwitterScanner {
     maxResults: number = 100,
     hours: number = 24
   ): Promise<TwitterSearchResult> {
-    const timer = this.activityLogger.startTimer(`Twitter search: ${query}`)
+    const timer = activityLoggerKV.startTimer(`Twitter search: ${query}`)
     
     if (!this.credentials?.bearerToken) {
       throw new Error('Twitter credentials not configured')
@@ -197,7 +195,7 @@ export class TwitterScanner {
 
       // Log successful search
       const duration = timer()
-      this.activityLogger.logTwitterScan(query, {
+      await activityLoggerKV.logTwitterScan(query, {
         result_count: data.meta.result_count,
         newest_id: data.meta.newest_id,
         oldest_id: data.meta.oldest_id,
@@ -208,7 +206,7 @@ export class TwitterScanner {
       return data
     } catch (error) {
       // Log error
-      this.activityLogger.logError(`Twitter search: ${query}`, 'Failed to search tweets', error)
+      await activityLoggerKV.logError(`Twitter search: ${query}`, 'Failed to search tweets', error)
       throw new Error(`Failed to search tweets: ${error}`)
     }
   }

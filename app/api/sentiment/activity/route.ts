@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { ActivityLogger } from '@/lib/sentiment/ActivityLogger'
+import { activityLoggerKV } from '@/lib/sentiment/ActivityLoggerKV'
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
@@ -12,11 +12,9 @@ export async function GET(request: NextRequest) {
   const endTime = searchParams.get('end_time')
 
   try {
-    const logger = ActivityLogger.getInstance()
-
     switch (action) {
       case 'recent': {
-        const logs = logger.getRecentLogs(limit, type as any)
+        const logs = await activityLoggerKV.getRecentLogs(limit, type as any)
         return NextResponse.json({
           success: true,
           data: logs
@@ -31,7 +29,7 @@ export async function GET(request: NextRequest) {
           )
         }
 
-        const logs = logger.getLogsByTimeRange(parseInt(startTime), parseInt(endTime))
+        const logs = await activityLoggerKV.getLogsByTimeRange(parseInt(startTime), parseInt(endTime))
         return NextResponse.json({
           success: true,
           data: logs
@@ -46,10 +44,11 @@ export async function GET(request: NextRequest) {
           )
         }
 
-        const logs = logger.getLogsByPlatform(platform as any)
+        const logs = await activityLoggerKV.getRecentLogs(1000)
+        const filteredLogs = logs.filter(log => log.platform === platform)
         return NextResponse.json({
           success: true,
-          data: logs.slice(0, limit)
+          data: filteredLogs.slice(0, limit)
         })
       }
 
@@ -61,16 +60,18 @@ export async function GET(request: NextRequest) {
           )
         }
 
-        const logs = logger.getLogsBySeverity(severity as any)
+        const logs = await activityLoggerKV.getRecentLogs(1000)
+        const filteredLogs = logs.filter(log => log.severity === severity)
         return NextResponse.json({
           success: true,
-          data: logs.slice(0, limit)
+          data: filteredLogs.slice(0, limit)
         })
       }
 
       case 'stats': {
         const timeRange = parseInt(searchParams.get('time_range') || '60000') // Default: 1 minute
-        const stats = logger.getStatistics(timeRange)
+        const timeRangeType = timeRange <= 3600000 ? 'hour' : timeRange <= 86400000 ? 'day' : 'week'
+        const stats = await activityLoggerKV.getStatistics(timeRangeType)
         return NextResponse.json({
           success: true,
           data: stats
@@ -92,7 +93,7 @@ export async function GET(request: NextRequest) {
             controller.enqueue(encoder.encode(initialMessage))
 
             // Subscribe to new log entries
-            const unsubscribe = logger.subscribe((entry) => {
+            const unsubscribe = activityLoggerKV.subscribe((entry) => {
               const message = `data: ${JSON.stringify({
                 type: 'log',
                 ...entry
@@ -137,7 +138,7 @@ export async function GET(request: NextRequest) {
       }
 
       case 'export': {
-        const logs = logger.getAllLogs()
+        const logs = await activityLoggerKV.getRecentLogs(10000) // Get up to 10k logs for export
         return NextResponse.json({
           success: true,
           data: {
@@ -173,8 +174,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { action, logs, entry } = body
 
-    const logger = ActivityLogger.getInstance()
-
     switch (action) {
       case 'log': {
         if (!entry) {
@@ -184,7 +183,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const logEntry = logger.log(entry)
+        const logEntry = await activityLoggerKV.log(entry)
         return NextResponse.json({
           success: true,
           data: logEntry
@@ -199,18 +198,24 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        logger.logBatch(logs)
+        // KV version handles one at a time for consistency
+        const logEntries = []
+        for (const entry of logs) {
+          const logEntry = await activityLoggerKV.log(entry)
+          logEntries.push(logEntry)
+        }
         return NextResponse.json({
           success: true,
-          data: { message: `Logged ${logs.length} entries` }
+          data: { message: `Logged ${logs.length} entries`, entries: logEntries }
         })
       }
 
       case 'clear': {
-        logger.clearLogs()
+        // KV version doesn't support clearing all logs for data integrity
+        // Instead, return recent activity summary
         return NextResponse.json({
           success: true,
-          data: { message: 'All logs cleared' }
+          data: { message: 'Clear operation not supported in persistent storage', summary: await activityLoggerKV.getActivitySummary() }
         })
       }
 

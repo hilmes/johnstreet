@@ -1,15 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { SubredditManager, SubredditConfig } from '@/lib/sentiment/SubredditManager'
-
-// Global instance to maintain state across requests
-let subredditManager: SubredditManager | null = null
-
-function getManager(): SubredditManager {
-  if (!subredditManager) {
-    subredditManager = new SubredditManager()
-  }
-  return subredditManager
-}
+import { SubredditConfig } from '@/lib/sentiment/SubredditManager'
+import { subredditManagerKV } from '@/lib/sentiment/SubredditManagerKV'
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
@@ -23,15 +14,13 @@ export async function GET(request: NextRequest) {
   const name = searchParams.get('name')
 
   try {
-    const manager = getManager()
-
     switch (action) {
       case 'list': {
-        let subreddits = manager.getAllSubreddits()
+        let subreddits = await subredditManagerKV.getAllSubreddits()
 
         // Apply filters
         if (tag) {
-          subreddits = manager.getSubredditsByTag(tag)
+          subreddits = await subredditManagerKV.getSubredditsByTag(tag)
         }
         if (riskLevel) {
           subreddits = subreddits.filter(s => s.riskLevel === riskLevel)
@@ -47,7 +36,7 @@ export async function GET(request: NextRequest) {
           subreddits = subreddits.filter(s => s.scanFrequency === frequency)
         }
         if (query) {
-          subreddits = manager.searchSubreddits(query)
+          subreddits = await subredditManagerKV.searchSubreddits(query)
         }
 
         return NextResponse.json({
@@ -64,7 +53,7 @@ export async function GET(request: NextRequest) {
           )
         }
 
-        const subreddit = manager.getSubreddit(name)
+        const subreddit = await subredditManagerKV.getSubreddit(name)
         return NextResponse.json({
           success: true,
           data: subreddit || null
@@ -72,7 +61,7 @@ export async function GET(request: NextRequest) {
       }
 
       case 'tags': {
-        const tags = manager.getAllTags()
+        const tags = await subredditManagerKV.getAllTags()
         return NextResponse.json({
           success: true,
           data: tags
@@ -80,7 +69,7 @@ export async function GET(request: NextRequest) {
       }
 
       case 'stats': {
-        const stats = manager.getStats()
+        const stats = await subredditManagerKV.getStats()
         return NextResponse.json({
           success: true,
           data: stats
@@ -88,7 +77,7 @@ export async function GET(request: NextRequest) {
       }
 
       case 'to_scan': {
-        const subreddits = manager.getSubredditsToScan()
+        const subreddits = await subredditManagerKV.getSubredditsToScan()
         return NextResponse.json({
           success: true,
           data: subreddits
@@ -103,7 +92,7 @@ export async function GET(request: NextRequest) {
           )
         }
 
-        const validation = manager.validateSubredditName(name)
+        const validation = await subredditManagerKV.validateSubredditName(name)
         return NextResponse.json({
           success: true,
           data: validation
@@ -111,7 +100,7 @@ export async function GET(request: NextRequest) {
       }
 
       case 'export': {
-        const config = manager.exportConfiguration()
+        const config = await subredditManagerKV.exportConfiguration()
         return NextResponse.json({
           success: true,
           data: { config }
@@ -143,8 +132,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { action, subreddit, subreddits, tag, updates, config } = body
 
-    const manager = getManager()
-
     switch (action) {
       case 'add': {
         if (!subreddit) {
@@ -155,7 +142,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Validate subreddit name
-        const validation = manager.validateSubredditName(subreddit.name)
+        const validation = await subredditManagerKV.validateSubredditName(subreddit.name)
         if (!validation.valid) {
           return NextResponse.json(
             { success: false, error: validation.error },
@@ -163,7 +150,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const success = manager.addSubreddit(subreddit)
+        const success = await subredditManagerKV.addSubreddit(subreddit)
         if (!success) {
           return NextResponse.json(
             { success: false, error: 'Failed to add subreddit' },
@@ -185,7 +172,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const success = manager.updateSubreddit(subreddit.name, updates)
+        const success = await subredditManagerKV.updateSubreddit(subreddit.name, updates)
         if (!success) {
           return NextResponse.json(
             { success: false, error: 'Subreddit not found' },
@@ -207,7 +194,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const success = manager.removeSubreddit(subreddit.name)
+        const success = await subredditManagerKV.removeSubreddit(subreddit.name)
         if (!success) {
           return NextResponse.json(
             { success: false, error: 'Subreddit not found' },
@@ -229,7 +216,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const success = manager.toggleSubreddit(subreddit.name)
+        const success = await subredditManagerKV.toggleSubreddit(subreddit.name)
         if (!success) {
           return NextResponse.json(
             { success: false, error: 'Subreddit not found' },
@@ -237,7 +224,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const updated = manager.getSubreddit(subreddit.name)
+        const updated = await subredditManagerKV.getSubreddit(subreddit.name)
         return NextResponse.json({
           success: true,
           data: { 
@@ -255,7 +242,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const updated = manager.bulkUpdateSubreddits(subreddits, updates)
+        const updated = await subredditManagerKV.bulkUpdateSubreddits(subreddits, updates)
         return NextResponse.json({
           success: true,
           data: { 
@@ -273,7 +260,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const toggled = manager.bulkToggleSubreddits(subreddits)
+        const toggled = await subredditManagerKV.bulkToggleSubreddits(subreddits)
         return NextResponse.json({
           success: true,
           data: { 
@@ -291,7 +278,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const success = manager.addTag(tag)
+        const success = await subredditManagerKV.addTag(tag)
         if (!success) {
           return NextResponse.json(
             { success: false, error: 'Tag already exists' },
@@ -313,7 +300,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const success = manager.updateTag(tag.name, updates)
+        const success = await subredditManagerKV.updateTag(tag.name, updates)
         if (!success) {
           return NextResponse.json(
             { success: false, error: 'Tag not found' },
@@ -335,7 +322,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const success = manager.removeTag(tag.name)
+        const success = await subredditManagerKV.removeTag(tag.name)
         if (!success) {
           return NextResponse.json(
             { success: false, error: 'Tag not found' },
@@ -357,7 +344,7 @@ export async function POST(request: NextRequest) {
           )
         }
 
-        const result = manager.importConfiguration(config)
+        const result = await subredditManagerKV.importConfiguration(config)
         if (!result.success) {
           return NextResponse.json(
             { success: false, error: result.error },
@@ -380,7 +367,7 @@ export async function POST(request: NextRequest) {
         }
 
         const { totalPosts, avgSentiment, pumpSignalsDetected } = body
-        const success = manager.updateScanResults(subreddit.name, {
+        const success = await subredditManagerKV.updateScanResults(subreddit.name, {
           totalPosts,
           avgSentiment,
           pumpSignalsDetected

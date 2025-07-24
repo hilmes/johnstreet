@@ -1,7 +1,7 @@
 import { CryptoSymbolExtractor, ExtractedSymbol } from './CryptoSymbolExtractor'
 import { RedditScanner } from './RedditScanner'
 import { TwitterScanner } from './TwitterScanner'
-import { ActivityLogger } from './ActivityLogger'
+import { activityLoggerKV } from './ActivityLoggerKV'
 
 export interface SymbolHistoryRecord {
   symbol: string
@@ -50,14 +50,12 @@ export class HistoricalVerifier {
   private symbolHistory: Map<string, SymbolHistoryRecord> = new Map()
   private redditScanner: RedditScanner
   private twitterScanner: TwitterScanner
-  private activityLogger: ActivityLogger
   private historicalLookbackDays: number = 30
   private newSymbolThresholdDays: number = 7
 
   constructor() {
     this.redditScanner = new RedditScanner()
     this.twitterScanner = new TwitterScanner()
-    this.activityLogger = ActivityLogger.getInstance()
   }
 
   async initialize(): Promise<void> {
@@ -71,14 +69,15 @@ export class HistoricalVerifier {
 
   async verifyNewSymbol(symbol: string): Promise<NewSymbolAlert> {
     const upperSymbol = symbol.toUpperCase()
-    const timer = this.activityLogger.startTimer(`Historical verification: ${upperSymbol}`)
+    const timer = activityLoggerKV.startTimer(`Historical verification: ${upperSymbol}`)
     
     try {
-      this.activityLogger.log({
+      await activityLoggerKV.log({
         type: 'verification',
         platform: 'historical',
         message: `Starting verification for symbol: ${upperSymbol}`,
-        details: { symbol: upperSymbol }
+        data: { symbol: upperSymbol },
+        severity: 'info'
       })
       
       // Check if we have existing history for this symbol
@@ -131,22 +130,24 @@ export class HistoricalVerifier {
       await this.updateSymbolHistory(upperSymbol, currentMentions)
       
       const duration = timer()
-      this.activityLogger.log({
-        type: 'success',
-        platform: 'historical',
+      await activityLoggerKV.log({
+        type: 'historical_check',
+        platform: 'system',
+        source: 'historical_verifier',
         message: `Completed verification for ${upperSymbol}`,
-        details: { 
+        data: { 
           symbol: upperSymbol, 
           confidence: alert.confidence,
           riskLevel: alert.riskLevel,
           mentions: alert.mentions,
           duration
-        }
+        },
+        severity: 'success'
       })
       
       return alert
     } catch (error) {
-      this.activityLogger.logError(`Historical verification: ${upperSymbol}`, 'Failed to verify symbol', error)
+      await activityLoggerKV.logError(`Historical verification: ${upperSymbol}`, 'Failed to verify symbol', error)
       throw error
     }
   }
@@ -499,7 +500,7 @@ export class HistoricalVerifier {
     geoDistribution: Record<string, number>
     firstSignificantInterest?: number
   }> {
-    const timer = this.activityLogger.startTimer(`Google Trends: ${symbol}`)
+    const timer = activityLoggerKV.startTimer(`Google Trends: ${symbol}`)
     
     const trendsData = {
       searchVolume: [] as number[],
@@ -511,11 +512,13 @@ export class HistoricalVerifier {
     }
 
     try {
-      this.activityLogger.log({
-        type: 'scan',
-        platform: 'google_trends',
+      await activityLoggerKV.log({
+        type: 'api_call',
+        platform: 'api',
+        source: 'google_trends',
         message: `Fetching trends data for ${symbol}`,
-        details: { symbol }
+        data: { symbol },
+        severity: 'info'
       })
 
       // Note: In production, this would use the actual Google Trends API
@@ -553,21 +556,23 @@ export class HistoricalVerifier {
       }
 
       const duration = timer()
-      this.activityLogger.log({
-        type: 'success',
-        platform: 'google_trends',
+      await activityLoggerKV.log({
+        type: 'api_call',
+        platform: 'api',
+        source: 'google_trends',
         message: `Retrieved trends data for ${symbol}`,
-        details: { 
+        data: { 
           symbol, 
           peakInterest: trendsData.peakInterest,
           sustainedInterest: trendsData.sustainedInterest,
           relatedQueriesCount: trendsData.relatedQueries.length,
           duration
-        }
+        },
+        severity: 'success'
       })
 
     } catch (error) {
-      this.activityLogger.logError(`Google Trends: ${symbol}`, 'Failed to fetch trends data', error)
+      await activityLoggerKV.logError(`Google Trends: ${symbol}`, 'Failed to fetch trends data', error)
       console.error('Error fetching Google Trends data:', error)
     }
 
