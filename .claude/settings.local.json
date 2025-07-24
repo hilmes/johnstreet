@@ -17,7 +17,11 @@
       "Bash(git commit:*)",
       "Bash(npm run:*)",
       "Bash(cp:*)",
-      "WebFetch(domain:www.kraken.com)"
+      "WebFetch(domain:www.kraken.com)",
+      "Bash(lsof:*)",
+      "Bash(pkill:*)",
+      "Bash(next dev:*)",
+      "Bash(npx next dev:*)"
     ],
     "deny": []
   }

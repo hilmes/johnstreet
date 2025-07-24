@@ -193,31 +193,31 @@ export const tufteDesignSystem: DesignTokens = {
   
   colors: {
     neutral: {
-      0: '#FFFFFF',
-      50: '#FEFEFE',
-      100: '#F5F5F5',
-      200: '#E0E0E0',
-      400: '#757575',
-      900: '#212121',
-      1000: '#000000',
+      0: '#000000',      // Pure black
+      50: '#0A0A0A',     // Near black
+      100: '#1A1A1A',    // Dark gray - cards
+      200: '#2A2A2A',    // Medium gray - borders
+      400: '#888888',    // Light gray - secondary text
+      900: '#E0E0E0',    // Near white - primary text
+      1000: '#FFFFFF',   // Pure white - maximum contrast
     },
     
     semantic: {
-      profit: '#059669',      // Forest green
-      loss: '#DC2626',        // Clear red
-      neutral: '#6B7280',     // Neutral gray
-      warning: '#D97706',     // Amber
-      critical: '#991B1B',    // Dark red
+      profit: '#10B981',      // Bright green (better contrast on dark)
+      loss: '#EF4444',        // Bright red (better contrast on dark)
+      neutral: '#9CA3AF',     // Neutral gray
+      warning: '#F59E0B',     // Bright amber
+      critical: '#DC2626',    // Critical red
       
-      bid: '#065F46',         // Dark green
-      ask: '#7F1D1D',         // Dark red
-      volume: '#1E40AF',      // Blue
+      bid: '#10B981',         // Bright green
+      ask: '#EF4444',         // Bright red
+      volume: '#3B82F6',      // Bright blue
       
-      active: '#1D4ED8',      // Blue
-      inactive: '#9CA3AF',    // Light gray
-      background: '#FEFEFE',  // Off-white
-      surface: '#F9FAFB',     // Light gray
-      border: '#E5E7EB',      // Subtle border
+      active: '#3B82F6',      // Bright blue
+      inactive: '#4B5563',    // Dark gray
+      background: '#0A0A0A',  // Very dark background
+      surface: '#1A1A1A',     // Dark card background
+      border: '#2A2A2A',      // Dark border
     }
   },
   
