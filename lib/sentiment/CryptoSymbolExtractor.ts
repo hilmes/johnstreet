@@ -8,6 +8,9 @@ export interface ExtractedSymbol {
   name?: string
   mentions: number
   contexts: string[] // Text snippets where the symbol appears
+  newProjectIndicators?: number // Count of new project phrases found with this symbol
+  pumpIndicators?: number // Count of pump/dump phrases found with this symbol
+  riskScore?: number // 0-1 score based on pump indicators
 }
 
 export class CryptoSymbolExtractor {
@@ -93,6 +96,34 @@ export class CryptoSymbolExtractor {
     coinToken: /\b([A-Z]{2,10})\s*(coin|token)\b/gi,
   }
 
+  // New project indicators
+  private static readonly NEW_PROJECT_PATTERNS = [
+    /new\s+(project|coin|token|crypto|cryptocurrency)/gi,
+    /just\s+(launched|released|announced)/gi,
+    /(fresh|brand\s+new|stealth)\s+(launch|project)/gi,
+    /(hidden|found|discovered)\s+gem/gi,
+    /early\s+(stage|project|investment)/gi,
+    /(fair|stealth)\s+launch/gi,
+    /(presale|ido)\s+(live|launching|started)/gi,
+    /new\s+listing/gi,
+    /recently\s+(launched|listed|announced)/gi,
+    /gem\s+(alert|found)/gi
+  ]
+
+  // Pump and dump indicators  
+  private static readonly PUMP_PATTERNS = [
+    /\b(moon|moonshot|rocket|pump)\b/gi,
+    /\b(100x|1000x|10x|50x)\b/gi,
+    /diamond\s+hands/gi,
+    /(ape|yolo)\s+in/gi,
+    /to\s+the\s+moon/gi,
+    /get\s+(rich|wealthy)\s+(quick|fast)/gi,
+    /easy\s+money/gi,
+    /guaranteed\s+(profit|returns)/gi,
+    /next\s+(big|huge)\s+thing/gi,
+    /don't\s+miss\s+out/gi
+  ]
+
   // Words to exclude that might match patterns but aren't crypto
   private static readonly EXCLUSIONS = new Set([
     'THE', 'AND', 'FOR', 'ARE', 'BUT', 'NOT', 'ALL', 'NEW', 'ONE', 'TWO',
@@ -134,9 +165,19 @@ export class CryptoSymbolExtractor {
       }
     }
 
-    // Convert map to array and sort by mentions
+    // Analyze text for new project and pump indicators
+    this.analyzeRiskIndicators(text, symbolMap)
+
+    // Convert map to array and sort by mentions, then by risk score
     return Array.from(symbolMap.values())
-      .sort((a, b) => b.mentions - a.mentions)
+      .sort((a, b) => {
+        // Primary sort by mentions
+        if (b.mentions !== a.mentions) {
+          return b.mentions - a.mentions
+        }
+        // Secondary sort by risk score (higher risk first)
+        return (b.riskScore || 0) - (a.riskScore || 0)
+      })
   }
 
   /**
@@ -183,7 +224,10 @@ export class CryptoSymbolExtractor {
         symbol,
         name: this.KNOWN_CRYPTOS[symbol],
         mentions: 1,
-        contexts: [context]
+        contexts: [context],
+        newProjectIndicators: 0,
+        pumpIndicators: 0,
+        riskScore: 0
       })
     }
   }
@@ -238,6 +282,88 @@ export class CryptoSymbolExtractor {
   }
 
   /**
+   * Analyze text for new project and pump indicators around symbols
+   */
+  private static analyzeRiskIndicators(
+    text: string, 
+    symbolMap: Map<string, ExtractedSymbol>
+  ): void {
+    const lowerText = text.toLowerCase()
+    
+    // For each symbol found, analyze the surrounding context
+    for (const [symbol, symbolData] of symbolMap) {
+      // Find all mentions of this symbol in the text
+      const symbolPattern = new RegExp(`\\b(\\$?${symbol}|#${symbol})\\b`, 'gi')
+      const matches = [...text.matchAll(symbolPattern)]
+      
+      for (const match of matches) {
+        const matchIndex = match.index || 0
+        
+        // Get surrounding context (200 chars before and after)
+        const contextStart = Math.max(0, matchIndex - 200)
+        const contextEnd = Math.min(text.length, matchIndex + match[0].length + 200)
+        const context = text.substring(contextStart, contextEnd).toLowerCase()
+        
+        // Check for new project indicators
+        for (const pattern of this.NEW_PROJECT_PATTERNS) {
+          const newProjectMatches = context.matchAll(pattern)
+          for (const _ of newProjectMatches) {
+            symbolData.newProjectIndicators = (symbolData.newProjectIndicators || 0) + 1
+          }
+        }
+        
+        // Check for pump indicators
+        for (const pattern of this.PUMP_PATTERNS) {
+          const pumpMatches = context.matchAll(pattern)
+          for (const _ of pumpMatches) {
+            symbolData.pumpIndicators = (symbolData.pumpIndicators || 0) + 1
+          }
+        }
+      }
+      
+      // Calculate risk score (0-1)
+      const newProjectScore = Math.min(1, (symbolData.newProjectIndicators || 0) * 0.3)
+      const pumpScore = Math.min(1, (symbolData.pumpIndicators || 0) * 0.2)
+      const unknownSymbolBonus = this.KNOWN_CRYPTOS[symbol] ? 0 : 0.3
+      
+      symbolData.riskScore = Math.min(1, newProjectScore + pumpScore + unknownSymbolBonus)
+    }
+  }
+
+  /**
+   * Find symbols with high new project indicators
+   */
+  static findNewProjectSymbols(
+    symbols: ExtractedSymbol[],
+    minNewProjectIndicators: number = 1
+  ): ExtractedSymbol[] {
+    return symbols.filter(s => (s.newProjectIndicators || 0) >= minNewProjectIndicators)
+      .sort((a, b) => (b.newProjectIndicators || 0) - (a.newProjectIndicators || 0))
+  }
+
+  /**
+   * Find symbols with high pump indicators (potential pump and dump)
+   */
+  static findPumpSymbols(
+    symbols: ExtractedSymbol[],
+    minPumpIndicators: number = 2
+  ): ExtractedSymbol[] {
+    return symbols.filter(s => (s.pumpIndicators || 0) >= minPumpIndicators)
+      .sort((a, b) => (b.pumpIndicators || 0) - (a.pumpIndicators || 0))
+  }
+
+  /**
+   * Find high-risk symbols (combination of new project + pump indicators + unknown status)
+   */
+  static findHighRiskSymbols(
+    symbols: ExtractedSymbol[],
+    minRiskScore: number = 0.5
+  ): ExtractedSymbol[] {
+    return symbols.filter(s => (s.riskScore || 0) >= minRiskScore)
+      .sort((a, b) => (b.riskScore || 0) - (a.riskScore || 0))
+  }
+
+  /**
    * Find trending symbols (mentioned significantly more than usual)
    */
   static findTrendingSymbols(
@@ -255,5 +381,54 @@ export class CryptoSymbolExtractor {
     }
 
     return trending
+  }
+
+  /**
+   * Analyze text specifically for new project keywords
+   */
+  static analyzeNewProjectKeywords(text: string): {
+    hasNewProjectKeywords: boolean
+    keywords: string[]
+    score: number
+  } {
+    const foundKeywords: string[] = []
+    const lowerText = text.toLowerCase()
+    
+    for (const pattern of this.NEW_PROJECT_PATTERNS) {
+      const matches = [...lowerText.matchAll(pattern)]
+      for (const match of matches) {
+        foundKeywords.push(match[0])
+      }
+    }
+    
+    return {
+      hasNewProjectKeywords: foundKeywords.length > 0,
+      keywords: [...new Set(foundKeywords)], // Remove duplicates
+      score: Math.min(1, foundKeywords.length * 0.2)
+    }
+  }
+
+  /**
+   * Get all new project keywords for configuration
+   */
+  static getNewProjectKeywords(): string[] {
+    return [
+      'new project', 'new coin', 'new token', 'just launched', 'fresh launch',
+      'brand new', 'gem found', 'hidden gem', 'early project', 'stealth launch',
+      'fair launch', 'presale live', 'ido launching', 'new listing',
+      'recently launched', 'recently listed', 'gem alert'
+    ]
+  }
+
+  /**
+   * Get all pump keywords for configuration
+   */
+  static getPumpKeywords(): string[] {
+    return [
+      'moon', 'moonshot', 'rocket', 'pump', '100x', '1000x', '10x', '50x',
+      'diamond hands', 'ape in', 'yolo', 'to the moon', 'lambo',
+      'get rich quick', 'easy money', 'guaranteed profit', 'next big thing',
+      'don\'t miss out'
+    ]
   }
 }
