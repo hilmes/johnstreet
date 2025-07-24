@@ -5,6 +5,7 @@ import { twitterStreamingClient, TwitterStreamConfig } from './TwitterStreamingC
 import { cryptoPanicClient, CryptoPanicConfig } from './CryptoPanicClient'
 import { lunarCrushClient, LunarCrushConfig } from './LunarCrushClient'
 import { pushshiftClient, PushshiftConfig } from './PushshiftClient'
+import { dataSourceMetrics } from './DataSourceMetrics'
 
 export interface DataOrchestratorConfig {
   rss: {
@@ -116,6 +117,9 @@ export class DataOrchestrator {
     this.config = config
 
     try {
+      // Initialize persistent metrics tracker
+      await dataSourceMetrics.initialize()
+      
       await activityLoggerKV.log({
         type: 'api_call',
         platform: 'system',
@@ -345,12 +349,18 @@ export class DataOrchestrator {
       // Get recent activity from the activity logger
       const recentActivity = await activityLoggerKV.getRecentActivity(5 * 60 * 1000) // Last 5 minutes
       
+      // Track processed events
+      await dataSourceMetrics.recordEvent('cross_platform_analysis', recentActivity.length)
+      
       // Group by symbol
       const symbolGroups = new Map<string, any[]>()
       
       for (const activity of recentActivity) {
         if (activity.type === 'symbol_detection' && activity.data?.symbols) {
           const symbols = Array.isArray(activity.data.symbols) ? activity.data.symbols : [activity.data.symbols]
+          
+          // Track events by platform
+          await dataSourceMetrics.recordEvent(activity.platform || 'unknown', 1)
           
           for (const symbol of symbols) {
             if (!symbolGroups.has(symbol)) {
@@ -650,13 +660,17 @@ export class DataOrchestrator {
     }
   }
 
-  private updateStats(): void {
+  private async updateStats(): Promise<void> {
     this.stats.activeDataSources = this.getActiveSourceCount()
-    this.stats.dataSourceStatus = this.getDataSourceStatus()
+    this.stats.dataSourceStatus = await this.getDataSourceStatus()
     
-    // Update performance metrics (simplified)
-    const eventsPerMinute = this.stats.performance.totalEventsProcessed / 60
-    this.stats.performance.eventsPerMinute = eventsPerMinute
+    // Get aggregated stats from persistent metrics
+    const aggregatedStats = await dataSourceMetrics.getAggregatedStats()
+    
+    // Update performance metrics from persistent data
+    this.stats.performance.totalEventsProcessed = aggregatedStats.totalEvents
+    this.stats.performance.eventsPerMinute = aggregatedStats.eventsPerSecond * 60
+    this.stats.performance.errorRate = aggregatedStats.totalErrors / Math.max(aggregatedStats.totalEvents, 1)
   }
 
   private getActiveSourceCount(): number {
@@ -669,84 +683,93 @@ export class DataOrchestrator {
     return count
   }
 
-  private getDataSourceStatus(): DataSourceStatus[] {
+  private async getDataSourceStatus(): Promise<DataSourceStatus[]> {
     const status: DataSourceStatus[] = []
+    
+    // Get persistent metrics
+    const persistentMetrics = await dataSourceMetrics.getMetrics() as any[]
+    const metricsMap = new Map(persistentMetrics.map(m => [m.name, m]))
 
     // RSS Monitor Status
+    const rssMetrics = metricsMap.get('rss_monitor') || { totalEvents: 0, totalErrors: 0 }
     status.push({
       name: 'RSS Monitor',
       enabled: this.config?.rss.enabled || false,
       isActive: rssMonitor.isMonitoring(),
-      lastActivity: Date.now(), // Simplified
-      totalProcessed: rssMonitor.getFeedStats().totalItems,
-      errors: rssMonitor.getFeedStats().totalErrors,
+      lastActivity: rssMetrics.lastActivity || Date.now(),
+      totalProcessed: rssMetrics.totalEvents,
+      errors: rssMetrics.totalErrors,
       performance: {
-        avgResponseTime: 1000, // Simplified
-        successRate: 0.95, // Simplified
-        requestsPerMinute: 2 // Simplified
+        avgResponseTime: 1000,
+        successRate: rssMetrics.totalEvents > 0 ? (rssMetrics.totalEvents - rssMetrics.totalErrors) / rssMetrics.totalEvents : 0.95,
+        requestsPerMinute: 2
       }
     })
 
     // Twitter Streaming Status
     const twitterStats = twitterStreamingClient.getStats()
+    const twitterMetrics = metricsMap.get('twitter_stream') || { totalEvents: 0, totalErrors: 0 }
     status.push({
       name: 'Twitter Streaming',
       enabled: this.config?.twitter.enabled || false,
       isActive: twitterStats.isStreaming,
-      lastActivity: Date.now(),
-      totalProcessed: 0, // Would need to track this
-      errors: twitterStats.reconnectAttempts,
+      lastActivity: twitterMetrics.lastActivity || Date.now(),
+      totalProcessed: twitterMetrics.totalEvents,
+      errors: twitterMetrics.totalErrors,
       performance: {
         avgResponseTime: 500,
-        successRate: 0.98,
+        successRate: twitterMetrics.totalEvents > 0 ? (twitterMetrics.totalEvents - twitterMetrics.totalErrors) / twitterMetrics.totalEvents : 0.98,
         requestsPerMinute: twitterStats.tweetsThisMinute
       }
     })
 
     // CryptoPanic Status
     const cryptoPanicStats = cryptoPanicClient.getStats()
+    const cryptoPanicMetrics = metricsMap.get('cryptopanic') || { totalEvents: 0, totalErrors: 0 }
     status.push({
       name: 'CryptoPanic',
       enabled: this.config?.cryptopanic.enabled || false,
       isActive: cryptoPanicStats.isRunning,
-      lastActivity: Date.now(),
-      totalProcessed: cryptoPanicStats.processedPostsCount,
-      errors: 0, // Would need to track this
+      lastActivity: cryptoPanicMetrics.lastActivity || Date.now(),
+      totalProcessed: cryptoPanicMetrics.totalEvents,
+      errors: cryptoPanicMetrics.totalErrors,
       performance: {
         avgResponseTime: 1500,
-        successRate: 0.92,
+        successRate: cryptoPanicMetrics.totalEvents > 0 ? (cryptoPanicMetrics.totalEvents - cryptoPanicMetrics.totalErrors) / cryptoPanicMetrics.totalEvents : 0.92,
         requestsPerMinute: 1
       }
     })
 
     // LunarCrush Status
     const lunarCrushStats = lunarCrushClient.getStats()
+    const lunarCrushMetrics = metricsMap.get('lunarcrush') || { totalEvents: 0, totalErrors: 0 }
     status.push({
       name: 'LunarCrush',
       enabled: this.config?.lunarcrush.enabled || false,
       isActive: lunarCrushStats.isRunning,
-      lastActivity: lunarCrushStats.lastProcessedTime,
-      totalProcessed: lunarCrushStats.processedPostsCount,
-      errors: 0, // Would need to track this
+      lastActivity: lunarCrushMetrics.lastActivity || lunarCrushStats.lastProcessedTime,
+      totalProcessed: lunarCrushMetrics.totalEvents,
+      errors: lunarCrushMetrics.totalErrors,
       performance: {
         avgResponseTime: 2000,
-        successRate: 0.90,
+        successRate: lunarCrushMetrics.totalEvents > 0 ? (lunarCrushMetrics.totalEvents - lunarCrushMetrics.totalErrors) / lunarCrushMetrics.totalEvents : 0.90,
         requestsPerMinute: 0.5
       }
     })
 
     // Pushshift Status
     const pushshiftStats = pushshiftClient.getRequestStats()
+    const pushshiftMetrics = metricsMap.get('pushshift') || { totalEvents: 0, totalErrors: 0 }
     status.push({
       name: 'Pushshift',
       enabled: this.config?.pushshift.enabled || false,
       isActive: pushshiftStats.isProcessingQueue,
-      lastActivity: Date.now(),
-      totalProcessed: 0, // Historical, not continuous
-      errors: 0,
+      lastActivity: pushshiftMetrics.lastActivity || Date.now(),
+      totalProcessed: pushshiftMetrics.totalEvents,
+      errors: pushshiftMetrics.totalErrors,
       performance: {
         avgResponseTime: 3000,
-        successRate: 0.85,
+        successRate: pushshiftMetrics.totalEvents > 0 ? (pushshiftMetrics.totalEvents - pushshiftMetrics.totalErrors) / pushshiftMetrics.totalEvents : 0.85,
         requestsPerMinute: pushshiftStats.requestCount
       }
     })
@@ -764,7 +787,9 @@ export class DataOrchestrator {
     return this.activeSignals.get(symbol.toUpperCase()) || null
   }
 
-  getStats(): OrchestratorStats {
+  async getStats(): Promise<OrchestratorStats> {
+    // Update stats with latest persistent metrics
+    await this.updateStats()
     return { ...this.stats }
   }
 

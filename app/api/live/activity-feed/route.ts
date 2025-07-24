@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
     const crossPlatformSignals = dataOrchestrator.getActiveSignals()
 
     // Get orchestrator stats
-    const orchestratorStats = dataOrchestrator.getStats()
+    const orchestratorStats = await dataOrchestrator.getStats()
 
     // Calculate summary metrics
     const totalSymbolsDetected = new Set(symbolDetections.map(d => d.symbol)).size

@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     await dataOrchestrator.initialize(config)
     await dataOrchestrator.start()
 
-    const stats = dataOrchestrator.getStats()
+    const stats = await dataOrchestrator.getStats()
 
     return NextResponse.json({
       success: true,
@@ -83,7 +83,7 @@ export async function GET(request: NextRequest) {
     const { dataOrchestrator } = await import('@/lib/feeds/DataOrchestrator')
     
     const isActive = dataOrchestrator.isActive()
-    const stats = dataOrchestrator.getStats()
+    const stats = await dataOrchestrator.getStats()
     const config = dataOrchestrator.getConfig()
 
     return NextResponse.json({
