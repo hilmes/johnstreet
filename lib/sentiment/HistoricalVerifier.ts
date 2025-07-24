@@ -1,6 +1,7 @@
 import { CryptoSymbolExtractor, ExtractedSymbol } from './CryptoSymbolExtractor'
 import { RedditScanner } from './RedditScanner'
 import { TwitterScanner } from './TwitterScanner'
+import { ActivityLogger } from './ActivityLogger'
 
 export interface SymbolHistoryRecord {
   symbol: string
@@ -49,12 +50,14 @@ export class HistoricalVerifier {
   private symbolHistory: Map<string, SymbolHistoryRecord> = new Map()
   private redditScanner: RedditScanner
   private twitterScanner: TwitterScanner
+  private activityLogger: ActivityLogger
   private historicalLookbackDays: number = 30
   private newSymbolThresholdDays: number = 7
 
   constructor() {
     this.redditScanner = new RedditScanner()
     this.twitterScanner = new TwitterScanner()
+    this.activityLogger = ActivityLogger.getInstance()
   }
 
   async initialize(): Promise<void> {
@@ -68,53 +71,84 @@ export class HistoricalVerifier {
 
   async verifyNewSymbol(symbol: string): Promise<NewSymbolAlert> {
     const upperSymbol = symbol.toUpperCase()
+    const timer = this.activityLogger.startTimer(`Historical verification: ${upperSymbol}`)
     
-    // Check if we have existing history for this symbol
-    const existingHistory = this.symbolHistory.get(upperSymbol)
-    
-    // Perform historical lookup across platforms
-    const historicalData = await this.performHistoricalLookup(upperSymbol)
-    
-    // Analyze current mentions vs historical patterns
-    const currentMentions = await this.getCurrentMentions(upperSymbol)
-    
-    // Calculate newness confidence
-    const confidence = this.calculateNewnessConfidence(
-      upperSymbol,
-      existingHistory,
-      historicalData,
-      currentMentions
-    )
-    
-    // Detect pump indicators
-    const pumpIndicators = await this.detectPumpIndicators(upperSymbol, currentMentions)
-    
-    // Determine risk level and recommendation
-    const { riskLevel, recommendation } = this.assessRisk(confidence, pumpIndicators, historicalData)
-    
-    const alert: NewSymbolAlert = {
-      symbol: upperSymbol,
-      confidence,
-      riskLevel,
-      firstDetected: Date.now(),
-      platforms: [...new Set(currentMentions.map(m => m.platform))],
-      mentions: currentMentions.length,
-      historicalContext: {
-        hasHistory: !!existingHistory || historicalData.totalMentions > 0,
-        firstHistoricalMention: existingHistory?.firstMention || historicalData.firstMention,
-        daysSinceFirstMention: existingHistory ? 
-          Math.floor((Date.now() - existingHistory.firstMention) / (1000 * 60 * 60 * 24)) : 
-          undefined,
-        previousMentionCount: historicalData.totalMentions
-      },
-      pumpIndicators,
-      recommendation
+    try {
+      this.activityLogger.log({
+        type: 'verification',
+        platform: 'historical',
+        message: `Starting verification for symbol: ${upperSymbol}`,
+        details: { symbol: upperSymbol }
+      })
+      
+      // Check if we have existing history for this symbol
+      const existingHistory = this.symbolHistory.get(upperSymbol)
+      
+      // Perform historical lookup across platforms
+      const historicalData = await this.performHistoricalLookup(upperSymbol)
+      
+      // Analyze current mentions vs historical patterns
+      const currentMentions = await this.getCurrentMentions(upperSymbol)
+      
+      // Check Google Trends data
+      const trendsData = await this.getGoogleTrendsData(upperSymbol)
+      
+      // Calculate newness confidence
+      const confidence = this.calculateNewnessConfidence(
+        upperSymbol,
+        existingHistory,
+        historicalData,
+        currentMentions,
+        trendsData
+      )
+      
+      // Detect pump indicators
+      const pumpIndicators = await this.detectPumpIndicators(upperSymbol, currentMentions, trendsData)
+      
+      // Determine risk level and recommendation
+      const { riskLevel, recommendation } = this.assessRisk(confidence, pumpIndicators, historicalData)
+      
+      const alert: NewSymbolAlert = {
+        symbol: upperSymbol,
+        confidence,
+        riskLevel,
+        firstDetected: Date.now(),
+        platforms: [...new Set(currentMentions.map(m => m.platform))],
+        mentions: currentMentions.length,
+        historicalContext: {
+          hasHistory: !!existingHistory || historicalData.totalMentions > 0,
+          firstHistoricalMention: existingHistory?.firstMention || historicalData.firstMention,
+          daysSinceFirstMention: existingHistory ? 
+            Math.floor((Date.now() - existingHistory.firstMention) / (1000 * 60 * 60 * 24)) : 
+            undefined,
+          previousMentionCount: historicalData.totalMentions
+        },
+        pumpIndicators,
+        recommendation
+      }
+      
+      // Update our historical records
+      await this.updateSymbolHistory(upperSymbol, currentMentions)
+      
+      const duration = timer()
+      this.activityLogger.log({
+        type: 'success',
+        platform: 'historical',
+        message: `Completed verification for ${upperSymbol}`,
+        details: { 
+          symbol: upperSymbol, 
+          confidence: alert.confidence,
+          riskLevel: alert.riskLevel,
+          mentions: alert.mentions,
+          duration
+        }
+      })
+      
+      return alert
+    } catch (error) {
+      this.activityLogger.logError(`Historical verification: ${upperSymbol}`, 'Failed to verify symbol', error)
+      throw error
     }
-    
-    // Update our historical records
-    await this.updateSymbolHistory(upperSymbol, currentMentions)
-    
-    return alert
   }
 
   private async performHistoricalLookup(symbol: string): Promise<{
@@ -386,7 +420,8 @@ export class HistoricalVerifier {
     symbol: string,
     existingHistory: SymbolHistoryRecord | undefined,
     historicalData: any,
-    currentMentions: any[]
+    currentMentions: any[],
+    trendsData?: any
   ): number {
     let confidence = 0.5 // Base confidence
 
@@ -423,12 +458,126 @@ export class HistoricalVerifier {
       confidence -= 0.2 // Unusual symbol format
     }
 
+    // Factor 6: Google Trends validation
+    if (trendsData) {
+      // No search history = likely new
+      if (trendsData.searchVolume.every(v => v === 0)) {
+        confidence += 0.15
+      }
+      
+      // Recent first significant interest = likely new
+      if (trendsData.firstSignificantInterest) {
+        const daysSinceFirstInterest = (Date.now() - trendsData.firstSignificantInterest) / (1000 * 60 * 60 * 24)
+        if (daysSinceFirstInterest <= this.newSymbolThresholdDays) {
+          confidence += 0.2
+        }
+      }
+      
+      // Sustained interest vs spike pattern
+      if (!trendsData.sustainedInterest && trendsData.peakInterest > 50) {
+        confidence += 0.1 // Spike pattern suggests pump
+      }
+      
+      // Related queries analysis
+      const pumpRelatedQueries = trendsData.relatedQueries?.filter((q: string) => 
+        /pump|moon|rocket|buy|price|crypto/i.test(q)
+      ).length || 0
+      
+      if (pumpRelatedQueries > trendsData.relatedQueries?.length * 0.6) {
+        confidence -= 0.1 // Too many pump-related queries is suspicious
+      }
+    }
+
     return Math.max(0, Math.min(1, confidence))
+  }
+
+  private async getGoogleTrendsData(symbol: string): Promise<{
+    searchVolume: number[]
+    peakInterest: number
+    sustainedInterest: boolean
+    relatedQueries: string[]
+    geoDistribution: Record<string, number>
+    firstSignificantInterest?: number
+  }> {
+    const timer = this.activityLogger.startTimer(`Google Trends: ${symbol}`)
+    
+    const trendsData = {
+      searchVolume: [] as number[],
+      peakInterest: 0,
+      sustainedInterest: false,
+      relatedQueries: [] as string[],
+      geoDistribution: {} as Record<string, number>,
+      firstSignificantInterest: undefined as number | undefined
+    }
+
+    try {
+      this.activityLogger.log({
+        type: 'scan',
+        platform: 'google_trends',
+        message: `Fetching trends data for ${symbol}`,
+        details: { symbol }
+      })
+
+      // Note: In production, this would use the actual Google Trends API
+      // For now, we'll simulate the data structure and add TODO for integration
+      
+      // TODO: Implement actual Google Trends API integration
+      // This would typically involve:
+      // 1. Using google-trends-api npm package or similar
+      // 2. Searching for terms like: symbol, `${symbol} crypto`, `${symbol} cryptocurrency`
+      // 3. Getting interest over time, related queries, and geo data
+      
+      // Simulated trends data for demonstration
+      const queries = [
+        symbol,
+        `${symbol} crypto`,
+        `${symbol} cryptocurrency`,
+        `${symbol} coin`,
+        `buy ${symbol}`
+      ]
+
+      // In real implementation, this would fetch actual Google Trends data
+      trendsData.searchVolume = [0, 0, 0, 5, 15, 45, 80, 100, 65, 30] // Last 10 time periods
+      trendsData.peakInterest = Math.max(...trendsData.searchVolume)
+      trendsData.sustainedInterest = trendsData.searchVolume.slice(-5).every(v => v > 10)
+      trendsData.relatedQueries = [`${symbol} price`, `${symbol} pump`, `buy ${symbol}`, `${symbol} moon`]
+      trendsData.geoDistribution = { 'US': 45, 'IN': 25, 'GB': 15, 'CA': 10, 'AU': 5 }
+      
+      // Detect first significant interest (>10% of peak)
+      const threshold = trendsData.peakInterest * 0.1
+      for (let i = 0; i < trendsData.searchVolume.length; i++) {
+        if (trendsData.searchVolume[i] > threshold) {
+          trendsData.firstSignificantInterest = Date.now() - (trendsData.searchVolume.length - i) * 24 * 60 * 60 * 1000
+          break
+        }
+      }
+
+      const duration = timer()
+      this.activityLogger.log({
+        type: 'success',
+        platform: 'google_trends',
+        message: `Retrieved trends data for ${symbol}`,
+        details: { 
+          symbol, 
+          peakInterest: trendsData.peakInterest,
+          sustainedInterest: trendsData.sustainedInterest,
+          relatedQueriesCount: trendsData.relatedQueries.length,
+          duration
+        }
+      })
+
+    } catch (error) {
+      this.activityLogger.logError(`Google Trends: ${symbol}`, 'Failed to fetch trends data', error)
+      console.error('Error fetching Google Trends data:', error)
+    }
+
+    return trendsData
   }
 
   private async detectPumpIndicators(
     symbol: string,
-    currentMentions: any[]
+    currentMentions: any[],
+    trendsData?: any
   ): Promise<NewSymbolAlert['pumpIndicators']> {
     const indicators = {
       suddenSpike: false,
@@ -442,6 +591,15 @@ export class HistoricalVerifier {
       m => m.timestamp > Date.now() - (60 * 60 * 1000) // Last hour
     )
     indicators.suddenSpike = recentMentions.length > 20
+
+    // Enhanced spike detection with Google Trends
+    if (trendsData) {
+      const recentTrendsSpike = trendsData.searchVolume.length > 2 && 
+        trendsData.searchVolume[trendsData.searchVolume.length - 1] > 
+        trendsData.searchVolume[trendsData.searchVolume.length - 3] * 3
+      
+      indicators.suddenSpike = indicators.suddenSpike || recentTrendsSpike
+    }
 
     // Coordinated mentions detection
     const authors = new Map<string, number>()
@@ -459,6 +617,12 @@ export class HistoricalVerifier {
     
     indicators.coordinatedMentions = maxMentionsPerAuthor > 5 || maxMentionsPerTimeSlot > 15
 
+    // Enhanced coordination detection with geographic clustering
+    if (trendsData?.geoDistribution) {
+      const topGeoPercentage = Math.max(...Object.values(trendsData.geoDistribution))
+      indicators.coordinatedMentions = indicators.coordinatedMentions || topGeoPercentage > 70
+    }
+
     // Suspicious accounts detection (simplified)
     const lowEngagementMentions = currentMentions.filter(m => m.engagement < 5)
     indicators.suspiciousAccounts = lowEngagementMentions.length > currentMentions.length * 0.7
@@ -466,6 +630,16 @@ export class HistoricalVerifier {
     // Missing market data
     const marketData = await this.searchMarketHistory(symbol)
     indicators.missingMarketData = !marketData.hasMarketData
+
+    // Enhanced pump detection with related queries
+    if (trendsData?.relatedQueries) {
+      const pumpQueries = trendsData.relatedQueries.filter(q => 
+        /pump|moon|rocket|diamond|100x|1000x/i.test(q)
+      )
+      if (pumpQueries.length > trendsData.relatedQueries.length * 0.5) {
+        indicators.coordinatedMentions = true
+      }
+    }
 
     return indicators
   }

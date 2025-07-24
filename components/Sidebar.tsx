@@ -40,6 +40,7 @@ import {
   Assessment as AssessmentIcon,
   ShoppingCart as OrdersIcon,
   AccountBalanceWallet as PaperIcon,
+  Timeline as ActivityIcon,
 } from '@mui/icons-material'
 
 const DRAWER_WIDTH = 220
@@ -134,6 +135,11 @@ const navItems: NavItem[] = [
         title: 'Alerts Center',
         path: '/risk/alerts',
         icon: <NotificationsIcon />,
+      },
+      {
+        title: 'Activity Feed',
+        path: '/activity-feed',
+        icon: <ActivityIcon />,
       },
     ],
   },

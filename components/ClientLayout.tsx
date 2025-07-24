@@ -40,6 +40,7 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
       '/risk/dashboard': { title: 'Risk Dashboard', subtitle: 'Monitor and manage trading risks' },
       '/risk/pump-detector': { title: 'Pump Detector', subtitle: 'Detect market manipulation patterns' },
       '/risk/alerts': { title: 'Alerts Center', subtitle: 'Configure and manage trading alerts' },
+      '/activity-feed': { title: 'Activity Feed', subtitle: 'Real-time scraping activity and system events' },
       // Other
       '/portfolio': { title: 'Portfolio', subtitle: 'View balances and manage your assets' },
       '/settings': { title: 'Settings', subtitle: 'Configure platform preferences and API connections' },

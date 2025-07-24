@@ -1,5 +1,6 @@
 import Snoowrap from 'snoowrap'
 import { SocialMediaPost, SentimentAnalyzer, CryptoPumpSignal } from './SentimentAnalyzer'
+import { ActivityLogger } from './ActivityLogger'
 import fetch from 'node-fetch'
 
 export interface RedditCredentials {
@@ -58,6 +59,7 @@ export interface SubredditAnalysis {
 export class RedditScanner {
   private reddit: Snoowrap | null = null
   private sentimentAnalyzer: SentimentAnalyzer
+  private activityLogger: ActivityLogger
   private isConnected: boolean = false
   
   // Popular crypto subreddits to monitor
@@ -93,6 +95,7 @@ export class RedditScanner {
 
   constructor() {
     this.sentimentAnalyzer = new SentimentAnalyzer()
+    this.activityLogger = ActivityLogger.getInstance()
   }
 
   async connect(credentials: RedditCredentials): Promise<void> {
@@ -126,6 +129,8 @@ export class RedditScanner {
     limit: number = 100,
     includeComments: boolean = true
   ): Promise<SubredditAnalysis> {
+    const timer = this.activityLogger.startTimer(`Reddit scan r/${subredditName}`)
+    
     if (!this.isConnected) {
       await this.connectPublic()
     }
@@ -160,7 +165,7 @@ export class RedditScanner {
       // Calculate metrics
       const metrics = this.calculateSubredditMetrics(posts, comments, sentimentResult)
 
-      return {
+      const result = {
         subreddit: subredditName,
         posts,
         comments,
@@ -169,7 +174,41 @@ export class RedditScanner {
         metrics,
         timestamp: Date.now()
       }
+
+      // Log successful scan
+      const duration = timer()
+      this.activityLogger.logRedditScan(subredditName, {
+        totalPosts: posts.length,
+        totalComments: comments.length,
+        avgSentiment: sentimentResult.overallSentiment.score,
+        pumpSignals: pumpSignals.length,
+        timeframe,
+        limit
+      }, duration)
+
+      // Log any pump signals detected
+      for (const signal of pumpSignals) {
+        this.activityLogger.logPumpAlert(
+          signal.symbol,
+          signal.riskLevel,
+          signal.confidence,
+          `r/${subredditName}`
+        )
+      }
+
+      // Log symbol detections
+      if (sentimentResult.overallSentiment.symbols && sentimentResult.overallSentiment.symbols.length > 0) {
+        const symbols = sentimentResult.overallSentiment.symbols.map(s => s.symbol)
+        this.activityLogger.logSymbolDetection(symbols, `r/${subredditName}`, {
+          totalMentions: sentimentResult.overallSentiment.symbols.reduce((sum, s) => sum + s.mentions, 0),
+          sentiment: sentimentResult.overallSentiment.score
+        })
+      }
+
+      return result
     } catch (error) {
+      // Log error
+      this.activityLogger.logError(`r/${subredditName}`, `Failed to scan subreddit`, error)
       throw new Error(`Failed to scan subreddit ${subredditName}: ${error}`)
     }
   }
