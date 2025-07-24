@@ -36,8 +36,14 @@ export async function POST(request: NextRequest) {
         } : undefined
       },
       cryptopanic: {
-        enabled: false, // Disabled by default - requires API key
-        config: undefined
+        enabled: !!process.env.CRYPTOPANIC_API_KEY,
+        config: process.env.CRYPTOPANIC_API_KEY ? {
+          apiKey: process.env.CRYPTOPANIC_API_KEY,
+          filter: 'rising|hot|bullish', // Focus on trending/bullish posts
+          currencies: 'BTC,ETH,DOGE,SHIB,PEPE', // Major cryptos + memecoins
+          kind: 'news,media', // News and media posts
+          public: true
+        } : undefined
       },
       lunarcrush: {
         enabled: false, // Disabled by default - requires API key
