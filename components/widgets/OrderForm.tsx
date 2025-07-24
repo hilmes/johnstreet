@@ -104,17 +104,47 @@ export function OrderForm({ symbol }: OrderFormProps) {
     }
   }, [price, amount])
 
-  const handleOrderSubmit = () => {
-    // TODO: Implement order submission
-    console.log('Order submitted:', {
-      symbol,
-      side: orderSide,
-      type: orderType,
-      price: orderType === 'market' ? 'market' : price,
-      stopPrice: orderType === 'stop-loss' ? stopPrice : null,
-      amount,
-      total,
-    })
+  const handleOrderSubmit = async () => {
+    try {
+      const orderData = {
+        symbol,
+        side: orderSide,
+        type: orderType,
+        amount: parseFloat(amount),
+        price: orderType === 'market' ? undefined : parseFloat(price),
+        stopPrice: orderType === 'stop-loss' ? parseFloat(stopPrice) : undefined,
+        validate: false // Set to true for validation-only mode
+      }
+
+      console.log('Submitting order:', orderData)
+
+      const response = await fetch('/api/trading/order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(orderData),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        console.log('Order placed successfully:', result)
+        alert(`Order placed successfully! Order ID: ${result.orderId}`)
+        
+        // Reset form
+        setAmount('')
+        setPrice('')
+        setStopPrice('')
+        setTotal('0.00')
+      } else {
+        console.error('Order failed:', result.error)
+        alert(`Order failed: ${result.error}`)
+      }
+    } catch (error) {
+      console.error('Order submission error:', error)
+      alert('Failed to submit order. Please try again.')
+    }
   }
 
   const setPercentAmount = (percent: number) => {

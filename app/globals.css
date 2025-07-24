@@ -1,52 +1,249 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/**
+ * Global Styles - Tufte Design System
+ * 
+ * Implementing design excellence principles:
+ * - Swiss typography system with clear hierarchy
+ * - Japanese-inspired spacing (ma) and minimalism
+ * - Tufte's high data-ink ratio philosophy
+ * - Professional financial interface aesthetics
+ */
 
-/* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* Import IBM Plex fonts for financial data clarity */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* Force dark mode globally */
-html {
-  color-scheme: dark;
-}
-
-/* Base body styles - will be overridden by theme */
-body {
-  background: var(--theme-background, #131722) !important;
-  color: var(--theme-text, #d1d4dc) !important;
-  font-family: var(--theme-font-primary, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif) !important;
-  font-size: 14px !important;
-  transition: all 0.3s ease;
+/* CSS Reset and Base Styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Basic utility classes that work with both themes */
-.price-up {
-  color: var(--theme-success) !important;
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-.price-down {
-  color: var(--theme-error) !important;
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  color: #212121;
+  background-color: #FEFEFE;
+  overflow-x: hidden;
 }
 
-.price-neutral {
-  color: var(--theme-text-secondary) !important;
+/* Typography Classes */
+.font-primary {
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Legacy support for retro classes - will be enhanced by theme CSS */
-.retro-scanline {
-  position: relative;
+.font-mono {
+  font-family: 'IBM Plex Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-feature-settings: "tnum" 1; /* Tabular numbers */
 }
 
-.crypto-container {
-  background: var(--theme-surface);
-  border: 1px solid var(--theme-border);
-  border-radius: 8px;
-  padding: 16px;
-  transition: all 0.2s ease;
+.font-ui {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-.crypto-container:hover {
-  border-color: var(--theme-primary);
+/* Utility Classes for Design System */
+.text-hierarchy-critical {
+  font-size: 4.236rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.text-hierarchy-primary {
+  font-size: 2.618rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.text-hierarchy-secondary {
+  font-size: 1.618rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.text-metric-primary {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.618rem;
+  font-weight: 500;
+  line-height: 1.0;
+  font-feature-settings: "tnum" 1;
+}
+
+.text-metric-secondary {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.0;
+  font-feature-settings: "tnum" 1;
+}
+
+.text-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.764rem;
+  font-weight: 500;
+  line-height: 1.0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Color Utilities */
+.text-profit { color: #059669; }
+.text-loss { color: #DC2626; }
+.text-neutral { color: #6B7280; }
+.text-warning { color: #D97706; }
+.text-critical { color: #991B1B; }
+.text-active { color: #1D4ED8; }
+.text-muted { color: #757575; }
+
+.bg-surface { background-color: #F9FAFB; }
+.bg-paper { background-color: #FFFFFF; }
+.border-subtle { border-color: #E5E7EB; }
+
+/* Layout Utilities */
+.container-tufte {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+.grid-swiss {
+  display: grid;
+  gap: 24px;
+}
+
+.card-tufte {
+  background-color: #F9FAFB;
+  border: 1px solid #E5E7EB;
+  border-radius: 4px;
+  padding: 24px;
+}
+
+/* Focus States for Accessibility */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #1D4ED8;
+  outline-offset: 2px;
+}
+
+/* Selection Styles */
+::selection {
+  background-color: #1D4ED8;
+  color: white;
+}
+
+/* Scrollbar Styling (Webkit) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E0E0E0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #757575;
+}
+
+/* Remove MUI and Tailwind default styles that conflict */
+.MuiButton-root {
+  font-family: inherit !important;
+}
+
+.MuiTypography-root {
+  font-family: inherit !important;
+}
+
+/* Animation for data updates */
+@keyframes dataUpdate {
+  0% { background-color: rgba(29, 78, 216, 0.1); }
+  100% { background-color: transparent; }
+}
+
+.data-updated {
+  animation: dataUpdate 300ms ease-out;
+}
+
+/* Trading-specific utilities */
+.sparkline-container {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.price-positive {
+  color: #059669;
+  font-weight: 500;
+}
+
+.price-negative {
+  color: #DC2626;
+  font-weight: 500;
+}
+
+.order-buy {
+  color: #059669;
+  background-color: rgba(5, 150, 105, 0.1);
+  border-color: #059669;
+}
+
+.order-sell {
+  color: #DC2626;
+  background-color: rgba(220, 38, 38, 0.1);
+  border-color: #DC2626;
+}
+
+/* Table enhancements */
+.data-table {
+  font-feature-settings: "tnum" 1;
+}
+
+.data-table th {
+  font-weight: 500;
+  font-size: 0.764rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #757575;
+}
+
+.data-table td {
+  font-size: 0.875rem;
+  line-height: 1.2;
+}
+
+/* Remove unused Tailwind utilities to reduce bundle size */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Override Tailwind with our design system where needed */
+@layer utilities {
+  .font-tabular {
+    font-feature-settings: "tnum" 1;
+  }
+  
+  .tracking-financial {
+    letter-spacing: -0.015em;
+  }
 }
