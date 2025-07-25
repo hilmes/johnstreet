@@ -9,7 +9,8 @@
     "lint": "next lint",
     "server:python": "cd .. && python main.py",
     "ws:server": "tsx server/websocket-server.ts",
-    "dev:all": "concurrently \"npm run dev\" \"npm run server:python\" \"npm run ws:server\""
+    "dev:all": "concurrently \"npm run dev\" \"npm run server:python\" \"npm run ws:server\"",
+    "test:integration-api": "tsx scripts/test-integration-api.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.57.0",

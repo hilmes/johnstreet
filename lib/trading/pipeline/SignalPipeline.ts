@@ -5,8 +5,10 @@ import { executionManager } from '../execution/ExecutionManager'
 import { activityLoggerKV } from '@/lib/sentiment/ActivityLoggerKV'
 import { SentimentScore } from '@/lib/sentiment/SentimentAnalyzer'
 import { CrossPlatformSignal } from '@/lib/feeds/DataOrchestrator'
-import { Strategy, Portfolio } from '@/types/trading'
+import { Portfolio } from '@/types/trading'
+import { Strategy } from '@/types/strategy'
 import { UnifiedExchange } from '@/lib/exchanges/unified/UnifiedExchange'
+import { defaultStrategies } from '../strategies/defaults'
 
 export interface PipelineConfig {
   enabled: boolean
@@ -467,12 +469,12 @@ export class SignalPipeline {
   }
 }
 
-// Export singleton instance
+// Export singleton instance with default strategies
 export const signalPipeline = new SignalPipeline({
   enabled: false,
   mode: 'paper',
   exchanges: ['kraken'],
-  strategies: [],
+  strategies: defaultStrategies, // Use the default strategies
   filters: {
     minConfidence: 0.6,
     minStrength: 0.5,

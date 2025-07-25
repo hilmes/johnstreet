@@ -1,5 +1,5 @@
 import { TradingSignal } from './SignalGenerator'
-import { Strategy } from '@/types/trading'
+import { Strategy } from '@/types/strategy'
 
 export interface StrategyCapacity {
   strategyId: string

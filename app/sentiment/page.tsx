@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { Box, Typography, Grid, Card, CardContent, Chip, LinearProgress, IconButton, Switch, FormControlLabel, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material'
-import { PlayArrow, Pause, Refresh, TrendingUp, TrendingDown, Warning, ViewList, ViewModule, Sort } from '@mui/icons-material'
+import { Box, Typography, Grid, Card, CardContent, Chip, LinearProgress, IconButton, Switch, FormControlLabel, Button, Select, MenuItem, FormControl, InputLabel, Collapse, TextField, Slider, Alert } from '@mui/material'
+import { PlayArrow, Pause, Refresh, TrendingUp, TrendingDown, Warning, ViewList, ViewModule, Sort, ExpandMore, ExpandLess, Settings, CheckCircle, Error as ErrorIcon, SyncAlt } from '@mui/icons-material'
 
 interface LiveSymbolDetection {
   symbol: string
@@ -44,6 +44,24 @@ interface DataSourceStatus {
   }
 }
 
+interface TradingIntegrationStatus {
+  enabled: boolean
+  running: boolean
+  config: {
+    sentimentThreshold: number
+    mentionThreshold: number
+    maxPositions: number
+    riskLimit: number
+    enableAutoTrading: boolean
+  }
+  stats: {
+    activeSymbols: number
+    totalMentions: number
+    avgSentiment: number
+    lastUpdate: number
+  }
+}
+
 export default function LiveSentimentDashboard() {
   const [isRunning, setIsRunning] = useState(true)
   const [liveDetections, setLiveDetections] = useState<LiveSymbolDetection[]>([])
@@ -67,6 +85,29 @@ export default function LiveSentimentDashboard() {
   const eventSourceRef = useRef<EventSource | null>(null)
   const [systemStarted, setSystemStarted] = useState(false)
   const [useRealData, setUseRealData] = useState(true)
+  
+  // Trading Integration states
+  const [tradingIntegration, setTradingIntegration] = useState<TradingIntegrationStatus>({
+    enabled: false,
+    running: false,
+    config: {
+      sentimentThreshold: 0.6,
+      mentionThreshold: 10,
+      maxPositions: 5,
+      riskLimit: 0.1,
+      enableAutoTrading: false
+    },
+    stats: {
+      activeSymbols: 0,
+      totalMentions: 0,
+      avgSentiment: 0,
+      lastUpdate: Date.now()
+    }
+  })
+  const [tradingExpanded, setTradingExpanded] = useState(false)
+  const [tradingLoading, setTradingLoading] = useState(false)
+  const [tradingError, setTradingError] = useState<string | null>(null)
+  const tradingIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
   // Start the monitoring system on component mount
   useEffect(() => {
@@ -324,6 +365,92 @@ export default function LiveSentimentDashboard() {
   const sortedSymbols = getSortedSymbols()
   const topSymbols = sortedSymbols.slice(0, 10)
 
+  // Trading Integration Functions
+  const fetchTradingStatus = async () => {
+    try {
+      const response = await fetch('/api/trading/integration')
+      const result = await response.json()
+      
+      if (result.success) {
+        setTradingIntegration(prev => ({
+          ...prev,
+          enabled: result.data.enabled,
+          running: result.data.running,
+          stats: result.data.stats || prev.stats
+        }))
+        setTradingError(null)
+      }
+    } catch (error) {
+      console.error('Error fetching trading status:', error)
+      setTradingError('Failed to fetch trading status')
+    }
+  }
+
+  const toggleTradingIntegration = async () => {
+    setTradingLoading(true)
+    setTradingError(null)
+    
+    try {
+      const endpoint = tradingIntegration.running ? '/api/trading/integration/stop' : '/api/trading/integration/start'
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ config: tradingIntegration.config })
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        setTradingIntegration(prev => ({
+          ...prev,
+          running: !prev.running,
+          enabled: true
+        }))
+        
+        // Start polling for updates if integration is now running
+        if (!tradingIntegration.running) {
+          tradingIntervalRef.current = setInterval(fetchTradingStatus, 5000) // Poll every 5 seconds
+        }
+      } else {
+        setTradingError(result.error || 'Failed to toggle trading integration')
+      }
+    } catch (error) {
+      console.error('Error toggling trading integration:', error)
+      setTradingError('Failed to toggle trading integration')
+    } finally {
+      setTradingLoading(false)
+    }
+  }
+
+  const updateTradingConfig = (key: keyof TradingIntegrationStatus['config'], value: any) => {
+    setTradingIntegration(prev => ({
+      ...prev,
+      config: {
+        ...prev.config,
+        [key]: value
+      }
+    }))
+  }
+
+  // Effect to poll trading status when running
+  useEffect(() => {
+    if (tradingIntegration.running) {
+      fetchTradingStatus() // Initial fetch
+      tradingIntervalRef.current = setInterval(fetchTradingStatus, 5000) // Poll every 5 seconds
+    }
+    
+    return () => {
+      if (tradingIntervalRef.current) {
+        clearInterval(tradingIntervalRef.current)
+      }
+    }
+  }, [tradingIntegration.running])
+
+  // Initial fetch of trading status
+  useEffect(() => {
+    fetchTradingStatus()
+  }, [])
+
   return (
     <Box sx={{ p: 3, bgcolor: '#0a0a0a', minHeight: '100vh', color: 'white' }}>
       {/* Header with Controls */}
@@ -528,6 +655,255 @@ export default function LiveSentimentDashboard() {
               </Grid>
             ))}
           </Grid>
+        </CardContent>
+      </Card>
+
+      {/* Trading Integration */}
+      <Card sx={{ bgcolor: '#1a1a1a', border: '1px solid #333', mb: 4 }}>
+        <CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Typography variant="h6" sx={{ color: '#00ff88', display: 'flex', alignItems: 'center', gap: 1 }}>
+              <SyncAlt />
+              Trading Integration
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+              <IconButton 
+                onClick={() => setTradingExpanded(!tradingExpanded)}
+                sx={{ color: '#00ff88' }}
+              >
+                {tradingExpanded ? <ExpandLess /> : <ExpandMore />}
+              </IconButton>
+              <Button
+                variant={tradingIntegration.running ? 'outlined' : 'contained'}
+                startIcon={tradingIntegration.running ? <Pause /> : <PlayArrow />}
+                onClick={toggleTradingIntegration}
+                disabled={tradingLoading}
+                sx={{ 
+                  bgcolor: tradingIntegration.running ? 'transparent' : '#00ff88',
+                  color: tradingIntegration.running ? '#ff6b6b' : '#000',
+                  borderColor: tradingIntegration.running ? '#ff6b6b' : '#00ff88',
+                  '&:hover': { 
+                    bgcolor: tradingIntegration.running ? '#2a1a1a' : '#00cc66',
+                    borderColor: tradingIntegration.running ? '#ff6b6b' : '#00cc66'
+                  }
+                }}
+              >
+                {tradingLoading ? 'Processing...' : (tradingIntegration.running ? 'Stop Integration' : 'Start Integration')}
+              </Button>
+            </Box>
+          </Box>
+
+          {/* Status and Live Stats */}
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={3}>
+              <Box sx={{ p: 2, bgcolor: '#0a0a0a', borderRadius: 1, border: '1px solid #333' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                  {tradingIntegration.running ? (
+                    <CheckCircle sx={{ color: '#00ff88', fontSize: 20 }} />
+                  ) : (
+                    <ErrorIcon sx={{ color: '#ff6b6b', fontSize: 20 }} />
+                  )}
+                  <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                    Status
+                  </Typography>
+                </Box>
+                <Typography variant="h6" sx={{ color: tradingIntegration.running ? '#00ff88' : '#ff6b6b' }}>
+                  {tradingIntegration.running ? 'Running' : 'Stopped'}
+                </Typography>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <Box sx={{ p: 2, bgcolor: '#0a0a0a', borderRadius: 1, border: '1px solid #333' }}>
+                <Typography variant="body2" sx={{ color: '#888', mb: 1 }}>
+                  Active Symbols
+                </Typography>
+                <Typography variant="h6" sx={{ color: '#4fc3f7' }}>
+                  {tradingIntegration.stats.activeSymbols}
+                </Typography>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <Box sx={{ p: 2, bgcolor: '#0a0a0a', borderRadius: 1, border: '1px solid #333' }}>
+                <Typography variant="body2" sx={{ color: '#888', mb: 1 }}>
+                  Total Mentions
+                </Typography>
+                <Typography variant="h6" sx={{ color: '#4fc3f7' }}>
+                  {tradingIntegration.stats.totalMentions.toLocaleString()}
+                </Typography>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <Box sx={{ p: 2, bgcolor: '#0a0a0a', borderRadius: 1, border: '1px solid #333' }}>
+                <Typography variant="body2" sx={{ color: '#888', mb: 1 }}>
+                  Avg Sentiment
+                </Typography>
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    color: getSentimentColor(tradingIntegration.stats.avgSentiment),
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1
+                  }}
+                >
+                  {tradingIntegration.stats.avgSentiment > 0 ? <TrendingUp /> : <TrendingDown />}
+                  {(tradingIntegration.stats.avgSentiment * 100).toFixed(1)}%
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+
+          {/* Error Alert */}
+          {tradingError && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {tradingError}
+            </Alert>
+          )}
+
+          {/* Configuration (Expandable) */}
+          <Collapse in={tradingExpanded}>
+            <Box sx={{ mt: 3, p: 3, bgcolor: '#0a0a0a', borderRadius: 1, border: '1px solid #333' }}>
+              <Typography variant="h6" sx={{ mb: 3, color: '#00ff88', display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Settings />
+                Configuration
+              </Typography>
+
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ mb: 3 }}>
+                    <Typography variant="body2" sx={{ color: '#888', mb: 1 }}>
+                      Sentiment Threshold: {(tradingIntegration.config.sentimentThreshold * 100).toFixed(0)}%
+                    </Typography>
+                    <Slider
+                      value={tradingIntegration.config.sentimentThreshold}
+                      onChange={(_, value) => updateTradingConfig('sentimentThreshold', value as number)}
+                      min={0}
+                      max={1}
+                      step={0.05}
+                      marks={[
+                        { value: 0, label: '0%' },
+                        { value: 0.5, label: '50%' },
+                        { value: 1, label: '100%' }
+                      ]}
+                      sx={{
+                        color: '#00ff88',
+                        '& .MuiSlider-mark': { bgcolor: '#333' },
+                        '& .MuiSlider-markLabel': { color: '#888' }
+                      }}
+                    />
+                  </Box>
+
+                  <Box sx={{ mb: 3 }}>
+                    <Typography variant="body2" sx={{ color: '#888', mb: 1 }}>
+                      Mention Threshold: {tradingIntegration.config.mentionThreshold}
+                    </Typography>
+                    <Slider
+                      value={tradingIntegration.config.mentionThreshold}
+                      onChange={(_, value) => updateTradingConfig('mentionThreshold', value as number)}
+                      min={1}
+                      max={100}
+                      step={1}
+                      marks={[
+                        { value: 1, label: '1' },
+                        { value: 50, label: '50' },
+                        { value: 100, label: '100' }
+                      ]}
+                      sx={{
+                        color: '#00ff88',
+                        '& .MuiSlider-mark': { bgcolor: '#333' },
+                        '& .MuiSlider-markLabel': { color: '#888' }
+                      }}
+                    />
+                  </Box>
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ mb: 3 }}>
+                    <Typography variant="body2" sx={{ color: '#888', mb: 1 }}>
+                      Max Positions: {tradingIntegration.config.maxPositions}
+                    </Typography>
+                    <Slider
+                      value={tradingIntegration.config.maxPositions}
+                      onChange={(_, value) => updateTradingConfig('maxPositions', value as number)}
+                      min={1}
+                      max={20}
+                      step={1}
+                      marks={[
+                        { value: 1, label: '1' },
+                        { value: 10, label: '10' },
+                        { value: 20, label: '20' }
+                      ]}
+                      sx={{
+                        color: '#00ff88',
+                        '& .MuiSlider-mark': { bgcolor: '#333' },
+                        '& .MuiSlider-markLabel': { color: '#888' }
+                      }}
+                    />
+                  </Box>
+
+                  <Box sx={{ mb: 3 }}>
+                    <Typography variant="body2" sx={{ color: '#888', mb: 1 }}>
+                      Risk Limit: {(tradingIntegration.config.riskLimit * 100).toFixed(0)}%
+                    </Typography>
+                    <Slider
+                      value={tradingIntegration.config.riskLimit}
+                      onChange={(_, value) => updateTradingConfig('riskLimit', value as number)}
+                      min={0.01}
+                      max={0.5}
+                      step={0.01}
+                      marks={[
+                        { value: 0.01, label: '1%' },
+                        { value: 0.25, label: '25%' },
+                        { value: 0.5, label: '50%' }
+                      ]}
+                      sx={{
+                        color: '#00ff88',
+                        '& .MuiSlider-mark': { bgcolor: '#333' },
+                        '& .MuiSlider-markLabel': { color: '#888' }
+                      }}
+                    />
+                  </Box>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Switch 
+                        checked={tradingIntegration.config.enableAutoTrading} 
+                        onChange={(e) => updateTradingConfig('enableAutoTrading', e.target.checked)}
+                        sx={{ 
+                          '& .MuiSwitch-thumb': { 
+                            backgroundColor: tradingIntegration.config.enableAutoTrading ? '#00ff88' : '#888' 
+                          },
+                          '& .MuiSwitch-track': {
+                            backgroundColor: tradingIntegration.config.enableAutoTrading ? '#00cc66' : '#333'
+                          }
+                        }}
+                      />
+                    }
+                    label={
+                      <Box>
+                        <Typography variant="body1" sx={{ color: '#fff' }}>
+                          Enable Auto Trading
+                        </Typography>
+                        <Typography variant="body2" sx={{ color: '#888' }}>
+                          Automatically execute trades based on sentiment signals
+                        </Typography>
+                      </Box>
+                    }
+                  />
+                </Grid>
+              </Grid>
+
+              {/* Last Update */}
+              <Typography variant="body2" sx={{ color: '#888', mt: 3, textAlign: 'right' }}>
+                Last updated: {new Date(tradingIntegration.stats.lastUpdate).toLocaleTimeString()}
+              </Typography>
+            </Box>
+          </Collapse>
         </CardContent>
       </Card>
 
