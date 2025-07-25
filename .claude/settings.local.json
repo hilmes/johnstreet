@@ -21,7 +21,8 @@
       "Bash(lsof:*)",
       "Bash(pkill:*)",
       "Bash(next dev:*)",
-      "Bash(npx next dev:*)"
+      "Bash(npx next dev:*)",
+      "Bash(git reset:*)"
     ],
     "deny": []
   }
