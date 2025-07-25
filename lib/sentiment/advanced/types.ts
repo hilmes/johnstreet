@@ -32,7 +32,9 @@ export enum SignalType {
   MOMENTUM_SHIFT = 'MOMENTUM_SHIFT',
   CROSS_LANGUAGE_ARBITRAGE = 'CROSS_LANGUAGE_ARBITRAGE',
   INFLUENCER_NETWORK = 'INFLUENCER_NETWORK',
-  SMART_MONEY = 'SMART_MONEY'
+  SMART_MONEY = 'SMART_MONEY',
+  REPLY_GUY = 'REPLY_GUY',
+  EMOJI_EVOLUTION = 'EMOJI_EVOLUTION'
 }
 
 // Individual Signal Interfaces
@@ -309,6 +311,203 @@ export interface SmartMoneySignal extends BaseSignal {
   };
 }
 
+export interface ReplyGuySignal extends BaseSignal {
+  type: SignalType.REPLY_GUY;
+  indicators: {
+    responseMetrics: {
+      totalResponses: number;
+      uniqueAuthors: number;
+      botToHumanRatio: number;
+      averageResponseTime: number; // seconds
+      responseVelocity: number; // responses per minute
+    };
+    qualityMetrics: {
+      averageLength: number;
+      averageComplexity: number;
+      uniquenessScore: number; // 0-1
+      relevanceScore: number; // 0-1
+      templateDetection: number; // 0-1
+    };
+    botIndicators: {
+      suspiciousAccounts: Array<{
+        account: string;
+        botScore: number; // 0-1
+        patterns: string[];
+        creationDate?: Date;
+        followersRatio?: number;
+      }>;
+      coordinationScore: number; // 0-1
+      temporalClustering: number; // 0-1
+      linguisticSimilarity: number; // 0-1
+    };
+    engagementAuthenticity: {
+      organicScore: number; // 0-1
+      manipulationIndicators: string[];
+      naturalConversationFlow: number; // 0-1
+      diversityIndex: number; // 0-1
+    };
+    trendAnalysis: {
+      growthPattern: 'organic' | 'artificial' | 'mixed';
+      spikesDetected: Array<{
+        timestamp: Date;
+        intensity: number;
+        suspicionLevel: number;
+        likelySource: 'organic' | 'bot' | 'coordinated';
+      }>;
+      sustainabilityScore: number; // 0-1
+      viralPotential: number; // 0-1
+    };
+    contentPatterns: {
+      genericResponses: number;
+      copypastaPhrases: string[];
+      shillKeywords: string[];
+      promotionalContent: number;
+      authenticEngagement: number;
+    };
+  };
+}
+
+export interface EmojiEvolutionSignal extends BaseSignal {
+  type: SignalType.EMOJI_EVOLUTION;
+  indicators: {
+    adoptionMetrics: {
+      newEmojiCount: number;
+      adoptionRate: number; // emojis per hour
+      adoptionVelocity: number; // rate change
+      firstSeenTimestamp: Date[];
+      adoptionLatency: number; // milliseconds from first appearance
+    };
+    evolutionPatterns: {
+      complexityProgression: Array<{
+        sequence: string;
+        progressionStage: 'simple' | 'compound' | 'complex' | 'meta';
+        evolutionPath: string[];
+        sentimentShift: number; // -1 to 1
+        culturalSignificance: number; // 0-1
+      }>;
+      emergentCombinations: Array<{
+        combination: string;
+        frequency: number;
+        contextualMeaning: string;
+        viralityScore: number; // 0-1
+        regionOfOrigin?: string;
+      }>;
+      semanticDrift: Array<{
+        emoji: string;
+        originalMeaning: string;
+        currentMeaning: string;
+        driftDirection: 'positive' | 'negative' | 'neutral';
+        driftVelocity: number;
+      }>;
+    };
+    regionalPatterns: {
+      culturalClusters: Record<string, {
+        dominantEmojis: string[];
+        uniqueUsagePatterns: string[];
+        culturalContext: string;
+        adoptionSpeed: number;
+        crossoverPotential: number; // 0-1
+      }>;
+      geographicDistribution: Record<string, number>; // region -> usage intensity
+      culturalBarriers: Array<{
+        emoji: string;
+        restrictedRegions: string[];
+        culturalSensitivity: number; // 0-1
+        alternativeEmojis: string[];
+      }>;
+      regionInfluence: Record<string, {
+        innovationRate: number; // new patterns per hour
+        exportRate: number; // patterns adopted elsewhere
+        culturalReach: number; // 0-1
+      }>;
+    };
+    sentimentVelocity: {
+      velocityMetrics: {
+        instantaneousVelocity: number; // current sentiment change rate
+        accelerationTrend: number; // velocity change rate
+        momentumIndicator: number; // sustained direction strength
+        volatilityIndex: number; // sentiment stability measure
+      };
+      temporalPatterns: Array<{
+        timeWindow: string; // '1h', '24h', '7d'
+        averageVelocity: number;
+        peakVelocity: number;
+        trendDirection: 'accelerating' | 'decelerating' | 'stable';
+        cyclicalPatterns: string[];
+      }>;
+      contextualVelocity: Record<string, {
+        context: 'financial' | 'social' | 'cultural' | 'technical';
+        velocityMultiplier: number;
+        stabilityFactor: number;
+        predictabilityScore: number; // 0-1
+      }>;
+    };
+    viralityMetrics: {
+      spreadPatterns: Array<{
+        emoji: string;
+        initialSource: string;
+        spreadRadius: number; // degrees of separation
+        peakReach: number; // maximum simultaneous users
+        halfLife: number; // hours to 50% decay
+        reproductionRate: number; // R0 equivalent
+      }>;
+      memeticFitness: Array<{
+        emojiPattern: string;
+        adaptability: number; // 0-1
+        memorability: number; // 0-1
+        shareability: number; // 0-1
+        longevity: number; // expected lifespan in hours
+        mutationRate: number; // variation frequency
+      }>;
+      networkEffects: {
+        criticalMass: number; // users needed for viral spread
+        networkDensity: number; // connectivity measure
+        influenceHubs: string[]; // key propagation nodes
+        cascadeThreshold: number; // tipping point
+      };
+      competitiveAnalysis: Array<{
+        emoji: string;
+        competitors: string[]; // similar meaning emojis
+        marketShare: number; // 0-1
+        disruptionPotential: number; // 0-1
+        survivabilityScore: number; // 0-1
+      }>;
+    };
+    trendPrediction: {
+      emergingTrends: Array<{
+        pattern: string;
+        confidence: number; // 0-1
+        estimatedPeakTime: Date;
+        expectedDuration: number; // hours
+        targetDemographics: string[];
+        culturalFactors: string[];
+      }>;
+      declineIndicators: Array<{
+        emoji: string;
+        declineRate: number; // usage decrease per hour
+        replacementCandidates: string[];
+        obsolescenceScore: number; // 0-1
+        nostalgiaValue: number; // 0-1
+      }>;
+      cycleAnalysis: {
+        seasonalPatterns: Record<string, number>; // season -> usage multiplier
+        eventCorrelations: Array<{
+          event: string;
+          emojiSpikes: string[];
+          correlation: number; // -1 to 1
+          leadTime: number; // hours before/after event
+        }>;
+        generationalDivides: Record<string, {
+          generation: string;
+          preferredEmojis: string[];
+          adoptionRate: number;
+          innovationContribution: number;
+        }>;
+      };
+    };
+  };
+}
+
 // Union type for all signals
 export type AdvancedSignal = 
   | UrgencySignal
@@ -328,7 +527,9 @@ export type AdvancedSignal =
   | MomentumShiftSignal
   | CrossLanguageArbitrageSignal
   | InfluencerNetworkSignal
-  | SmartMoneySignal;
+  | SmartMoneySignal
+  | ReplyGuySignal
+  | EmojiEvolutionSignal;
 
 // Detection Configuration
 export interface DetectorConfig {
@@ -357,6 +558,8 @@ export interface SignalDetectorConfig {
   [SignalType.CROSS_LANGUAGE_ARBITRAGE]: DetectorConfig;
   [SignalType.INFLUENCER_NETWORK]: DetectorConfig;
   [SignalType.SMART_MONEY]: DetectorConfig;
+  [SignalType.REPLY_GUY]: DetectorConfig;
+  [SignalType.EMOJI_EVOLUTION]: DetectorConfig;
 }
 
 // Analysis Results

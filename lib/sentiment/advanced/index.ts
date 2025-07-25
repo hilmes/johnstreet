@@ -13,6 +13,8 @@ export { SentimentExhaustionDetector } from './detectors/SentimentExhaustionDete
 export { InfluencerNetworkDetector } from './detectors/InfluencerNetworkDetector';
 export { SmartMoneyDetector } from './detectors/SmartMoneyDetector';
 export { CrossLanguageArbitrageDetector } from './detectors/CrossLanguageArbitrageDetector';
+export { ReplyGuyDetector } from './detectors/ReplyGuyDetector';
+export { EmojiEvolutionDetector } from './detectors/EmojiEvolutionDetector';
 
 // Export integration modules
 export { 
