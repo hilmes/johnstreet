@@ -1,14 +1,62 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2821
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+# Trading Bot Core Dependencies
+pandas>=2.0.0
+numpy>=1.24.0
+asyncio-throttle>=1.0.0
+aiohttp>=3.8.0
+python-dotenv>=1.0.0
 
-\f0\fs24 \cf0 textual>=1.0\
-websockets\
-pandas\
-numpy\
-kraken-api\
-python-dotenv\
-asyncio}
+# Exchange APIs
+ccxt>=4.0.0
+requests>=2.28.0
+
+# Database and Caching
+python-dateutil>=2.8.0
+
+# Risk Management and Analytics
+scipy>=1.10.0
+scikit-learn>=1.3.0
+
+# Notifications
+twilio>=8.5.0
+
+# Web UI (Backtesting Dashboard)
+dash>=2.14.0
+plotly>=5.15.0
+
+# Logging and Monitoring
+psutil>=5.9.0
+
+# Data Validation
+pydantic>=2.0.0
+
+# Technical Analysis (Optional)
+pandas-ta>=0.3.14b0
+
+# Development and Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+black>=23.7.0
+flake8>=6.0.0
+
+# Optional: Enhanced charting
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Optional: Machine Learning
+tensorflow>=2.13.0
+torch>=2.0.0
+
+# Optional: Database alternatives
+sqlalchemy>=2.0.0
+redis>=4.6.0
+
+# Optional: Message Queues
+celery>=5.3.0
+
+# Optional: API Framework
+fastapi>=0.100.0
+uvicorn>=0.23.0
+
+# Security
+cryptography>=41.0.0
+keyring>=24.2.0
