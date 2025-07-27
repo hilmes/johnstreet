@@ -85,6 +85,7 @@ export default function LiveSentimentDashboard() {
   const eventSourceRef = useRef<EventSource | null>(null)
   const [systemStarted, setSystemStarted] = useState(false)
   const [useRealData, setUseRealData] = useState(true)
+  const [mounted, setMounted] = useState(false)
   
   // Trading Integration states
   const [tradingIntegration, setTradingIntegration] = useState<TradingIntegrationStatus>({
@@ -108,6 +109,11 @@ export default function LiveSentimentDashboard() {
   const [tradingLoading, setTradingLoading] = useState(false)
   const [tradingError, setTradingError] = useState<string | null>(null)
   const tradingIntervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Set mounted state for client-side rendering
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Start the monitoring system on component mount
   useEffect(() => {
@@ -905,7 +911,7 @@ export default function LiveSentimentDashboard() {
 
               {/* Last Update */}
               <Typography variant="body2" sx={{ color: '#888', mt: 3, textAlign: 'right' }}>
-                Last updated: {new Date(tradingIntegration.stats.lastUpdate).toLocaleTimeString()}
+                Last updated: {mounted ? new Date(tradingIntegration.stats.lastUpdate).toLocaleTimeString() : '...'}
               </Typography>
             </Box>
           </Collapse>
@@ -1058,7 +1064,7 @@ export default function LiveSentimentDashboard() {
                           />
                         </Box>
                         <Typography variant="body2" sx={{ color: '#888' }}>
-                          {new Date(detection.timestamp).toLocaleTimeString()}
+                          {mounted ? new Date(detection.timestamp).toLocaleTimeString() : '...'}
                         </Typography>
                       </Box>
                       
