@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Box, Typography, Grid, Card, CardContent, Chip, LinearProgress, IconButton, Switch, FormControlLabel, Button, Select, MenuItem, FormControl, InputLabel, Collapse, TextField, Slider, Alert } from '@mui/material'
 import { PlayArrow, Pause, Refresh, TrendingUp, TrendingDown, Warning, ViewList, ViewModule, Sort, ExpandMore, ExpandLess, Settings, CheckCircle, Error as ErrorIcon, SyncAlt } from '@mui/icons-material'
 
@@ -135,10 +135,12 @@ export default function LiveSentimentDashboard() {
   }, [])
 
   // Fetch real data from the live API
-  const fetchRealData = async () => {
+  const fetchRealData = useCallback(async () => {
     try {
+      console.log('fetchRealData: Making API call...')
       const response = await fetch('/api/live/activity-feed?limit=20')
       const result = await response.json()
+      console.log('fetchRealData: Got response:', result.success, 'detections:', result.data?.detections?.length)
       
       if (result.success && result.data.detections.length > 0) {
         // Update with real detections
@@ -182,7 +184,7 @@ export default function LiveSentimentDashboard() {
         setUseRealData(false)
       }
     }
-  }
+  }, [])
 
   // Simulate real-time data (fallback when real data isn't available)
   const generateMockDetection = (): LiveSymbolDetection => {
@@ -258,11 +260,14 @@ export default function LiveSentimentDashboard() {
 
   useEffect(() => {
     if (isRunning) {
+      console.log('Starting interval - systemStarted:', systemStarted, 'useRealData:', useRealData)
       intervalRef.current = setInterval(async () => {
         if (useRealData && systemStarted) {
           // Try to fetch real data
+          console.log('Fetching real data...')
           await fetchRealData()
         } else {
+          console.log('Using mock data - systemStarted:', systemStarted, 'useRealData:', useRealData)
           // Fall back to mock data
           const detectionsCount = Math.floor(Math.random() * 3) + 1
           

@@ -3,15 +3,33 @@ import { NextRequest, NextResponse } from 'next/server'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
+const SENTIMENT_API_URL = process.env.SENTIMENT_API_URL || 'http://localhost:5001'
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
-  const lastTimestamp = parseInt(searchParams.get('since') || '0')
-  const limit = parseInt(searchParams.get('limit') || '50')
+  const limit = searchParams.get('limit') || '50'
 
   try {
+    // First try to fetch from the Python sentiment server
+    const response = await fetch(`${SENTIMENT_API_URL}/api/sentiment/activity?limit=${limit}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    
+    if (response.ok) {
+      const data = await response.json()
+      return NextResponse.json(data)
+    }
+    
+    // If sentiment server is not available, fall back to existing logic
+    console.warn('Sentiment server not available, falling back to local data')
+    
     // Dynamic imports to avoid build-time issues
     const { activityLoggerKV } = await import('@/lib/sentiment/ActivityLoggerKV')
     const { dataOrchestrator } = await import('@/lib/feeds/DataOrchestrator')
+    
+    const lastTimestamp = parseInt(searchParams.get('since') || '0')
     
     // Get recent activity since the last timestamp
     const timeSince = lastTimestamp > 0 ? Date.now() - lastTimestamp : 5 * 60 * 1000 // Default: last 5 minutes
@@ -26,7 +44,7 @@ export async function GET(request: NextRequest) {
         activity.type === 'news_scan' ||
         activity.type === 'social_scan'
       )
-      .slice(0, limit)
+      .slice(0, parseInt(limit))
       .map(activity => ({
         symbol: activity.data?.symbols?.[0] || 'UNKNOWN',
         timestamp: activity.timestamp,
