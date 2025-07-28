@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { Portfolio, Position } from '@/types/trading'
+import { handleApiError, createApiResponse, ApiError } from '@/lib/utils/api-errors'
 
 export interface DashboardData {
   portfolioValue: number
@@ -40,7 +41,7 @@ export async function GET(request: NextRequest) {
     // Check authentication
     const session = await getServerSession()
     if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      throw new ApiError('Unauthorized', 401)
     }
 
     // Get timeframe from query params
@@ -89,13 +90,9 @@ export async function GET(request: NextRequest) {
       alerts
     }
 
-    return NextResponse.json(dashboardData)
+    return createApiResponse(dashboardData)
   } catch (error) {
-    console.error('Dashboard API error:', error)
-    return NextResponse.json(
-      { error: 'Failed to fetch dashboard data' },
-      { status: 500 }
-    )
+    return handleApiError(error, 'Dashboard API')
   }
 }
 

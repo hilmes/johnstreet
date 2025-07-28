@@ -17,6 +17,7 @@ import {
   TrendingFlat,
   Refresh,
 } from '@mui/icons-material'
+import { formatPrice, formatVolume } from '@/lib/utils/formatters'
 
 interface TickerData {
   ask: string[]
@@ -31,21 +32,6 @@ interface TickerData {
 interface TickerItemProps {
   pair: string
   displayName: string
-}
-
-const formatPrice = (price: string) => {
-  const num = parseFloat(price)
-  if (num > 10000) return num.toFixed(0)
-  if (num > 100) return num.toFixed(2)
-  if (num > 1) return num.toFixed(4)
-  return num.toFixed(6)
-}
-
-const formatVolume = (volume: string) => {
-  const num = parseFloat(volume)
-  if (num > 1000000) return `${(num / 1000000).toFixed(2)}M`
-  if (num > 1000) return `${(num / 1000).toFixed(2)}K`
-  return num.toFixed(2)
 }
 
 function TickerItem({ pair, displayName }: TickerItemProps) {

@@ -14,6 +14,7 @@ import {
   Chip,
   LinearProgress,
 } from '@mui/material'
+import { formatPrice, formatSize } from '@/lib/utils/formatters'
 
 interface OrderBookProps {
   symbol: string
@@ -31,22 +32,6 @@ interface OrderBookData {
   asks: OrderLevel[]
   spread: number
   spreadPercent: number
-}
-
-const formatPrice = (price: string) => {
-  const num = parseFloat(price)
-  if (num > 10000) return num.toFixed(0)
-  if (num > 100) return num.toFixed(2)
-  if (num > 1) return num.toFixed(4)
-  return num.toFixed(6)
-}
-
-const formatSize = (size: string) => {
-  const num = parseFloat(size)
-  if (num > 1000) return `${(num / 1000).toFixed(2)}K`
-  if (num > 100) return num.toFixed(0)
-  if (num > 10) return num.toFixed(2)
-  return num.toFixed(4)
 }
 
 export function OrderBook({ symbol, depth = 10 }: OrderBookProps) {

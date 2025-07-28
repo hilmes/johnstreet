@@ -1,6 +1,7 @@
 import { Subject, Subscription, BehaviorSubject } from 'rxjs';
 import { MarketUpdate, WebSocketMessage as WSMessage } from '../types/websocket';
 import { API_CONFIG } from '../config/api';
+import { WS_CONSTANTS } from '@/lib/constants/websocket';
 
 export interface OrderParams {
   order_type: 'market' | 'limit';
@@ -171,9 +172,9 @@ export interface TickerUpdate {
 export class WebSocketService {
   private ws: WebSocket | null = null;
   private reconnectAttempts = 0;
-  private maxReconnectAttempts = 5;
+  private maxReconnectAttempts = WS_CONSTANTS.MAX_RECONNECT_ATTEMPTS;
   private lastConnectionAttempt = 0;
-  private minConnectionInterval = 60000; // 1 minute between attempts
+  private minConnectionInterval = WS_CONSTANTS.MIN_CONNECTION_INTERVAL;
   private lastError: string | null = null;
   private isReconnecting = false;
   private pingInterval: NodeJS.Timeout | null = null;
