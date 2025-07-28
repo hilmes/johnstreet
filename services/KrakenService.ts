@@ -264,4 +264,7 @@ export class KrakenService {
       };
     }
   }
-} 
+}
+
+// Export singleton instance
+export const krakenService = new KrakenService(); 

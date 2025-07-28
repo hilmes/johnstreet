@@ -167,7 +167,12 @@ export default function SettingsPage() {
           </div>
 
           {/* Tab Content */}
-          <div style={{ padding: ds.spacing.large }}>
+          <div style={{ 
+            paddingLeft: ds.spacing.small, // Minimal left padding since sidebar offset handled by layout
+            paddingRight: ds.spacing.large, 
+            paddingTop: ds.spacing.large, 
+            paddingBottom: ds.spacing.large 
+          }}>
             {/* Theme & Appearance Tab */}
             <TabPanel value={tab} index={0}>
               <div style={{ maxWidth: '600px' }}>

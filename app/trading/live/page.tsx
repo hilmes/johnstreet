@@ -5,10 +5,14 @@ import { dieterRamsDesign as ds, designHelpers } from '@/lib/design/DieterRamsDe
 import { OrderForm } from '@/components/trading/OrderForm'
 import { OrderBook } from '@/components/trading/OrderBook'
 import { PriceChart } from '@/components/trading/PriceChart'
+import { CandlestickChart } from '@/components/trading/CandlestickChart'
 import { PositionsTable } from '@/components/trading/PositionsTable'
 import { TradeHistory } from '@/components/trading/TradeHistory'
 import { MarketDepth } from '@/components/trading/MarketDepth'
 import { RiskCalculator } from '@/components/trading/RiskCalculator'
+import { useLivePrices, useLivePrice } from '@/app/hooks/useLivePrices'
+import { LivePriceSparkline } from '@/components/core/Sparkline'
+import { LiveDataIndicator } from '@/components/trading/LiveDataIndicator'
 
 // Types
 interface Position {
@@ -61,6 +65,14 @@ interface MarketData {
 export default function LiveTradingPage() {
   // State management
   const [selectedSymbol, setSelectedSymbol] = useState('BTC/USD')
+  const [chartType, setChartType] = useState<'line' | 'candlestick'>('line')
+  const [timeframe, setTimeframe] = useState<'1m' | '5m' | '15m' | '1h' | '4h' | '1d'>('1h')
+  
+  // Live price data
+  const { price: currentPrice, isConnected: isPriceConnected } = useLivePrice(selectedSymbol)
+  const { prices: allPrices, isConnected: isAllPricesConnected } = useLivePrices({
+    symbols: ['BTC/USD', 'ETH/USD', 'SOL/USD', 'ADA/USD', 'DOT/USD']
+  })
   const [positions, setPositions] = useState<Position[]>([])
   const [orders, setOrders] = useState<Order[]>([])
   const [trades, setTrades] = useState<Trade[]>([])
@@ -147,7 +159,10 @@ export default function LiveTradingPage() {
     }}>
       {/* Header Section - Portfolio Overview */}
       <header style={{
-        padding: ds.spacing.large,
+        paddingLeft: ds.spacing.small, // Minimal left padding, sidebar offset handled by layout
+        paddingRight: ds.spacing.large,
+        paddingTop: ds.spacing.large,
+        paddingBottom: ds.spacing.large,
         borderBottom: `1px solid ${ds.colors.grayscale[20]}`,
         backgroundColor: ds.colors.semantic.background.secondary,
       }}>
@@ -294,13 +309,21 @@ export default function LiveTradingPage() {
       <main style={{
         maxWidth: ds.grid.maxWidth,
         margin: '0 auto',
-        padding: ds.spacing.large,
+        paddingLeft: ds.spacing.small, // Minimal left padding, sidebar offset handled by layout
+        paddingRight: ds.spacing.large,
+        paddingTop: ds.spacing.large,
+        paddingBottom: ds.spacing.large,
         display: 'grid',
         gridTemplateColumns: '1fr 300px',
         gridTemplateRows: 'auto 1fr auto',
         gap: ds.spacing.large,
         minHeight: 'calc(100vh - 120px)',
       }}>
+        {/* Live Data Verification */}
+        <div style={{ gridColumn: '1 / -1' }}>
+          <LiveDataIndicator symbol={selectedSymbol} />
+        </div>
+
         {/* Market Selector & Info Bar */}
         <div style={{
           gridColumn: '1 / -1',
@@ -333,22 +356,36 @@ export default function LiveTradingPage() {
               <option value="SOL/USD">SOL/USD</option>
             </select>
 
-            {marketData && (
-              <div style={{ display: 'flex', gap: ds.spacing.xlarge }}>
+            {/* Live Price Display */}
+            {currentPrice && (
+              <div style={{ display: 'flex', gap: ds.spacing.xlarge, alignItems: 'center' }}>
                 {/* Last Price */}
-                <div>
-                  <span style={{
-                    fontSize: ds.typography.scale.small,
-                    color: ds.colors.grayscale[70],
-                    marginRight: ds.spacing.small,
-                  }}>Last</span>
-                  <span style={{
-                    fontSize: ds.typography.scale.large,
-                    fontWeight: ds.typography.weights.semibold,
-                    fontFamily: ds.typography.families.data,
-                  }}>
-                    ${marketData.last.toLocaleString()}
-                  </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: ds.spacing.small }}>
+                  <div style={{
+                    width: '6px',
+                    height: '6px',
+                    borderRadius: '50%',
+                    backgroundColor: isPriceConnected ? ds.colors.semantic.success : ds.colors.semantic.warning,
+                    boxShadow: `0 0 6px ${isPriceConnected ? ds.colors.semantic.success : ds.colors.semantic.warning}`
+                  }} />
+                  <div>
+                    <span style={{
+                      fontSize: ds.typography.scale.small,
+                      color: ds.colors.grayscale[70],
+                      marginRight: ds.spacing.small,
+                    }}>Last</span>
+                    <span style={{
+                      fontSize: ds.typography.scale.large,
+                      fontWeight: ds.typography.weights.semibold,
+                      fontFamily: ds.typography.families.data,
+                      color: ds.colors.grayscale[90]
+                    }}>
+                      ${currentPrice.price.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 8
+                      })}
+                    </span>
+                  </div>
                 </div>
 
                 {/* 24h Change */}
@@ -361,9 +398,9 @@ export default function LiveTradingPage() {
                   <span style={{
                     fontSize: ds.typography.scale.large,
                     fontWeight: ds.typography.weights.semibold,
-                    color: marketData.change24h >= 0 ? ds.colors.semantic.buy : ds.colors.semantic.sell,
+                    color: currentPrice.changePercent24h >= 0 ? ds.colors.semantic.buy : ds.colors.semantic.sell,
                   }}>
-                    {marketData.change24h >= 0 ? '+' : ''}{marketData.change24h.toFixed(2)}%
+                    {currentPrice.changePercent24h >= 0 ? '+' : ''}{currentPrice.changePercent24h.toFixed(2)}%
                   </span>
                 </div>
 
@@ -373,17 +410,35 @@ export default function LiveTradingPage() {
                     fontSize: ds.typography.scale.small,
                     color: ds.colors.grayscale[70],
                     marginRight: ds.spacing.small,
-                  }}>Vol</span>
+                  }}>Vol 24h</span>
                   <span style={{
-                    fontSize: ds.typography.scale.large,
+                    fontSize: ds.typography.scale.medium,
                     fontWeight: ds.typography.weights.medium,
                     fontFamily: ds.typography.families.data,
+                    color: ds.colors.grayscale[80]
                   }}>
-                    {marketData.volume24h.toLocaleString()}
+                    ${(currentPrice.volume24h * currentPrice.price / 1000000).toFixed(1)}M
                   </span>
                 </div>
 
-                {/* Spread */}
+                {/* Mini Sparkline */}
+                {currentPrice.sparkline && currentPrice.sparkline.length > 0 && (
+                  <LivePriceSparkline 
+                    symbol={selectedSymbol}
+                    width={80}
+                    height={24}
+                    showChange={false}
+                  />
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Quick Stats */}
+          <div style={{ display: 'flex', gap: ds.spacing.medium, alignItems: 'center' }}>
+            {currentPrice && (
+              <>
+                {/* Bid/Ask Spread */}
                 <div>
                   <span style={{
                     fontSize: ds.typography.scale.small,
@@ -391,14 +446,15 @@ export default function LiveTradingPage() {
                     marginRight: ds.spacing.small,
                   }}>Spread</span>
                   <span style={{
-                    fontSize: ds.typography.scale.large,
+                    fontSize: ds.typography.scale.medium,
                     fontWeight: ds.typography.weights.medium,
                     fontFamily: ds.typography.families.data,
+                    color: ds.colors.grayscale[80]
                   }}>
-                    ${(marketData.ask - marketData.bid).toFixed(2)}
+                    ${(currentPrice.ask - currentPrice.bid).toFixed(2)}
                   </span>
                 </div>
-              </div>
+              </>
             )}
           </div>
 
@@ -446,7 +502,102 @@ export default function LiveTradingPage() {
             padding: ds.spacing.large,
             height: '500px',
           }}>
-            <PriceChart symbol={selectedSymbol} />
+            {/* Chart Controls */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: ds.spacing.medium,
+              padding: `${ds.spacing.small} 0`,
+              borderBottom: `1px solid ${ds.colors.grayscale[20]}`
+            }}>
+              <h3 style={{
+                fontSize: ds.typography.scale.medium,
+                fontWeight: ds.typography.weights.semibold,
+                color: ds.colors.grayscale[90],
+                margin: 0
+              }}>
+                {selectedSymbol} Chart
+              </h3>
+              
+              <div style={{ display: 'flex', gap: ds.spacing.medium, alignItems: 'center' }}>
+                {/* Chart Type Toggle */}
+                <div style={{ display: 'flex', gap: ds.spacing.small }}>
+                  <button
+                    onClick={() => setChartType('line')}
+                    style={{
+                      padding: `${ds.spacing.small} ${ds.spacing.medium}`,
+                      backgroundColor: chartType === 'line' ? ds.colors.semantic.active : 'transparent',
+                      color: chartType === 'line' ? ds.colors.grayscale[0] : ds.colors.grayscale[70],
+                      border: `1px solid ${ds.colors.grayscale[30]}`,
+                      borderRadius: ds.interactive.radius.small,
+                      fontSize: ds.typography.scale.small,
+                      fontWeight: ds.typography.weights.medium,
+                      cursor: 'pointer',
+                      transition: designHelpers.animate('all', ds.animation.durations.fast)
+                    }}
+                  >
+                    Line
+                  </button>
+                  <button
+                    onClick={() => setChartType('candlestick')}
+                    style={{
+                      padding: `${ds.spacing.small} ${ds.spacing.medium}`,
+                      backgroundColor: chartType === 'candlestick' ? ds.colors.semantic.active : 'transparent',
+                      color: chartType === 'candlestick' ? ds.colors.grayscale[0] : ds.colors.grayscale[70],
+                      border: `1px solid ${ds.colors.grayscale[30]}`,
+                      borderRadius: ds.interactive.radius.small,
+                      fontSize: ds.typography.scale.small,
+                      fontWeight: ds.typography.weights.medium,
+                      cursor: 'pointer',
+                      transition: designHelpers.animate('all', ds.animation.durations.fast)
+                    }}
+                  >
+                    Candlestick
+                  </button>
+                </div>
+
+                {/* Timeframe Selector */}
+                <select
+                  value={timeframe}
+                  onChange={(e) => setTimeframe(e.target.value as any)}
+                  style={{
+                    padding: `${ds.spacing.small} ${ds.spacing.medium}`,
+                    backgroundColor: ds.colors.semantic.background.secondary,
+                    color: ds.colors.grayscale[90],
+                    border: `1px solid ${ds.colors.grayscale[30]}`,
+                    borderRadius: ds.interactive.radius.small,
+                    fontSize: ds.typography.scale.small,
+                    cursor: 'pointer'
+                  }}
+                >
+                  <option value="1m">1m</option>
+                  <option value="5m">5m</option>
+                  <option value="15m">15m</option>
+                  <option value="1h">1h</option>
+                  <option value="4h">4h</option>
+                  <option value="1d">1d</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Chart Component */}
+            <div style={{ height: 'calc(100% - 60px)' }}>
+              {chartType === 'line' ? (
+                <PriceChart 
+                  symbol={selectedSymbol} 
+                  height={400}
+                  timeframe={timeframe}
+                />
+              ) : (
+                <CandlestickChart 
+                  symbol={selectedSymbol} 
+                  height={400}
+                  timeframe={timeframe}
+                  showVolume={true}
+                />
+              )}
+            </div>
           </div>
 
           {/* Market Depth */}

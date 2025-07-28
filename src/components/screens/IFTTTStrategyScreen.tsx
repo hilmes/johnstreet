@@ -69,10 +69,26 @@ const IFTTTStrategyScreen: React.FC = () => {
 
   const handleSaveStrategy = async () => {
     try {
-      // TODO: Implement strategy saving logic
-      console.log('Saving strategy:', strategy);
+      const response = await fetch('/api/strategies', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(strategy),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save strategy');
+      }
+
+      const savedStrategy = await response.json();
+      console.log('Strategy saved:', savedStrategy);
+      
+      // Show success notification
+      alert('Strategy saved successfully!');
     } catch (error) {
       console.error('Error saving strategy:', error);
+      alert('Failed to save strategy. Please try again.');
     }
   };
 

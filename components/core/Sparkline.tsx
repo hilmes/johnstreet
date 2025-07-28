@@ -9,6 +9,7 @@
 
 import React, { useMemo } from 'react'
 import { ds, dataviz } from '@/lib/design/TufteDesignSystem'
+import { useLivePrice } from '@/app/hooks/useLivePrices'
 
 interface SparklineProps {
   data: number[]
@@ -239,5 +240,40 @@ export const InlineSparkline: React.FC<{
     }}
   />
 )
+
+// Live sparkline that connects to WebSocket feed
+export const LivePriceSparkline: React.FC<{
+  symbol: string
+  width?: number
+  height?: number
+  className?: string
+  style?: React.CSSProperties
+  showChange?: boolean
+  maxPoints?: number
+}> = ({ 
+  symbol, 
+  showChange = true, 
+  maxPoints = 20,
+  ...props 
+}) => {
+  // Use live price data if available, otherwise use initial prices
+  const { priceHistory } = useLivePrice(symbol)
+  const displayPrices = priceHistory?.length > 0 ? priceHistory.slice(-maxPoints) : prices
+
+  return (
+    <div style={{ display: 'inline-flex', alignItems: 'center', gap: ds.spacing.xs }}>
+      <PriceSparkline prices={displayPrices} {...props} />
+      {showChange && (
+        <span style={{
+          fontSize: ds.typography.scale.xs,
+          color: ds.colors.neutral[400],
+          fontFamily: ds.typography.secondary
+        }}>
+          {symbol}
+        </span>
+      )}
+    </div>
+  )
+}
 
 export default Sparkline

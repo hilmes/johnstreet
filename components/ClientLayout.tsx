@@ -115,7 +115,8 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
             <Box 
               className="crypto-container"
               sx={{ 
-                px: { xs: 2, sm: 3, md: 4, lg: 5 }, 
+                pl: { xs: 2, sm: 2 }, // Minimal left padding, sidebar offset handled by container
+                pr: { xs: 2, sm: 3, md: 4, lg: 5 }, // Keep right padding for symmetry
                 py: 2, 
                 borderBottom: '1px solid var(--theme-border, #2a2e39)',
                 backgroundColor: 'var(--theme-surface, #1e222d)',

@@ -39,7 +39,7 @@ export function useLivePrices(options: UseLivePricesOptions = {}) {
         // Use local WebSocket server for development
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
         const host = window.location.hostname
-        const port = process.env.NEXT_PUBLIC_WS_PORT || '3001'
+        const port = process.env.NEXT_PUBLIC_WS_PORT || '3006'
         wsUrl = `${protocol}//${host}:${port}`
       }
       

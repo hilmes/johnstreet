@@ -9,10 +9,16 @@ import { createServer } from 'http'
 import { WebSocketServer, WebSocket } from 'ws'
 import { getPriceFeedManager, PriceUpdate } from '../lib/kraken/PriceFeedManager'
 
-const PORT = process.env.WS_PORT || 3001
+const PORT = process.env.WS_PORT || 3006
 const ALLOWED_ORIGINS = [
   'http://localhost:3000',
   'http://localhost:3001',
+  'http://localhost:3002',
+  'http://localhost:3003',
+  'http://localhost:3004',
+  'http://localhost:3005',
+  'http://localhost:3006',
+  'http://localhost:4001',
   'https://johnstreet.johnhilmes.com',
   'https://johnstreet.vercel.app'
 ]
@@ -171,6 +177,11 @@ class PriceWebSocketServer {
       this.broadcastPriceUpdate(update)
     })
 
+    // Forward order book updates to subscribed clients
+    this.priceFeed.on('orderbook', ({ pair, data }: { pair: string; data: any }) => {
+      this.broadcastOrderBook(pair, data)
+    })
+
     // Forward stats to all clients
     this.priceFeed.on('stats', (stats) => {
       this.broadcast({
@@ -219,6 +230,33 @@ class PriceWebSocketServer {
         }))
       }
     })
+  }
+
+  private broadcastOrderBook(pair: string, data: any): void {
+    // Convert Kraken pair format to standard format
+    const symbol = this.normalizeSymbol(pair)
+    
+    this.clients.forEach((symbols, ws) => {
+      if (symbols.has(symbol) && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'orderbook',
+          symbol,
+          data
+        }))
+      }
+    })
+  }
+
+  private normalizeSymbol(krakenPair: string): string {
+    // Convert Kraken pair format (e.g., "XBT/USD") to standard format (e.g., "BTC/USD")
+    const conversions: Record<string, string> = {
+      'XBT': 'BTC',
+      'XDG': 'DOGE'
+    }
+
+    const [base, quote] = krakenPair.split('/')
+    const normalizedBase = conversions[base] || base
+    return `${normalizedBase}/${quote}`
   }
 
   private broadcast(message: any): void {

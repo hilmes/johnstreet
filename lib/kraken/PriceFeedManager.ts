@@ -211,12 +211,15 @@ export class PriceFeedManager extends EventEmitter {
     // Convert to Kraken format and subscribe
     const krakenPairs = symbols.map(s => this.denormalizeSymbol(s))
     this.ws.subscribe('ticker', krakenPairs)
+    // Also subscribe to order book with 10 levels (good for visualization)
+    this.ws.subscribe('book-10', krakenPairs)
   }
 
   private unsubscribeFromSymbols(symbols: string[]): void {
     // Convert to Kraken format and unsubscribe
     const krakenPairs = symbols.map(s => this.denormalizeSymbol(s))
     this.ws.unsubscribe('ticker', krakenPairs)
+    this.ws.unsubscribe('book-10', krakenPairs)
   }
 
   /**

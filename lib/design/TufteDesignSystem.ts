@@ -341,6 +341,23 @@ export const layout = {
     paddingRight: ds.grid.margin,
   }),
   
+  // Page container for use within ClientLayout (no left padding since sidebar handles offset)
+  pageContainer: () => ({
+    maxWidth: ds.grid.maxWidth,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingRight: ds.grid.margin,
+    // No paddingLeft - ClientLayout's marginLeft handles sidebar offset
+  }),
+  
+  // Page padding for sections within ClientLayout pages
+  pagePadding: () => ({
+    paddingLeft: ds.spacing.sm, // Minimal left padding since sidebar offset handled by layout
+    paddingRight: ds.spacing.xl,
+    paddingTop: ds.spacing.xl,
+    paddingBottom: ds.spacing.xl,
+  }),
+  
   grid: (columns: number = 12) => ({
     display: 'grid',
     gridTemplateColumns: `repeat(${columns}, 1fr)`,

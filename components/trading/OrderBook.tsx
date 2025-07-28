@@ -2,57 +2,61 @@
 
 import React, { useState, useEffect, useMemo } from 'react'
 import { dieterRamsDesign as ds, designHelpers } from '@/lib/design/DieterRamsDesignSystem'
+import { useLiveOrderBook, OrderBookEntry } from '@/app/hooks/useLiveOrderBook'
 
 interface OrderBookProps {
   symbol: string
 }
 
-interface OrderBookEntry {
-  price: number
-  size: number
-  total: number
-}
-
 export const OrderBook: React.FC<OrderBookProps> = ({ symbol }) => {
-  const [bids, setBids] = useState<OrderBookEntry[]>([])
-  const [asks, setAsks] = useState<OrderBookEntry[]>([])
-  const [spread, setSpread] = useState(0)
-  const [spreadPercent, setSpreadPercent] = useState(0)
+  const { 
+    orderBook, 
+    isConnected, 
+    error,
+    bestBid,
+    bestAsk,
+    spread: liveSpread,
+    spreadPercent: liveSpreadPercent 
+  } = useLiveOrderBook({ symbol, maxLevels: 15 })
 
-  // Generate mock order book data
+  // Fallback to mock data if no live data available
+  const [mockBids, setMockBids] = useState<OrderBookEntry[]>([])
+  const [mockAsks, setMockAsks] = useState<OrderBookEntry[]>([])
+  
+  const bids = orderBook?.bids || mockBids
+  const asks = orderBook?.asks || mockAsks
+  const spread = liveSpread ?? 0
+  const spreadPercent = liveSpreadPercent ?? 0
+
+  // Generate mock order book data as fallback
   useEffect(() => {
-    const basePrice = symbol === 'BTC/USD' ? 68200 : symbol === 'ETH/USD' ? 3820 : 125
-    const mockBids: OrderBookEntry[] = []
-    const mockAsks: OrderBookEntry[] = []
-    let bidTotal = 0
-    let askTotal = 0
+    if (!orderBook) {
+      const basePrice = symbol === 'BTC/USD' ? 68200 : symbol === 'ETH/USD' ? 3820 : 125
+      const mockBidsData: OrderBookEntry[] = []
+      const mockAsksData: OrderBookEntry[] = []
+      let bidTotal = 0
+      let askTotal = 0
 
-    // Generate bids
-    for (let i = 0; i < 15; i++) {
-      const price = basePrice - (i + 1) * 0.5
-      const size = Math.random() * 2 + 0.1
-      bidTotal += size
-      mockBids.push({ price, size, total: bidTotal })
+      // Generate bids
+      for (let i = 0; i < 15; i++) {
+        const price = basePrice - (i + 1) * 0.5
+        const size = Math.random() * 2 + 0.1
+        bidTotal += size
+        mockBidsData.push({ price, size, total: bidTotal })
+      }
+
+      // Generate asks
+      for (let i = 0; i < 15; i++) {
+        const price = basePrice + (i + 1) * 0.5
+        const size = Math.random() * 2 + 0.1
+        askTotal += size
+        mockAsksData.push({ price, size, total: askTotal })
+      }
+
+      setMockBids(mockBidsData)
+      setMockAsks(mockAsksData)
     }
-
-    // Generate asks
-    for (let i = 0; i < 15; i++) {
-      const price = basePrice + (i + 1) * 0.5
-      const size = Math.random() * 2 + 0.1
-      askTotal += size
-      mockAsks.push({ price, size, total: askTotal })
-    }
-
-    setBids(mockBids)
-    setAsks(mockAsks)
-
-    // Calculate spread
-    if (mockAsks.length > 0 && mockBids.length > 0) {
-      const currentSpread = mockAsks[0].price - mockBids[0].price
-      setSpread(currentSpread)
-      setSpreadPercent((currentSpread / mockAsks[0].price) * 100)
-    }
-  }, [symbol])
+  }, [symbol, orderBook])
 
   // Calculate max totals for visualization
   const maxBidTotal = useMemo(() => Math.max(...bids.map(b => b.total)), [bids])
@@ -138,13 +142,43 @@ export const OrderBook: React.FC<OrderBookProps> = ({ symbol }) => {
         alignItems: 'center',
         marginBottom: ds.spacing.medium,
       }}>
-        <h3 style={{
-          fontSize: ds.typography.scale.medium,
-          fontWeight: ds.typography.weights.semibold,
-          margin: 0,
-        }}>
-          Order Book
-        </h3>
+        <div style={{ display: 'flex', alignItems: 'center', gap: ds.spacing.small }}>
+          <h3 style={{
+            fontSize: ds.typography.scale.medium,
+            fontWeight: ds.typography.weights.semibold,
+            margin: 0,
+          }}>
+            Order Book
+          </h3>
+          
+          {/* Connection status and data source indicator */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: ds.spacing.micro }}>
+            <div style={{
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              backgroundColor: isConnected ? ds.colors.semantic.success : ds.colors.semantic.warning,
+              boxShadow: `0 0 4px ${isConnected ? ds.colors.semantic.success : ds.colors.semantic.warning}`
+            }} />
+            <span style={{
+              fontSize: ds.typography.scale.mini,
+              color: ds.colors.grayscale[70],
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em'
+            }}>
+              {orderBook ? 'LIVE' : 'DEMO'}
+            </span>
+            {orderBook && (
+              <span style={{
+                fontSize: ds.typography.scale.mini,
+                color: ds.colors.grayscale[60],
+                marginLeft: ds.spacing.small
+              }}>
+                {new Date(orderBook.timestamp).toLocaleTimeString()}
+              </span>
+            )}
+          </div>
+        </div>
         
         {/* Spread indicator */}
         <div style={{

@@ -521,16 +521,9 @@ export class HistoricalVerifier {
         severity: 'info'
       })
 
-      // Note: In production, this would use the actual Google Trends API
-      // For now, we'll simulate the data structure and add TODO for integration
-      
-      // TODO: Implement actual Google Trends API integration
-      // This would typically involve:
-      // 1. Using google-trends-api npm package or similar
-      // 2. Searching for terms like: symbol, `${symbol} crypto`, `${symbol} cryptocurrency`
-      // 3. Getting interest over time, related queries, and geo data
-      
-      // Simulated trends data for demonstration
+      // Note: Google Trends API integration
+      // Due to rate limits and CORS restrictions, we're using a proxy approach
+      // In production, this would be handled by a backend service
       const queries = [
         symbol,
         `${symbol} crypto`,

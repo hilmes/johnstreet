@@ -30,37 +30,28 @@ interface DashboardData {
     change: number
     priceHistory: number[]
   }>
-  recentTrades: Array<{
+  recentSignals: Array<{
+    id: string
     symbol: string
-    side: 'buy' | 'sell'
-    quantity: number
-    price: number
+    action: 'BUY' | 'SELL'
+    strength: number
     timestamp: string
-    pnl?: number
+    status: 'active' | 'expired' | 'executed'
   }>
-  marketData: {
-    [symbol: string]: {
-      price: number
-      change: number
-      volume: number
-      priceHistory: number[]
-    }
-  }
-  riskMetrics: {
-    maxDrawdown: number
-    sharpeRatio: number
-    var95: number
-    leverageRatio: number
-  }
-  systemStatus: {
-    tradingEnabled: boolean
-    circuitBreakerStatus: 'closed' | 'open' | 'half_open'
-    lastUpdate: string
-  }
+  performanceChart: Array<{
+    time: string
+    value: number
+  }>
+  alerts: Array<{
+    id: string
+    type: 'info' | 'warning' | 'error' | 'success'
+    message: string
+    timestamp: string
+  }>
 }
 
 export const TradingDashboard: React.FC = () => {
-  const [data, setData] = useState<DashboardData | null>(null)
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null)
   const [loading, setLoading] = useState(true)
   const [selectedTimeframe, setSelectedTimeframe] = useState<'1d' | '7d' | '30d'>('1d')
 
@@ -68,78 +59,13 @@ export const TradingDashboard: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // TODO: Replace with actual API calls
-        const mockData: DashboardData = {
-          portfolioValue: 125430.50,
-          dailyPnL: 2340.75,
-          positions: [
-            {
-              symbol: 'BTC/USD',
-              side: 'long',
-              size: 0.5,
-              avgPrice: 43250.00,
-              currentPrice: 44100.00,
-              unrealizedPnl: 425.00,
-              change: 1.97,
-              priceHistory: [43250, 43400, 43800, 44200, 44100, 44300, 44100]
-            },
-            {
-              symbol: 'ETH/USD',
-              side: 'short',
-              size: 2.0,
-              avgPrice: 2650.00,
-              currentPrice: 2580.00,
-              unrealizedPnl: 140.00,
-              change: -2.64,
-              priceHistory: [2650, 2620, 2580, 2590, 2580, 2570, 2580]
-            }
-          ],
-          recentTrades: [
-            {
-              symbol: 'BTC/USD',
-              side: 'buy',
-              quantity: 0.1,
-              price: 44100.00,
-              timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
-              pnl: 45.00
-            },
-            {
-              symbol: 'ETH/USD',
-              side: 'sell',
-              quantity: 0.5,
-              price: 2580.00,
-              timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
-              pnl: -25.50
-            }
-          ],
-          marketData: {
-            'BTC/USD': {
-              price: 44100.00,
-              change: 1.97,
-              volume: 15420000,
-              priceHistory: [43000, 43500, 44000, 44500, 44100, 44300, 44100]
-            },
-            'ETH/USD': {
-              price: 2580.00,
-              change: -2.64,
-              volume: 8750000,
-              priceHistory: [2650, 2620, 2580, 2590, 2580, 2570, 2580]
-            }
-          },
-          riskMetrics: {
-            maxDrawdown: -5.2,
-            sharpeRatio: 1.85,
-            var95: -2450.00,
-            leverageRatio: 1.2
-          },
-          systemStatus: {
-            tradingEnabled: true,
-            circuitBreakerStatus: 'closed',
-            lastUpdate: new Date().toISOString()
-          }
+        // Fetch data from API
+        const response = await fetch(`/api/dashboard?timeframe=${selectedTimeframe}`)
+        if (!response.ok) {
+          throw new Error('Failed to fetch dashboard data')
         }
-
-        setData(mockData)
+        const data: DashboardData = await response.json()
+        setDashboardData(data)
         setLoading(false)
       } catch (error) {
         console.error('Failed to fetch dashboard data:', error)
@@ -151,9 +77,9 @@ export const TradingDashboard: React.FC = () => {
     const interval = setInterval(fetchData, 30000) // Update every 30 seconds
 
     return () => clearInterval(interval)
-  }, [])
+  }, [selectedTimeframe])
 
-  if (loading || !data) {
+  if (loading || !dashboardData) {
     return (
       <div style={{
         ...layout.container(),
@@ -170,10 +96,11 @@ export const TradingDashboard: React.FC = () => {
 
   return (
     <div style={{
-      ...layout.container(),
       backgroundColor: ds.colors.semantic.background,
       minHeight: '100vh',
-      padding: `${ds.spacing.xl} ${ds.spacing.lg}`
+      padding: `${ds.spacing.xl} ${ds.spacing.lg}`,
+      maxWidth: ds.grid.maxWidth,
+      margin: '0 auto'
     }}>
       {/* Dashboard Header */}
       <header style={{ 
@@ -188,7 +115,7 @@ export const TradingDashboard: React.FC = () => {
           marginBottom: ds.spacing.md
         }}>
           <div>
-            <Typography.CriticalMetric value={data.portfolioValue} />
+            <Typography.CriticalMetric value={dashboardData.portfolioValue} />
             <Typography.Body size="sm" muted style={{ marginTop: ds.spacing.xs }}>
               Total Portfolio Value
             </Typography.Body>
@@ -196,8 +123,8 @@ export const TradingDashboard: React.FC = () => {
           
           <div style={{ textAlign: 'right' }}>
             <Typography.Price 
-              value={data.dailyPnL} 
-              change={(data.dailyPnL / (data.portfolioValue - data.dailyPnL)) * 100}
+              value={dashboardData.dailyPnL} 
+              change={(dashboardData.dailyPnL / (dashboardData.portfolioValue - dashboardData.dailyPnL)) * 100}
               size="lg"
             />
             <Typography.Body size="sm" muted style={{ marginTop: ds.spacing.xs }}>
@@ -206,25 +133,19 @@ export const TradingDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* System Status */}
-        <div style={{ display: 'flex', gap: ds.spacing.lg, alignItems: 'center' }}>
-          <Typography.StatusText 
-            status={data.systemStatus.tradingEnabled ? 'success' : 'critical'}
-          >
-            Trading {data.systemStatus.tradingEnabled ? 'Active' : 'Disabled'}
-          </Typography.StatusText>
-          
-          <Typography.StatusText 
-            status={data.systemStatus.circuitBreakerStatus === 'closed' ? 'success' : 'warning'}
-          >
-            Circuit Breaker: {data.systemStatus.circuitBreakerStatus.replace('_', ' ').toUpperCase()}
-          </Typography.StatusText>
-          
-          <Typography.Timestamp 
-            date={data.systemStatus.lastUpdate} 
-            format="relative"
-          />
-        </div>
+        {/* Recent Alerts */}
+        {dashboardData.alerts.length > 0 && (
+          <div style={{ display: 'flex', gap: ds.spacing.lg, alignItems: 'center' }}>
+            {dashboardData.alerts.slice(0, 2).map((alert) => (
+              <Typography.StatusText 
+                key={alert.id}
+                status={alert.type === 'success' ? 'success' : alert.type === 'error' ? 'critical' : 'warning'}
+              >
+                {alert.message}
+              </Typography.StatusText>
+            ))}
+          </div>
+        )}
       </header>
 
       {/* Main Dashboard Grid */}
@@ -244,7 +165,7 @@ export const TradingDashboard: React.FC = () => {
           }}>
             <SecondaryMetricCard
               title="Unrealized P&L"
-              value={data.positions.reduce((sum, pos) => sum + pos.unrealizedPnl, 0)}
+              value={dashboardData.positions.reduce((sum, pos) => sum + pos.unrealizedPnl, 0)}
               unit="USD"
               change={2.34}
               compact
@@ -252,15 +173,15 @@ export const TradingDashboard: React.FC = () => {
             
             <SecondaryMetricCard
               title="Open Positions"
-              value={data.positions.length}
+              value={dashboardData.positions.length}
               change={0}
               compact
             />
             
             <SecondaryMetricCard
-              title="Today's Trades"
-              value={data.recentTrades.length}
-              change={15.4}
+              title="Active Signals"
+              value={dashboardData.recentSignals.filter(s => s.status === 'active').length}
+              change={0}
               compact
             />
           </div>
@@ -268,10 +189,10 @@ export const TradingDashboard: React.FC = () => {
           {/* Positions Table */}
           <ChartCard
             title="Open Positions"
-            subtitle={`${data.positions.length} active positions`}
+            subtitle={`${dashboardData.positions.length} active positions`}
           >
             <PositionsTable 
-              positions={data.positions}
+              positions={dashboardData.positions}
               onPositionClick={(position) => {
                 console.log('Position clicked:', position)
               }}
@@ -279,25 +200,17 @@ export const TradingDashboard: React.FC = () => {
           </ChartCard>
         </div>
 
-        {/* Right Column - Risk & Market Data */}
+        {/* Right Column - Signals & Performance */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: ds.spacing.lg }}>
-          {/* Risk Metrics */}
-          <StatusCard
-            title="Risk Management"
-            status={data.riskMetrics.maxDrawdown > -10 ? 'success' : 'warning'}
-            message={`Max Drawdown: ${data.riskMetrics.maxDrawdown}%`}
-            details={`Sharpe: ${data.riskMetrics.sharpeRatio} | VaR 95%: $${Math.abs(data.riskMetrics.var95).toLocaleString()}`}
-          />
-
-          {/* Market Data */}
+          {/* Recent Signals */}
           <ChartCard
-            title="Market Overview"
-            subtitle="Major pairs"
+            title="Recent Signals"
+            subtitle={`${dashboardData.recentSignals.length} signals`}
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: ds.spacing.md }}>
-              {Object.entries(data.marketData).map(([symbol, market]) => (
+              {dashboardData.recentSignals.slice(0, 5).map((signal) => (
                 <div 
-                  key={symbol}
+                  key={signal.id}
                   style={{ 
                     display: 'flex', 
                     justifyContent: 'space-between', 
@@ -307,76 +220,73 @@ export const TradingDashboard: React.FC = () => {
                   }}
                 >
                   <div>
-                    <Typography.InlineCode>{symbol}</Typography.InlineCode>
-                    <Typography.Price 
-                      value={market.price} 
-                      change={market.change}
-                      size="sm"
+                    <Typography.InlineCode>{signal.symbol}</Typography.InlineCode>
+                    <Typography.StatusText 
+                      status={signal.action === 'BUY' ? 'success' : 'critical'}
                       style={{ marginTop: ds.spacing.xs }}
-                    />
+                    >
+                      {signal.action} • {(signal.strength * 100).toFixed(0)}%
+                    </Typography.StatusText>
                   </div>
                   
-                  <PriceSparkline 
-                    prices={market.priceHistory}
-                    width={60}
-                    height={20}
-                  />
+                  <Typography.Body size="sm" muted>
+                    {signal.status}
+                  </Typography.Body>
                 </div>
               ))}
+            </div>
+          </ChartCard>
+
+          {/* Performance Chart */}
+          <ChartCard
+            title="Portfolio Performance"
+            subtitle={selectedTimeframe}
+          >
+            <div style={{ height: 200, position: 'relative' }}>
+              <PriceSparkline 
+                prices={dashboardData.performanceChart.map(p => p.value)}
+                width={300}
+                height={180}
+              />
             </div>
           </ChartCard>
         </div>
       </div>
 
-      {/* Recent Trades Section */}
-      <section>
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center',
-          marginBottom: ds.spacing.lg
-        }}>
-          <Typography.DataLabel style={{ fontSize: ds.typography.scale.base }}>
-            Recent Trades
+      {/* Alerts Section */}
+      {dashboardData.alerts.length > 0 && (
+        <section>
+          <Typography.DataLabel style={{ fontSize: ds.typography.scale.base, marginBottom: ds.spacing.lg }}>
+            Recent Alerts
           </Typography.DataLabel>
           
-          {/* Timeframe Selector */}
-          <div style={{ 
-            display: 'flex', 
-            gap: ds.spacing.xs,
-            border: `1px solid ${ds.colors.semantic.border}`,
-            borderRadius: ds.radius.sm,
-            padding: ds.spacing.xs
-          }}>
-            {(['1d', '7d', '30d'] as const).map((timeframe) => (
-              <button
-                key={timeframe}
-                onClick={() => setSelectedTimeframe(timeframe)}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: ds.spacing.sm }}>
+            {dashboardData.alerts.map((alert) => (
+              <div
+                key={alert.id}
                 style={{
-                  background: selectedTimeframe === timeframe ? ds.colors.semantic.active : 'transparent',
-                  color: selectedTimeframe === timeframe ? ds.colors.semantic.background : ds.colors.neutral[400],
-                  border: 'none',
-                  padding: `${ds.spacing.xs} ${ds.spacing.sm}`,
+                  padding: ds.spacing.md,
+                  backgroundColor: alert.type === 'error' ? 'rgba(239, 68, 68, 0.1)' : 
+                                 alert.type === 'success' ? 'rgba(34, 197, 94, 0.1)' :
+                                 alert.type === 'warning' ? 'rgba(251, 191, 36, 0.1)' :
+                                 'rgba(99, 102, 241, 0.1)',
+                  border: `1px solid ${alert.type === 'error' ? ds.colors.semantic.critical : 
+                                      alert.type === 'success' ? ds.colors.semantic.success :
+                                      alert.type === 'warning' ? ds.colors.semantic.warning :
+                                      ds.colors.semantic.info}`,
                   borderRadius: ds.radius.sm,
-                  fontSize: ds.typography.scale.sm,
-                  fontWeight: ds.typography.weights.medium,
-                  cursor: 'pointer',
-                  transition: 'all 150ms ease'
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
                 }}
               >
-                {timeframe}
-              </button>
+                <Typography.Body>{alert.message}</Typography.Body>
+                <Typography.Timestamp date={alert.timestamp} format="relative" />
+              </div>
             ))}
           </div>
-        </div>
-
-        <TradesTable 
-          trades={data.recentTrades}
-          onTradeClick={(trade) => {
-            console.log('Trade clicked:', trade)
-          }}
-        />
-      </section>
+        </section>
+      )}
     </div>
   )
 }

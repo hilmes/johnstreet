@@ -23,7 +23,23 @@
       "Bash(next dev:*)",
       "Bash(npx next dev:*)",
       "Bash(git reset:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(curl:*)",
+      "Bash(rm:*)",
+      "Bash(tmux new-session:*)",
+      "Bash(tmux split-window:*)",
+      "Bash(pm2 start:*)",
+      "Bash(pm2 restart:*)",
+      "Bash(pm2 logs:*)",
+      "Bash(pm2 delete:*)",
+      "Bash(pm2 list:*)",
+      "Bash(chmod:*)",
+      "Bash(pm2 status:*)",
+      "Bash(npm rebuild:*)",
+      "Bash(pm2 stop:*)",
+      "Bash(pm2 save:*)",
+      "Bash(npx next build:*)",
+      "Bash(kill:*)"
     ],
     "deny": []
   }

@@ -487,7 +487,10 @@ export default function PortfolioPage() {
     }}>
       {/* Header */}
       <header style={{
-        padding: ds.spacing.large,
+        paddingLeft: ds.spacing.small, // Minimal left padding, sidebar offset handled by layout
+        paddingRight: ds.spacing.large,
+        paddingTop: ds.spacing.large,
+        paddingBottom: ds.spacing.large,
         borderBottom: `1px solid ${ds.colors.grayscale[20]}`,
         backgroundColor: ds.colors.semantic.background.secondary,
       }}>
@@ -651,7 +654,10 @@ export default function PortfolioPage() {
       <main style={{
         maxWidth: ds.grid.maxWidth,
         margin: '0 auto',
-        padding: ds.spacing.large,
+        paddingLeft: ds.spacing.small, // Minimal left padding, sidebar offset handled by layout
+        paddingRight: ds.spacing.large,
+        paddingTop: ds.spacing.large,
+        paddingBottom: ds.spacing.large,
       }}>
         {/* Charts */}
         <div style={{

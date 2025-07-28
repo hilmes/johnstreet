@@ -1,0 +1,480 @@
+2025-07-27T13:37:45: 
+2025-07-27T13:37:45: > johnstreet@0.1.0 ws:server
+2025-07-27T13:37:45: > tsx server/websocket-server.ts
+2025-07-27T13:37:45: 
+2025-07-27T13:37:45: WebSocket server running on port 3001
+2025-07-27T13:37:48: Kraken WebSocket connected
+2025-07-27T13:37:48: Price feed WebSocket connected
+2025-07-27T13:37:48: Price feed connected to Kraken
+2025-07-27T13:37:48: Kraken system status: {
+2025-07-27T13:37:48:   event: 'systemStatus',
+2025-07-27T13:37:48:   version: '1.9.6',
+2025-07-27T13:37:48:   status: 'online',
+2025-07-27T13:37:48:   connectionID: 9868564216790921000
+2025-07-27T13:37:48: }
+2025-07-27T13:37:48: Subscription status: {
+2025-07-27T13:37:48:   channelID: 119930888,
+2025-07-27T13:37:48:   channelName: 'ticker',
+2025-07-27T13:37:48:   event: 'subscriptionStatus',
+2025-07-27T13:37:48:   pair: 'XBT/USD',
+2025-07-27T13:37:48:   status: 'subscribed',
+2025-07-27T13:37:48:   subscription: { name: 'ticker' }
+2025-07-27T13:37:48: }
+2025-07-27T13:37:48: Subscription status: {
+2025-07-27T13:37:48:   channelID: 13959176,
+2025-07-27T13:37:48:   channelName: 'ticker',
+2025-07-27T13:37:48:   event: 'subscriptionStatus',
+2025-07-27T13:37:48:   pair: 'ETH/USD',
+2025-07-27T13:37:48:   status: 'subscribed',
+2025-07-27T13:37:48:   subscription: { name: 'ticker' }
+2025-07-27T13:37:48: }
+2025-07-27T13:37:48: Subscription status: {
+2025-07-27T13:37:48:   channelID: 21364744,
+2025-07-27T13:37:48:   channelName: 'ticker',
+2025-07-27T13:37:48:   event: 'subscriptionStatus',
+2025-07-27T13:37:48:   pair: 'SOL/USD',
+2025-07-27T13:37:48:   status: 'subscribed',
+2025-07-27T13:37:48:   subscription: { name: 'ticker' }
+2025-07-27T13:37:48: }
+2025-07-27T13:37:48: Subscription status: {
+2025-07-27T13:37:48:   channelID: 11141128,
+2025-07-27T13:37:48:   channelName: 'ticker',
+2025-07-27T13:37:48:   event: 'subscriptionStatus',
+2025-07-27T13:37:48:   pair: 'ADA/USD',
+2025-07-27T13:37:48:   status: 'subscribed',
+2025-07-27T13:37:48:   subscription: { name: 'ticker' }
+2025-07-27T13:37:48: }
+2025-07-27T13:37:48: Subscription status: {
+2025-07-27T13:37:48:   channelID: 589832,
+2025-07-27T13:37:48:   channelName: 'ticker',
+2025-07-27T13:37:48:   event: 'subscriptionStatus',
+2025-07-27T13:37:48:   pair: 'DOT/USD',
+2025-07-27T13:37:48:   status: 'subscribed',
+2025-07-27T13:37:48:   subscription: { name: 'ticker' }
+2025-07-27T13:37:48: }
+2025-07-27T13:37:48: Subscription status: {
+2025-07-27T13:37:48:   channelID: 119930888,
+2025-07-27T13:37:48:   channelName: 'ticker',
+2025-07-27T13:37:48:   event: 'subscriptionStatus',
+2025-07-27T13:37:48:   pair: 'XBT/USD',
+2025-07-27T13:37:48:   status: 'subscribed',
+2025-07-27T13:37:48:   subscription: { name: 'ticker' }
+2025-07-27T13:37:48: }
+2025-07-27T13:37:48: Subscription status: {
+2025-07-27T13:37:48:   channelID: 13959176,
+2025-07-27T13:37:48:   channelName: 'ticker',
+2025-07-27T13:37:48:   event: 'subscriptionStatus',
+2025-07-27T13:37:48:   pair: 'ETH/USD',
+2025-07-27T13:37:48:   status: 'subscribed',
+2025-07-27T13:37:48:   subscription: { name: 'ticker' }
+2025-07-27T13:37:48: }
+2025-07-27T13:37:48: Subscription status: {
+2025-07-27T13:37:48:   channelID: 21364744,
+2025-07-27T13:37:48:   channelName: 'ticker',
+2025-07-27T13:37:48:   event: 'subscriptionStatus',
+2025-07-27T13:37:48:   pair: 'SOL/USD',
+2025-07-27T13:37:48:   status: 'subscribed',
+2025-07-27T13:37:48:   subscription: { name: 'ticker' }
+2025-07-27T13:37:48: }
+2025-07-27T13:37:48: Subscription status: {
+2025-07-27T13:37:48:   channelID: 11141128,
+2025-07-27T13:37:48:   channelName: 'ticker',
+2025-07-27T13:37:48:   event: 'subscriptionStatus',
+2025-07-27T13:37:48:   pair: 'ADA/USD',
+2025-07-27T13:37:48:   status: 'subscribed',
+2025-07-27T13:37:48:   subscription: { name: 'ticker' }
+2025-07-27T13:37:48: }
+2025-07-27T13:37:48: Subscription status: {
+2025-07-27T13:37:48:   channelID: 589832,
+2025-07-27T13:37:48:   channelName: 'ticker',
+2025-07-27T13:37:48:   event: 'subscriptionStatus',
+2025-07-27T13:37:48:   pair: 'DOT/USD',
+2025-07-27T13:37:48:   status: 'subscribed',
+2025-07-27T13:37:48:   subscription: { name: 'ticker' }
+2025-07-27T13:37:48: }
+2025-07-27T13:39:44: 
+2025-07-27T13:39:44: Shutting down WebSocket server...
+2025-07-27T13:39:44: 
+2025-07-27T13:39:44: > johnstreet@0.1.0 ws:server
+2025-07-27T13:39:44: > tsx server/websocket-server.ts
+2025-07-27T13:39:44: 
+2025-07-27T13:39:45: WebSocket server running on port 3002
+2025-07-27T13:39:47: Kraken WebSocket connected
+2025-07-27T13:39:47: Price feed WebSocket connected
+2025-07-27T13:39:47: Price feed connected to Kraken
+2025-07-27T13:39:47: Kraken system status: {
+2025-07-27T13:39:47:   event: 'systemStatus',
+2025-07-27T13:39:47:   version: '1.9.6',
+2025-07-27T13:39:47:   status: 'online',
+2025-07-27T13:39:47:   connectionID: 6686877542962205000
+2025-07-27T13:39:47: }
+2025-07-27T13:39:47: Subscription status: {
+2025-07-27T13:39:47:   channelID: 119930888,
+2025-07-27T13:39:47:   channelName: 'ticker',
+2025-07-27T13:39:47:   event: 'subscriptionStatus',
+2025-07-27T13:39:47:   pair: 'XBT/USD',
+2025-07-27T13:39:47:   status: 'subscribed',
+2025-07-27T13:39:47:   subscription: { name: 'ticker' }
+2025-07-27T13:39:47: }
+2025-07-27T13:39:47: Subscription status: {
+2025-07-27T13:39:47:   channelID: 13959176,
+2025-07-27T13:39:47:   channelName: 'ticker',
+2025-07-27T13:39:47:   event: 'subscriptionStatus',
+2025-07-27T13:39:47:   pair: 'ETH/USD',
+2025-07-27T13:39:47:   status: 'subscribed',
+2025-07-27T13:39:47:   subscription: { name: 'ticker' }
+2025-07-27T13:39:47: }
+2025-07-27T13:39:47: Subscription status: {
+2025-07-27T13:39:47:   channelID: 21364744,
+2025-07-27T13:39:47:   channelName: 'ticker',
+2025-07-27T13:39:47:   event: 'subscriptionStatus',
+2025-07-27T13:39:47:   pair: 'SOL/USD',
+2025-07-27T13:39:47:   status: 'subscribed',
+2025-07-27T13:39:47:   subscription: { name: 'ticker' }
+2025-07-27T13:39:47: }
+2025-07-27T13:39:47: Subscription status: {
+2025-07-27T13:39:47:   channelID: 11141128,
+2025-07-27T13:39:47:   channelName: 'ticker',
+2025-07-27T13:39:47:   event: 'subscriptionStatus',
+2025-07-27T13:39:47:   pair: 'ADA/USD',
+2025-07-27T13:39:47:   status: 'subscribed',
+2025-07-27T13:39:47:   subscription: { name: 'ticker' }
+2025-07-27T13:39:47: }
+2025-07-27T13:39:47: Subscription status: {
+2025-07-27T13:39:47:   channelID: 589832,
+2025-07-27T13:39:47:   channelName: 'ticker',
+2025-07-27T13:39:47:   event: 'subscriptionStatus',
+2025-07-27T13:39:47:   pair: 'DOT/USD',
+2025-07-27T13:39:47:   status: 'subscribed',
+2025-07-27T13:39:47:   subscription: { name: 'ticker' }
+2025-07-27T13:39:47: }
+2025-07-27T13:39:47: Subscription status: {
+2025-07-27T13:39:47:   channelID: 119930888,
+2025-07-27T13:39:47:   channelName: 'ticker',
+2025-07-27T13:39:47:   event: 'subscriptionStatus',
+2025-07-27T13:39:47:   pair: 'XBT/USD',
+2025-07-27T13:39:47:   status: 'subscribed',
+2025-07-27T13:39:47:   subscription: { name: 'ticker' }
+2025-07-27T13:39:47: }
+2025-07-27T13:39:47: Subscription status: {
+2025-07-27T13:39:47:   channelID: 13959176,
+2025-07-27T13:39:47:   channelName: 'ticker',
+2025-07-27T13:39:47:   event: 'subscriptionStatus',
+2025-07-27T13:39:47:   pair: 'ETH/USD',
+2025-07-27T13:39:47:   status: 'subscribed',
+2025-07-27T13:39:47:   subscription: { name: 'ticker' }
+2025-07-27T13:39:47: }
+2025-07-27T13:39:47: Subscription status: {
+2025-07-27T13:39:47:   channelID: 21364744,
+2025-07-27T13:39:47:   channelName: 'ticker',
+2025-07-27T13:39:47:   event: 'subscriptionStatus',
+2025-07-27T13:39:47:   pair: 'SOL/USD',
+2025-07-27T13:39:47:   status: 'subscribed',
+2025-07-27T13:39:47:   subscription: { name: 'ticker' }
+2025-07-27T13:39:47: }
+2025-07-27T13:39:47: Subscription status: {
+2025-07-27T13:39:47:   channelID: 11141128,
+2025-07-27T13:39:47:   channelName: 'ticker',
+2025-07-27T13:39:47:   event: 'subscriptionStatus',
+2025-07-27T13:39:47:   pair: 'ADA/USD',
+2025-07-27T13:39:47:   status: 'subscribed',
+2025-07-27T13:39:47:   subscription: { name: 'ticker' }
+2025-07-27T13:39:47: }
+2025-07-27T13:39:47: Subscription status: {
+2025-07-27T13:39:47:   channelID: 589832,
+2025-07-27T13:39:47:   channelName: 'ticker',
+2025-07-27T13:39:47:   event: 'subscriptionStatus',
+2025-07-27T13:39:47:   pair: 'DOT/USD',
+2025-07-27T13:39:47:   status: 'subscribed',
+2025-07-27T13:39:47:   subscription: { name: 'ticker' }
+2025-07-27T13:39:47: }
+2025-07-27T13:39:50: 
+2025-07-27T13:39:50: Shutting down WebSocket server...
+2025-07-27T13:39:50: 
+2025-07-27T13:39:50: > johnstreet@0.1.0 ws:server
+2025-07-27T13:39:50: > tsx server/websocket-server.ts
+2025-07-27T13:39:50: 
+2025-07-27T13:39:50: WebSocket server running on port 3002
+2025-07-27T13:39:51: Kraken WebSocket connected
+2025-07-27T13:39:51: Price feed WebSocket connected
+2025-07-27T13:39:51: Price feed connected to Kraken
+2025-07-27T13:39:51: Kraken system status: {
+2025-07-27T13:39:51:   event: 'systemStatus',
+2025-07-27T13:39:51:   version: '1.9.6',
+2025-07-27T13:39:51:   status: 'online',
+2025-07-27T13:39:51:   connectionID: 7087638325810190000
+2025-07-27T13:39:51: }
+2025-07-27T13:39:51: Subscription status: {
+2025-07-27T13:39:51:   channelID: 119930888,
+2025-07-27T13:39:51:   channelName: 'ticker',
+2025-07-27T13:39:51:   event: 'subscriptionStatus',
+2025-07-27T13:39:51:   pair: 'XBT/USD',
+2025-07-27T13:39:51:   status: 'subscribed',
+2025-07-27T13:39:51:   subscription: { name: 'ticker' }
+2025-07-27T13:39:51: }
+2025-07-27T13:39:51: Subscription status: {
+2025-07-27T13:39:51:   channelID: 13959176,
+2025-07-27T13:39:51:   channelName: 'ticker',
+2025-07-27T13:39:51:   event: 'subscriptionStatus',
+2025-07-27T13:39:51:   pair: 'ETH/USD',
+2025-07-27T13:39:51:   status: 'subscribed',
+2025-07-27T13:39:51:   subscription: { name: 'ticker' }
+2025-07-27T13:39:51: }
+2025-07-27T13:39:51: Subscription status: {
+2025-07-27T13:39:51:   channelID: 21364744,
+2025-07-27T13:39:51:   channelName: 'ticker',
+2025-07-27T13:39:51:   event: 'subscriptionStatus',
+2025-07-27T13:39:51:   pair: 'SOL/USD',
+2025-07-27T13:39:51:   status: 'subscribed',
+2025-07-27T13:39:51:   subscription: { name: 'ticker' }
+2025-07-27T13:39:51: }
+2025-07-27T13:39:51: Subscription status: {
+2025-07-27T13:39:51:   channelID: 11141128,
+2025-07-27T13:39:51:   channelName: 'ticker',
+2025-07-27T13:39:51:   event: 'subscriptionStatus',
+2025-07-27T13:39:51:   pair: 'ADA/USD',
+2025-07-27T13:39:51:   status: 'subscribed',
+2025-07-27T13:39:51:   subscription: { name: 'ticker' }
+2025-07-27T13:39:51: }
+2025-07-27T13:39:51: Subscription status: {
+2025-07-27T13:39:51:   channelID: 589832,
+2025-07-27T13:39:51:   channelName: 'ticker',
+2025-07-27T13:39:51:   event: 'subscriptionStatus',
+2025-07-27T13:39:51:   pair: 'DOT/USD',
+2025-07-27T13:39:51:   status: 'subscribed',
+2025-07-27T13:39:51:   subscription: { name: 'ticker' }
+2025-07-27T13:39:51: }
+2025-07-27T13:39:51: Subscription status: {
+2025-07-27T13:39:51:   channelID: 119930888,
+2025-07-27T13:39:51:   channelName: 'ticker',
+2025-07-27T13:39:51:   event: 'subscriptionStatus',
+2025-07-27T13:39:51:   pair: 'XBT/USD',
+2025-07-27T13:39:51:   status: 'subscribed',
+2025-07-27T13:39:51:   subscription: { name: 'ticker' }
+2025-07-27T13:39:51: }
+2025-07-27T13:39:51: Subscription status: {
+2025-07-27T13:39:51:   channelID: 13959176,
+2025-07-27T13:39:51:   channelName: 'ticker',
+2025-07-27T13:39:51:   event: 'subscriptionStatus',
+2025-07-27T13:39:51:   pair: 'ETH/USD',
+2025-07-27T13:39:51:   status: 'subscribed',
+2025-07-27T13:39:51:   subscription: { name: 'ticker' }
+2025-07-27T13:39:51: }
+2025-07-27T13:39:51: Subscription status: {
+2025-07-27T13:39:51:   channelID: 21364744,
+2025-07-27T13:39:51:   channelName: 'ticker',
+2025-07-27T13:39:51:   event: 'subscriptionStatus',
+2025-07-27T13:39:51:   pair: 'SOL/USD',
+2025-07-27T13:39:51:   status: 'subscribed',
+2025-07-27T13:39:51:   subscription: { name: 'ticker' }
+2025-07-27T13:39:51: }
+2025-07-27T13:39:51: Subscription status: {
+2025-07-27T13:39:51:   channelID: 11141128,
+2025-07-27T13:39:51:   channelName: 'ticker',
+2025-07-27T13:39:51:   event: 'subscriptionStatus',
+2025-07-27T13:39:51:   pair: 'ADA/USD',
+2025-07-27T13:39:51:   status: 'subscribed',
+2025-07-27T13:39:51:   subscription: { name: 'ticker' }
+2025-07-27T13:39:51: }
+2025-07-27T13:39:51: Subscription status: {
+2025-07-27T13:39:51:   channelID: 589832,
+2025-07-27T13:39:51:   channelName: 'ticker',
+2025-07-27T13:39:51:   event: 'subscriptionStatus',
+2025-07-27T13:39:51:   pair: 'DOT/USD',
+2025-07-27T13:39:51:   status: 'subscribed',
+2025-07-27T13:39:51:   subscription: { name: 'ticker' }
+2025-07-27T13:39:51: }
+2025-07-27T13:47:05: 
+2025-07-27T13:47:05: Shutting down WebSocket server...
+2025-07-27T13:47:06: 
+2025-07-27T13:47:06: > johnstreet@0.1.0 ws:server
+2025-07-27T13:47:06: > tsx server/websocket-server.ts
+2025-07-27T13:47:06: 
+2025-07-27T13:47:06: WebSocket server running on port 3006
+2025-07-27T13:47:07: Kraken WebSocket connected
+2025-07-27T13:47:07: Price feed WebSocket connected
+2025-07-27T13:47:07: Price feed connected to Kraken
+2025-07-27T13:47:07: Kraken system status: {
+2025-07-27T13:47:07:   event: 'systemStatus',
+2025-07-27T13:47:07:   version: '1.9.6',
+2025-07-27T13:47:07:   status: 'online',
+2025-07-27T13:47:07:   connectionID: 16938487915624897000
+2025-07-27T13:47:07: }
+2025-07-27T13:47:08: Subscription status: {
+2025-07-27T13:47:08:   channelID: 119930888,
+2025-07-27T13:47:08:   channelName: 'ticker',
+2025-07-27T13:47:08:   event: 'subscriptionStatus',
+2025-07-27T13:47:08:   pair: 'XBT/USD',
+2025-07-27T13:47:08:   status: 'subscribed',
+2025-07-27T13:47:08:   subscription: { name: 'ticker' }
+2025-07-27T13:47:08: }
+2025-07-27T13:47:08: Subscription status: {
+2025-07-27T13:47:08:   channelID: 13959176,
+2025-07-27T13:47:08:   channelName: 'ticker',
+2025-07-27T13:47:08:   event: 'subscriptionStatus',
+2025-07-27T13:47:08:   pair: 'ETH/USD',
+2025-07-27T13:47:08:   status: 'subscribed',
+2025-07-27T13:47:08:   subscription: { name: 'ticker' }
+2025-07-27T13:47:08: }
+2025-07-27T13:47:08: Subscription status: {
+2025-07-27T13:47:08:   channelID: 21364744,
+2025-07-27T13:47:08:   channelName: 'ticker',
+2025-07-27T13:47:08:   event: 'subscriptionStatus',
+2025-07-27T13:47:08:   pair: 'SOL/USD',
+2025-07-27T13:47:08:   status: 'subscribed',
+2025-07-27T13:47:08:   subscription: { name: 'ticker' }
+2025-07-27T13:47:08: }
+2025-07-27T13:47:08: Subscription status: {
+2025-07-27T13:47:08:   channelID: 11141128,
+2025-07-27T13:47:08:   channelName: 'ticker',
+2025-07-27T13:47:08:   event: 'subscriptionStatus',
+2025-07-27T13:47:08:   pair: 'ADA/USD',
+2025-07-27T13:47:08:   status: 'subscribed',
+2025-07-27T13:47:08:   subscription: { name: 'ticker' }
+2025-07-27T13:47:08: }
+2025-07-27T13:47:08: Subscription status: {
+2025-07-27T13:47:08:   channelID: 589832,
+2025-07-27T13:47:08:   channelName: 'ticker',
+2025-07-27T13:47:08:   event: 'subscriptionStatus',
+2025-07-27T13:47:08:   pair: 'DOT/USD',
+2025-07-27T13:47:08:   status: 'subscribed',
+2025-07-27T13:47:08:   subscription: { name: 'ticker' }
+2025-07-27T13:47:08: }
+2025-07-27T13:47:08: Subscription status: {
+2025-07-27T13:47:08:   channelID: 119930888,
+2025-07-27T13:47:08:   channelName: 'ticker',
+2025-07-27T13:47:08:   event: 'subscriptionStatus',
+2025-07-27T13:47:08:   pair: 'XBT/USD',
+2025-07-27T13:47:08:   status: 'subscribed',
+2025-07-27T13:47:08:   subscription: { name: 'ticker' }
+2025-07-27T13:47:08: }
+2025-07-27T13:47:08: Subscription status: {
+2025-07-27T13:47:08:   channelID: 13959176,
+2025-07-27T13:47:08:   channelName: 'ticker',
+2025-07-27T13:47:08:   event: 'subscriptionStatus',
+2025-07-27T13:47:08:   pair: 'ETH/USD',
+2025-07-27T13:47:08:   status: 'subscribed',
+2025-07-27T13:47:08:   subscription: { name: 'ticker' }
+2025-07-27T13:47:08: }
+2025-07-27T13:47:08: Subscription status: {
+2025-07-27T13:47:08:   channelID: 21364744,
+2025-07-27T13:47:08:   channelName: 'ticker',
+2025-07-27T13:47:08:   event: 'subscriptionStatus',
+2025-07-27T13:47:08:   pair: 'SOL/USD',
+2025-07-27T13:47:08:   status: 'subscribed',
+2025-07-27T13:47:08:   subscription: { name: 'ticker' }
+2025-07-27T13:47:08: }
+2025-07-27T13:47:08: Subscription status: {
+2025-07-27T13:47:08:   channelID: 11141128,
+2025-07-27T13:47:08:   channelName: 'ticker',
+2025-07-27T13:47:08:   event: 'subscriptionStatus',
+2025-07-27T13:47:08:   pair: 'ADA/USD',
+2025-07-27T13:47:08:   status: 'subscribed',
+2025-07-27T13:47:08:   subscription: { name: 'ticker' }
+2025-07-27T13:47:08: }
+2025-07-27T13:47:08: Subscription status: {
+2025-07-27T13:47:08:   channelID: 589832,
+2025-07-27T13:47:08:   channelName: 'ticker',
+2025-07-27T13:47:08:   event: 'subscriptionStatus',
+2025-07-27T13:47:08:   pair: 'DOT/USD',
+2025-07-27T13:47:08:   status: 'subscribed',
+2025-07-27T13:47:08:   subscription: { name: 'ticker' }
+2025-07-27T13:47:08: }
+2025-07-27T13:54:10: 
+2025-07-27T13:54:10: Shutting down WebSocket server...
+2025-07-27T13:54:10: 
+2025-07-27T13:54:10: > johnstreet@0.1.0 ws:server
+2025-07-27T13:54:10: > tsx server/websocket-server.ts
+2025-07-27T13:54:10: 
+2025-07-27T13:54:11: WebSocket server running on port 3006
+2025-07-27T13:54:12: Kraken WebSocket connected
+2025-07-27T13:54:12: Price feed WebSocket connected
+2025-07-27T13:54:12: Price feed connected to Kraken
+2025-07-27T13:54:12: Kraken system status: {
+2025-07-27T13:54:12:   event: 'systemStatus',
+2025-07-27T13:54:12:   version: '1.9.6',
+2025-07-27T13:54:12:   status: 'online',
+2025-07-27T13:54:12:   connectionID: 15273093945118487000
+2025-07-27T13:54:12: }
+2025-07-27T13:54:12: Subscription status: {
+2025-07-27T13:54:12:   channelID: 119930888,
+2025-07-27T13:54:12:   channelName: 'ticker',
+2025-07-27T13:54:12:   event: 'subscriptionStatus',
+2025-07-27T13:54:12:   pair: 'XBT/USD',
+2025-07-27T13:54:12:   status: 'subscribed',
+2025-07-27T13:54:12:   subscription: { name: 'ticker' }
+2025-07-27T13:54:12: }
+2025-07-27T13:54:12: Subscription status: {
+2025-07-27T13:54:12:   channelID: 13959176,
+2025-07-27T13:54:12:   channelName: 'ticker',
+2025-07-27T13:54:12:   event: 'subscriptionStatus',
+2025-07-27T13:54:12:   pair: 'ETH/USD',
+2025-07-27T13:54:12:   status: 'subscribed',
+2025-07-27T13:54:12:   subscription: { name: 'ticker' }
+2025-07-27T13:54:12: }
+2025-07-27T13:54:12: Subscription status: {
+2025-07-27T13:54:12:   channelID: 21364744,
+2025-07-27T13:54:12:   channelName: 'ticker',
+2025-07-27T13:54:12:   event: 'subscriptionStatus',
+2025-07-27T13:54:12:   pair: 'SOL/USD',
+2025-07-27T13:54:12:   status: 'subscribed',
+2025-07-27T13:54:12:   subscription: { name: 'ticker' }
+2025-07-27T13:54:12: }
+2025-07-27T13:54:12: Subscription status: {
+2025-07-27T13:54:12:   channelID: 11141128,
+2025-07-27T13:54:12:   channelName: 'ticker',
+2025-07-27T13:54:12:   event: 'subscriptionStatus',
+2025-07-27T13:54:12:   pair: 'ADA/USD',
+2025-07-27T13:54:12:   status: 'subscribed',
+2025-07-27T13:54:12:   subscription: { name: 'ticker' }
+2025-07-27T13:54:12: }
+2025-07-27T13:54:12: Subscription status: {
+2025-07-27T13:54:12:   channelID: 589832,
+2025-07-27T13:54:12:   channelName: 'ticker',
+2025-07-27T13:54:12:   event: 'subscriptionStatus',
+2025-07-27T13:54:12:   pair: 'DOT/USD',
+2025-07-27T13:54:12:   status: 'subscribed',
+2025-07-27T13:54:12:   subscription: { name: 'ticker' }
+2025-07-27T13:54:12: }
+2025-07-27T13:54:12: Subscription status: {
+2025-07-27T13:54:12:   channelID: 119930888,
+2025-07-27T13:54:12:   channelName: 'ticker',
+2025-07-27T13:54:12:   event: 'subscriptionStatus',
+2025-07-27T13:54:12:   pair: 'XBT/USD',
+2025-07-27T13:54:12:   status: 'subscribed',
+2025-07-27T13:54:12:   subscription: { name: 'ticker' }
+2025-07-27T13:54:12: }
+2025-07-27T13:54:12: Subscription status: {
+2025-07-27T13:54:12:   channelID: 13959176,
+2025-07-27T13:54:12:   channelName: 'ticker',
+2025-07-27T13:54:12:   event: 'subscriptionStatus',
+2025-07-27T13:54:12:   pair: 'ETH/USD',
+2025-07-27T13:54:12:   status: 'subscribed',
+2025-07-27T13:54:12:   subscription: { name: 'ticker' }
+2025-07-27T13:54:12: }
+2025-07-27T13:54:12: Subscription status: {
+2025-07-27T13:54:12:   channelID: 21364744,
+2025-07-27T13:54:12:   channelName: 'ticker',
+2025-07-27T13:54:12:   event: 'subscriptionStatus',
+2025-07-27T13:54:12:   pair: 'SOL/USD',
+2025-07-27T13:54:12:   status: 'subscribed',
+2025-07-27T13:54:12:   subscription: { name: 'ticker' }
+2025-07-27T13:54:12: }
+2025-07-27T13:54:12: Subscription status: {
+2025-07-27T13:54:12:   channelID: 11141128,
+2025-07-27T13:54:12:   channelName: 'ticker',
+2025-07-27T13:54:12:   event: 'subscriptionStatus',
+2025-07-27T13:54:12:   pair: 'ADA/USD',
+2025-07-27T13:54:12:   status: 'subscribed',
+2025-07-27T13:54:12:   subscription: { name: 'ticker' }
+2025-07-27T13:54:12: }
+2025-07-27T13:54:12: Subscription status: {
+2025-07-27T13:54:12:   channelID: 589832,
+2025-07-27T13:54:12:   channelName: 'ticker',
+2025-07-27T13:54:12:   event: 'subscriptionStatus',
+2025-07-27T13:54:12:   pair: 'DOT/USD',
+2025-07-27T13:54:12:   status: 'subscribed',
+2025-07-27T13:54:12:   subscription: { name: 'ticker' }
+2025-07-27T13:54:12: }
+2025-07-27T16:20:40: 
+2025-07-27T16:20:40: Shutting down WebSocket server...

@@ -42,8 +42,11 @@ export async function GET(request: NextRequest) {
           enabled: !!process.env.CRYPTOPANIC_API_KEY,
           config: process.env.CRYPTOPANIC_API_KEY ? {
             apiKey: process.env.CRYPTOPANIC_API_KEY,
-            filter: 'bullish',
-            currencies: 'BTC,ETH'
+            baseUrl: 'https://cryptopanic.com/api/developer/v2',
+            region: 'en',
+            maxResults: 50,
+            checkInterval: 120,
+            active: true
           } : undefined
         },
         lunarcrush: {

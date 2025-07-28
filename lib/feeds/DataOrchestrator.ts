@@ -6,6 +6,7 @@ import { cryptoPanicClient, CryptoPanicConfig } from './CryptoPanicClient'
 import { lunarCrushClient, LunarCrushConfig } from './LunarCrushClient'
 import { pushshiftClient, PushshiftConfig } from './PushshiftClient'
 import { dataSourceMetrics } from './DataSourceMetrics'
+import { notificationService } from '@/lib/alerts/NotificationService'
 
 export interface DataOrchestratorConfig {
   rss: {
@@ -618,11 +619,10 @@ export class DataOrchestrator {
       severity: 'error'
     })
 
-    // TODO: In production, this would trigger:
-    // - WebSocket push notifications
-    // - Email/SMS alerts
-    // - Dashboard notifications
-    // - Integration with trading systems
+    // Send notifications through the notification service
+    await notificationService.sendCrossPlatformSignalAlert(signal)
+    
+    // Additional integrations can be configured in NotificationService
   }
 
   private setupEventListeners(): void {
