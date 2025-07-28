@@ -369,7 +369,7 @@ export default function AIStrategyPage() {
         <DialogTitle>Set Anthropic API Key</DialogTitle>
         <DialogContent>
           <Alert severity="info" sx={{ mb: 2 }}>
-            Your API key is stored locally and never sent to our servers. It's only used to communicate directly with Anthropic's API.
+            Your API key is stored locally and never sent to our servers. It&apos;s only used to communicate directly with Anthropic&apos;s API.
           </Alert>
           <TextField
             fullWidth
