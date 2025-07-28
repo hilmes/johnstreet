@@ -12,19 +12,17 @@ describe('SignalGenerator', () => {
     signalGenerator = new SignalGenerator()
     
     mockSentiment = {
-      symbol: 'BTC',
       score: 0.75,
+      magnitude: 0.8,
+      classification: 'positive',
       confidence: 0.85,
-      volume: 100,
-      platforms: ['reddit', 'twitter'],
-      timestamp: Date.now(),
-      metadata: {
-        mentionCount: 50,
-        uniqueAuthors: 30,
-        averageFollowers: 1000,
-        viralPosts: 2,
-        influencerEngagement: 0.8
-      }
+      keywords: ['bullish', 'moon', 'hodl'],
+      symbols: [{
+        symbol: 'BTC',
+        confidence: 0.9,
+        context: 'positive mention',
+        position: 0
+      }]
     }
 
     mockMarketData = {
