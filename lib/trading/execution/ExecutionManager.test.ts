@@ -1,10 +1,10 @@
 import { ExecutionManager, ExecutionConfig, ExecutionResult } from './ExecutionManager'
 import { TradingSignal } from '../signals/SignalGenerator'
 import { PositionSize } from '../risk/PositionSizer'
-import { UnifiedExchange } from '@/lib/exchanges/unified/UnifiedExchange'
+import { UnifiedExchange } from '@/lib/exchanges/UnifiedExchange'
 
 // Mock the UnifiedExchange
-jest.mock('@/lib/exchanges/unified/UnifiedExchange')
+jest.mock('@/lib/exchanges/UnifiedExchange')
 
 describe('ExecutionManager', () => {
   let executionManager: ExecutionManager
@@ -18,31 +18,39 @@ describe('ExecutionManager', () => {
     
     mockSignal = {
       id: 'signal_123',
-      timestamp: Date.now(),
       symbol: 'BTC/USD',
       action: 'BUY',
       strength: 0.85,
       confidence: 0.9,
       timeframe: '1h',
       source: {
-        name: 'test',
-        reliability: 0.9,
-        indicators: [],
+        sentiment: {
+          score: 0.75,
+          magnitude: 0.8,
+          classification: 'positive',
+          confidence: 0.85,
+          keywords: ['bullish']
+        },
         marketData: {
+          symbol: 'BTC/USD',
           price: 50000,
+          volume24h: 1000000,
+          priceChange24h: 0.02,
+          volatility: 0.02,
           bid: 49995,
           ask: 50005,
-          volume: 1000,
           timestamp: Date.now()
         }
       },
       metadata: {
-        indicators: [],
-        patterns: [],
-        volume: { ratio: 1.2, trend: 'increasing' },
-        volatility: 0.02,
-        riskLevel: 'medium'
-      }
+        sentimentVelocity: 0.15,
+        volumeProfile: 'increasing',
+        riskLevel: 'medium',
+        correlatedSymbols: []
+      },
+      createdAt: Date.now(),
+      expiresAt: Date.now() + 15 * 60 * 1000,
+      priority: 7
     }
 
     mockPositionSize = {
