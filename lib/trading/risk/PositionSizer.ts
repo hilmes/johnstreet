@@ -363,6 +363,12 @@ export class PositionSizer {
     }
   }
 
+  // Public method to get optimal sizing method
+  getOptimalSizingMethod(signal: TradingSignal, portfolio: Portfolio): PositionSizingMethod {
+    this.portfolio = portfolio
+    return this.selectOptimalMethod(signal)
+  }
+
   // Public methods for configuration
   updateRiskParameters(params: Partial<RiskParameters>): void {
     this.riskParams = { ...this.riskParams, ...params }

@@ -41,6 +41,9 @@ describe('PositionSizer', () => {
           bid: 49995,
           ask: 50005,
           volume: 1000,
+          volume24h: 10000,
+          priceChange24h: 0.05,
+          volatility: 0.15,
           timestamp: Date.now()
         }
       },
@@ -187,7 +190,7 @@ describe('PositionSizer', () => {
       )
 
       expect(position?.percentage).toBeLessThanOrEqual(0.1) // Should be capped at 10%
-      expect(position?.metadata.adjustments).toContain('Position size limited to max')
+      expect(position?.metadata.adjustments.some(adj => adj.includes('Capped at max position size'))).toBe(true)
     })
 
     it('should calculate risk amount correctly', () => {
@@ -274,7 +277,7 @@ describe('PositionSizer', () => {
     })
 
     it('should prefer volatility sizing in high volatility', () => {
-      mockSignal.metadata.volatility = 0.35 // High volatility
+      mockSignal.source.marketData.volatility = 0.35 // High volatility
       
       const method = positionSizer.getOptimalSizingMethod(mockSignal, mockPortfolio)
       
