@@ -235,13 +235,22 @@ export class SignalGenerator {
     velocity: number,
     marketData: MarketData
   ): TradingSignal['action'] {
-    // Strong bullish sentiment with positive velocity
-    if (sentiment.score > this.config.sentimentThresholds.bullish && velocity > 0.1) {
+    // Strong bullish sentiment
+    if (sentiment.score > this.config.sentimentThresholds.bullish && sentiment.confidence > 0.7) {
       return 'BUY'
     }
     
-    // Strong bearish sentiment with negative velocity
-    if (sentiment.score < this.config.sentimentThresholds.bearish && velocity < -0.1) {
+    // Strong bearish sentiment  
+    if (sentiment.score < this.config.sentimentThresholds.bearish && sentiment.confidence > 0.7) {
+      return 'SELL'
+    }
+    
+    // High momentum signals
+    if (velocity > 0.2 && sentiment.score > 0.3) {
+      return 'BUY'
+    }
+    
+    if (velocity < -0.2 && sentiment.score < -0.3) {
       return 'SELL'
     }
     

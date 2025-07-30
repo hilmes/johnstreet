@@ -5,6 +5,7 @@ import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/st
 import CssBaseline from '@mui/material/CssBaseline'
 import { SnackbarProvider } from 'notistack'
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import { SWRProvider } from './providers/SWRProvider'
 
 const theme = createTheme({
   palette: {
@@ -156,13 +157,15 @@ const theme = createTheme({
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-          {children}
-        </SnackbarProvider>
-      </MuiThemeProvider>
-    </ThemeProvider>
+    <SWRProvider>
+      <ThemeProvider>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline />
+          <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+            {children}
+          </SnackbarProvider>
+        </MuiThemeProvider>
+      </ThemeProvider>
+    </SWRProvider>
   )
 }
