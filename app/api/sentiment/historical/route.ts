@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { HistoricalVerifier } from '@/lib/sentiment/HistoricalVerifier'
 
+export const runtime = 'edge'
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const action = searchParams.get('action') || 'verify'

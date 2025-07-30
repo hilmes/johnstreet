@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generateTradingStrategy, StrategyGenerationRequest } from '@/lib/anthropic/client'
 
+export const runtime = 'edge'
+
 export async function POST(request: NextRequest) {
   try {
     const body: StrategyGenerationRequest = await request.json()

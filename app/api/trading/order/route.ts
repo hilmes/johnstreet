@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { KrakenService } from '@/services/KrakenService'
 
+export const runtime = 'edge'
+
 interface OrderRequest {
   symbol: string
   side: 'buy' | 'sell'

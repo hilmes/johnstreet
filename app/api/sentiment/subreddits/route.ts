@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { SubredditConfig } from '@/lib/sentiment/SubredditManager'
 import { subredditManagerKV } from '@/lib/sentiment/SubredditManagerKV'
 
+export const runtime = 'edge'
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const action = searchParams.get('action') || 'list'

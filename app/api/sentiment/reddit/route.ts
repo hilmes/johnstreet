@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { RedditScanner } from '@/lib/sentiment/RedditScanner'
 
+export const runtime = 'edge'
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const subreddit = searchParams.get('subreddit') || 'CryptoCurrency'

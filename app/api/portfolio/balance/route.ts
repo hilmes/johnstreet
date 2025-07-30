@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 import axios from 'axios'
 
+export const runtime = 'edge'
+
 const API_KEY = process.env.KRAKEN_API_KEY!
 const API_SECRET = process.env.KRAKEN_API_SECRET!
 

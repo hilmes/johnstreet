@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { CircuitBreaker } from '@/lib/trading/CircuitBreaker'
 
+export const runtime = 'edge'
+
 // Global circuit breaker instance
 let circuitBreaker: CircuitBreaker | null = null
 

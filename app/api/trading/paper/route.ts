@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PaperTradingEngine } from '@/lib/trading/PaperTradingEngine'
 
+export const runtime = 'edge'
+
 // Global paper trading engine instance
 let paperTradingEngine: PaperTradingEngine | null = null
 

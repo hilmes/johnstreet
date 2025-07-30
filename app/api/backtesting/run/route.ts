@@ -12,6 +12,8 @@ import {
 } from '@/lib/backtesting/strategies/SampleStrategies'
 import { BacktestConfig, BaseStrategy } from '@/lib/backtesting/types'
 
+export const runtime = 'edge'
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()

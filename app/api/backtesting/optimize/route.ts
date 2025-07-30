@@ -5,6 +5,8 @@ import { RealisticExecutionModel } from '@/lib/backtesting/RealisticExecutionMod
 import { SimpleMovingAverageCrossover, RSIMeanReversionStrategy } from '@/lib/backtesting/strategies/SampleStrategies'
 import { BacktestConfig, BaseStrategy } from '@/lib/backtesting/types'
 
+export const runtime = 'edge'
+
 interface OptimizationResult {
   parameters: Record<string, any>
   metrics: {

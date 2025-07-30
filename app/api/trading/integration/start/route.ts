@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { sentimentTradeIntegration } from '@/lib/trading/integration/SentimentTradeIntegration'
 import { Portfolio } from '@/lib/backtesting/types'
 
+export const runtime = 'edge'
+
 // Helper function to create a portfolio from balance data
 async function createPortfolioFromBalance(): Promise<Portfolio> {
   try {

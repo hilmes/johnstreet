@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import axios from 'axios'
 
+export const runtime = 'edge'
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const pair = searchParams.get('pair') || 'XXBTZUSD'

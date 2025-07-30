@@ -3,6 +3,8 @@ import { GeneratedStrategy } from '@/lib/anthropic/client'
 import { StrategyExecutor, OHLCV } from '@/lib/backtest/StrategyExecutor'
 import { getHistoricalData } from '@/lib/kraken/historical'
 
+export const runtime = 'edge'
+
 export interface BacktestRequest {
   strategy: GeneratedStrategy
   symbol: string
