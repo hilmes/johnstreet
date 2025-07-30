@@ -1,0 +1,563 @@
+/**
+ * Design Excellence System - John Street Trading Platform
+ * 
+ * Implementing:
+ * - Swiss Design: Massimo Vignelli, Josef Müller-Brockmann grid systems
+ * - Japanese Aesthetics: Ma (negative space), Wabi-Sabi, Kanso (simplicity)
+ * - Typography: Ellen Lupton's hierarchy principles
+ * - Data Visualization: Edward Tufte's data-ink ratio
+ * - Information Design: Nicholas Felton's personal data approach
+ */
+
+/* Import Professional Typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* === Swiss Grid System === */
+  --grid-unit: 8px;
+  --grid-baseline: 24px;
+  --grid-columns: 12;
+  --grid-gutter: calc(var(--grid-unit) * 3);
+  --grid-margin: calc(var(--grid-unit) * 6);
+  
+  /* === Color Palette - Restraint & Purpose === */
+  /* Primary Ink - Following Dieter Rams */
+  --ink-primary: #0A0A0A;
+  --ink-secondary: #1A1A1A;
+  --ink-tertiary: #2A2A2A;
+  --ink-quaternary: #3A3A3A;
+  
+  /* Paper - Ma (Negative Space) */
+  --paper-primary: #FAFAFA;
+  --paper-secondary: #F5F5F5;
+  --paper-tertiary: #F0F0F0;
+  
+  /* Text Hierarchy - Information Architecture */
+  --text-primary: #0A0A0A;
+  --text-secondary: #4A4A4A;
+  --text-tertiary: #6A6A6A;
+  --text-muted: #8A8A8A;
+  --text-disabled: #AAAAAA;
+  
+  /* Semantic Colors - Data Only, No Decoration */
+  --color-profit: #059669;      /* Emerald 600 - Growth */
+  --color-loss: #DC2626;        /* Red 600 - Risk */
+  --color-warning: #D97706;     /* Amber 600 - Caution */
+  --color-info: #2563EB;        /* Blue 600 - Information */
+  --color-neutral: #6B7280;     /* Gray 500 - Neutral */
+  
+  /* Financial Indicators */
+  --indicator-bullish: #10B981;  /* Emerald 500 */
+  --indicator-bearish: #EF4444;  /* Red 500 */
+  --indicator-neutral: #8B5A2B;  /* Neutral Brown */
+  
+  /* === Typography Scale - Ellen Lupton === */
+  --font-family-display: 'IBM Plex Sans', -apple-system, sans-serif;
+  --font-family-text: 'Inter', -apple-system, sans-serif;
+  --font-family-mono: 'IBM Plex Mono', 'SF Mono', monospace;
+  
+  /* Modular Scale - Golden Ratio */
+  --scale-ratio: 1.618;
+  --font-size-nano: 0.618rem;     /* 9.89px */
+  --font-size-micro: 0.764rem;    /* 12.22px */
+  --font-size-small: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;         /* 16px */
+  --font-size-medium: 1.236rem;   /* 19.78px */
+  --font-size-large: 1.618rem;    /* 25.89px */
+  --font-size-xlarge: 2.618rem;   /* 41.89px */
+  --font-size-huge: 4.236rem;     /* 67.77px */
+  
+  /* Font Weights - Clear Hierarchy */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights - Baseline Grid */
+  --line-height-compressed: 1;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.618;
+  --line-height-loose: 2;
+  
+  /* === Spacing - Ma (Negative Space) === */
+  --space-quantum: calc(var(--grid-unit) * 0.5);  /* 4px */
+  --space-atom: var(--grid-unit);                 /* 8px */
+  --space-molecule: calc(var(--grid-unit) * 2);   /* 16px */
+  --space-cell: calc(var(--grid-unit) * 3);       /* 24px */
+  --space-organ: calc(var(--grid-unit) * 4);      /* 32px */
+  --space-system: calc(var(--grid-unit) * 6);     /* 48px */
+  --space-universe: calc(var(--grid-unit) * 8);   /* 64px */
+  
+  /* === Motion - Seijaku (Tranquility) === */
+  --duration-instant: 100ms;
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-glacial: 1000ms;
+  
+  --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  
+  /* === Shadows - Minimal Depth === */
+  --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-light: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 4px 8px 0 rgba(0, 0, 0, 0.12);
+  --shadow-heavy: 0 8px 16px 0 rgba(0, 0, 0, 0.16);
+  
+  /* === Borders - Structure, Not Decoration === */
+  --border-width-hairline: 0.5px;
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 4px;
+  
+  --border-radius-minimal: 2px;
+  --border-radius-subtle: 4px;
+  --border-radius-medium: 8px;
+  
+  /* === Z-Index Scale - Layering === */
+  --z-base: 1;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}
+
+/* === Dark Mode - Financial Terminal Aesthetic === */
+@media (prefers-color-scheme: dark), 
+       [data-theme="dark"] {
+  :root {
+    /* Invert the color system */
+    --ink-primary: #FAFAFA;
+    --ink-secondary: #E5E5E5;
+    --ink-tertiary: #D4D4D4;
+    --ink-quaternary: #C4C4C4;
+    
+    --paper-primary: #0A0A0A;
+    --paper-secondary: #1A1A1A;
+    --paper-tertiary: #2A2A2A;
+    
+    --text-primary: #FAFAFA;
+    --text-secondary: #B5B5B5;
+    --text-tertiary: #959595;
+    --text-muted: #757575;
+    --text-disabled: #555555;
+    
+    /* Adjust semantic colors for dark mode */
+    --color-profit: #10B981;
+    --color-loss: #EF4444;
+    --color-warning: #F59E0B;
+    --color-info: #3B82F6;
+    --color-neutral: #9CA3AF;
+  }
+}
+
+/* === Base Reset - Tabula Rasa === */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* === Document Foundation === */
+html {
+  font-size: 16px;
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+}
+
+body {
+  font-family: var(--font-family-text);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-primary);
+  background-color: var(--paper-primary);
+  min-height: 100vh;
+}
+
+/* === Typography Classes - Ellen Lupton's System === */
+.type-display-huge {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-huge);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-compressed);
+  letter-spacing: -0.04em;
+}
+
+.type-display-large {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-xlarge);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.03em;
+}
+
+.type-display {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
+}
+
+.type-heading {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  letter-spacing: -0.01em;
+}
+
+.type-subheading {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+}
+
+.type-body {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+}
+
+.type-body-small {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+.type-caption {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-micro);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.type-overline {
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-nano);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-compressed);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* === Financial Data Typography === */
+.type-price {
+  font-family: var(--font-family-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+}
+
+.type-metric {
+  font-family: var(--font-family-mono);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: 'tnum' 1, 'lnum' 1, 'zero' 1;
+}
+
+.type-percentage {
+  font-family: var(--font-family-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+}
+
+/* === Grid System - Josef Müller-Brockmann === */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gutter);
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--grid-margin);
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    padding: 0 var(--space-molecule);
+    gap: var(--space-molecule);
+  }
+}
+
+/* Grid Column Spans */
+.col-1 { grid-column: span 1; }
+.col-2 { grid-column: span 2; }
+.col-3 { grid-column: span 3; }
+.col-4 { grid-column: span 4; }
+.col-6 { grid-column: span 6; }
+.col-8 { grid-column: span 8; }
+.col-9 { grid-column: span 9; }
+.col-12 { grid-column: span 12; }
+
+/* === Component Patterns - Wabi-Sabi === */
+.surface {
+  background: var(--paper-secondary);
+  border: var(--border-width-thin) solid var(--ink-quaternary);
+  border-radius: var(--border-radius-subtle);
+  padding: var(--space-cell);
+  transition: all var(--duration-fast) var(--easing-standard);
+}
+
+.surface:hover {
+  border-color: var(--ink-tertiary);
+  box-shadow: var(--shadow-light);
+}
+
+.surface-elevated {
+  background: var(--paper-secondary);
+  border: var(--border-width-thin) solid var(--ink-quaternary);
+  border-radius: var(--border-radius-subtle);
+  box-shadow: var(--shadow-medium);
+}
+
+/* === Data Tables - Tufte Principles === */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.data-table thead {
+  border-bottom: var(--border-width-medium) solid var(--ink-tertiary);
+}
+
+.data-table th {
+  padding: var(--space-atom) var(--space-molecule);
+  text-align: left;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+}
+
+.data-table td {
+  padding: var(--space-molecule);
+  border-bottom: var(--border-width-hairline) solid var(--ink-quaternary);
+}
+
+.data-table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* === Financial Metrics Display === */
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-quantum);
+}
+
+.metric-label {
+  font-size: var(--font-size-micro);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+}
+
+.metric-value {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-compressed);
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-change {
+  display: flex;
+  align-items: center;
+  gap: var(--space-quantum);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.metric-change.positive {
+  color: var(--color-profit);
+}
+
+.metric-change.negative {
+  color: var(--color-loss);
+}
+
+/* === Interactive Elements - Functional Beauty === */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-atom);
+  padding: var(--space-atom) var(--space-molecule);
+  font-family: var(--font-family-text);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-compressed);
+  text-decoration: none;
+  border-radius: var(--border-radius-minimal);
+  border: var(--border-width-thin) solid transparent;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--easing-standard);
+  white-space: nowrap;
+}
+
+.button-primary {
+  background-color: var(--ink-primary);
+  color: var(--paper-primary);
+  border-color: var(--ink-primary);
+}
+
+.button-primary:hover {
+  background-color: var(--ink-secondary);
+  border-color: var(--ink-secondary);
+}
+
+.button-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--ink-tertiary);
+}
+
+.button-secondary:hover {
+  border-color: var(--ink-secondary);
+  background-color: var(--paper-tertiary);
+}
+
+.button-danger {
+  background-color: var(--color-loss);
+  color: white;
+  border-color: var(--color-loss);
+}
+
+.button-success {
+  background-color: var(--color-profit);
+  color: white;
+  border-color: var(--color-profit);
+}
+
+/* === Form Elements - Clarity & Function === */
+.input {
+  width: 100%;
+  padding: var(--space-atom) var(--space-molecule);
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background-color: var(--paper-primary);
+  border: var(--border-width-thin) solid var(--ink-tertiary);
+  border-radius: var(--border-radius-minimal);
+  transition: border-color var(--duration-fast) var(--easing-standard);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-info);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+/* === Status Indicators - Semantic Only === */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-atom);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-dot.active {
+  background-color: var(--color-info);
+  animation: pulse var(--duration-glacial) infinite;
+}
+
+.status-dot.success {
+  background-color: var(--color-profit);
+}
+
+.status-dot.error {
+  background-color: var(--color-loss);
+}
+
+.status-dot.warning {
+  background-color: var(--color-warning);
+}
+
+/* === Animation - Mono no Aware === */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-quantum));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--space-atom) * -1));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in var(--duration-normal) var(--easing-decelerate);
+}
+
+.animate-slide-in {
+  animation: slide-in var(--duration-fast) var(--easing-decelerate);
+}
+
+/* === Utility Classes - Minimal Set === */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-tabular { font-variant-numeric: tabular-nums; }
+.font-mono { font-family: var(--font-family-mono); }
+.uppercase { text-transform: uppercase; }
+.sr-only { 
+  position: absolute; 
+  width: 1px; 
+  height: 1px; 
+  padding: 0; 
+  margin: -1px; 
+  overflow: hidden; 
+  clip: rect(0, 0, 0, 0); 
+  white-space: nowrap; 
+  border: 0; 
+}

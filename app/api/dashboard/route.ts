@@ -3,6 +3,8 @@ import { getServerSession } from 'next-auth'
 import { Portfolio, Position } from '@/types/trading'
 import { handleApiError, createApiResponse, ApiError } from '@/lib/utils/api-errors'
 
+export const runtime = 'edge'
+
 export interface DashboardData {
   portfolioValue: number
   dailyPnL: number

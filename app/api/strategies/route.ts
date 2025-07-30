@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 
+export const runtime = 'edge'
+
 export interface IFTTTRule {
   id: string
   condition: {

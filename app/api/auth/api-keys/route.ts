@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ApiKeyManager } from '@/lib/auth/ApiKeyManager'
 
+export const runtime = 'edge'
+
 interface AddApiKeyRequest {
   keyId: string
   exchange: string

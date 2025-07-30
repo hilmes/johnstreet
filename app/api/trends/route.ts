@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+export const runtime = 'edge'
+
 export interface TrendsData {
   interest: Array<{
     date: Date
