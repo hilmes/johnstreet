@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { swissTradingDesignSystem as ds, tradingTheme } from '@/lib/design/SwissTradingDesignSystem'
 import {
   Box,
   Drawer,
@@ -19,28 +20,14 @@ import {
   useMediaQuery,
 } from '@mui/material'
 import {
-  Dashboard as DashboardIcon,
-  ShowChart as TradingIcon,
-  Analytics as AnalyticsIcon,
-  AccountBalance as PortfolioIcon,
-  Psychology as StrategiesIcon,
+  Dashboard as ControlIcon,
+  ShowChart as ExecuteIcon,
+  Science as LabIcon,
+  Shield as RiskIcon,
+  Analytics as IntelIcon,
   Settings as SettingsIcon,
   Menu as MenuIcon,
   ChevronLeft as ChevronLeftIcon,
-  ExpandLess,
-  ExpandMore,
-  TrendingUp,
-  CandlestickChart,
-  AutoGraph,
-  SmartToy as AIIcon,
-  Shield as ShieldIcon,
-  Warning as WarningIcon,
-  Notifications as NotificationsIcon,
-  Science as ScienceIcon,
-  Assessment as AssessmentIcon,
-  ShoppingCart as OrdersIcon,
-  AccountBalanceWallet as PaperIcon,
-  Timeline as ActivityIcon,
 } from '@mui/icons-material'
 
 const DRAWER_WIDTH = 220
@@ -53,100 +40,32 @@ interface NavItem {
   children?: NavItem[]
 }
 
+// Swiss Trading Platform - 5 Core Views
 const navItems: NavItem[] = [
   {
-    title: 'Dashboard',
-    path: '/dashboard',
-    icon: <DashboardIcon />,
+    title: 'Control Center',
+    path: '/control-center',
+    icon: <ControlIcon />,
   },
   {
-    title: 'Trading',
-    icon: <TradingIcon />,
-    children: [
-      {
-        title: 'Live Trading',
-        path: '/trading/live',
-        icon: <CandlestickChart />,
-      },
-      {
-        title: 'Paper Trading',
-        path: '/trading/paper',
-        icon: <PaperIcon />,
-      },
-      {
-        title: 'Order Management',
-        path: '/trading/orders',
-        icon: <OrdersIcon />,
-      },
-    ],
+    title: 'Execution Hub',
+    path: '/execution',
+    icon: <ExecuteIcon />,
   },
   {
-    title: 'Strategies',
-    icon: <StrategiesIcon />,
-    children: [
-      {
-        title: 'Strategy Hub',
-        path: '/strategies',
-        icon: <AIIcon />,
-      },
-      {
-        title: 'Backtesting Lab',
-        path: '/strategies/backtest',
-        icon: <ScienceIcon />,
-      },
-      {
-        title: 'Performance',
-        path: '/strategies/performance',
-        icon: <AssessmentIcon />,
-      },
-    ],
+    title: 'Strategy Lab',
+    path: '/strategy-lab',
+    icon: <LabIcon />,
   },
   {
-    title: 'Analytics',
-    icon: <AnalyticsIcon />,
-    children: [
-      {
-        title: 'Market Analysis',
-        path: '/analytics/market',
-        icon: <TrendingUp />,
-      },
-      {
-        title: 'Portfolio Analytics',
-        path: '/analytics/portfolio',
-        icon: <AutoGraph />,
-      },
-    ],
+    title: 'Risk Console',
+    path: '/risk-console',
+    icon: <RiskIcon />,
   },
   {
-    title: 'Risk & Monitoring',
-    icon: <ShieldIcon />,
-    children: [
-      {
-        title: 'Risk Dashboard',
-        path: '/risk/dashboard',
-        icon: <ShieldIcon />,
-      },
-      {
-        title: 'Pump Detector',
-        path: '/risk/pump-detector',
-        icon: <WarningIcon />,
-      },
-      {
-        title: 'Alerts Center',
-        path: '/risk/alerts',
-        icon: <NotificationsIcon />,
-      },
-      {
-        title: 'Activity Feed',
-        path: '/activity-feed',
-        icon: <ActivityIcon />,
-      },
-    ],
-  },
-  {
-    title: 'Portfolio',
-    path: '/portfolio',
-    icon: <PortfolioIcon />,
+    title: 'Intelligence Feed',
+    path: '/intelligence',
+    icon: <IntelIcon />,
   },
   {
     title: 'Settings',
@@ -154,6 +73,24 @@ const navItems: NavItem[] = [
     icon: <SettingsIcon />,
   },
 ]
+
+// Legacy routes mapping for backward compatibility
+const legacyRouteMap: Record<string, string> = {
+  '/dashboard': '/control-center',
+  '/trading/live': '/execution',
+  '/trading/paper': '/execution',
+  '/trading/orders': '/execution', 
+  '/strategies': '/strategy-lab',
+  '/strategies/backtest': '/strategy-lab',
+  '/strategies/performance': '/strategy-lab',
+  '/analytics/market': '/intelligence',
+  '/analytics/portfolio': '/control-center',
+  '/risk/dashboard': '/risk-console',
+  '/risk/pump-detector': '/risk-console',
+  '/risk/alerts': '/risk-console',
+  '/activity-feed': '/intelligence',
+  '/portfolio': '/control-center',
+}
 
 interface SidebarProps {
   open: boolean
@@ -291,18 +228,27 @@ export default function Sidebar({ open, onToggle }: SidebarProps) {
         }}
       >
 {open ? (
-          <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 700 }}>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              color: ds.trading.colors.textPrimary, 
+              fontWeight: ds.trading.typography.weights.bold,
+              fontFamily: ds.trading.typography.interface,
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+            }}
+          >
             JohnStreet
           </Typography>
         ) : (
           <Box sx={{ 
-            color: 'var(--retro-green)', 
-            fontFamily: "'Press Start 2P', monospace", 
-            fontSize: '6px', 
-            fontWeight: 700, 
+            color: ds.trading.colors.profit, 
+            fontFamily: ds.trading.typography.trading, 
+            fontSize: '8px', 
+            fontWeight: ds.trading.typography.weights.bold, 
             lineHeight: 1.0,
             textAlign: 'center',
-            textShadow: '0 0 5px var(--retro-green)'
+            textShadow: `0 0 8px ${ds.trading.colors.profit}`,
           }}>
             <pre style={{ margin: 0, color: 'inherit' }}>{`
 ██ ██
@@ -338,9 +284,9 @@ export default function Sidebar({ open, onToggle }: SidebarProps) {
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: DRAWER_WIDTH,
-            backgroundColor: 'background.paper',
-            borderRight: '1px solid',
-            borderColor: 'divider',
+            backgroundColor: ds.trading.colors.surface,
+            borderRight: `1px solid ${ds.trading.colors.border}`,
+            color: ds.trading.colors.textPrimary,
           },
         }}
       >
@@ -362,9 +308,9 @@ export default function Sidebar({ open, onToggle }: SidebarProps) {
               duration: theme.transitions.duration.enteringScreen,
             }),
             boxSizing: 'border-box',
-            backgroundColor: 'background.paper',
-            borderRight: '1px solid',
-            borderColor: 'divider',
+            backgroundColor: ds.trading.colors.surface,
+            borderRight: `1px solid ${ds.trading.colors.border}`,
+            color: ds.trading.colors.textPrimary,
             overflowX: 'hidden',
             height: '100vh',
             top: 0,
