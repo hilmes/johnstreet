@@ -296,41 +296,41 @@ export const dieterRamsDesign: AdvancedDesignTokens = {
   colors: {
     grayscale: {
       0: '#000000',
-      5: '#0A0A0A',
-      10: '#141414',
-      20: '#1F1F1F',
-      30: '#2A2A2A',
-      50: '#7A7A7A',
-      70: '#B0B0B0',
-      90: '#E0E0E0',
-      95: '#F0F0F0',
-      100: '#FFFFFF',
+      5: '#0d0e14',         // Crypto dark background
+      10: '#1e222d',        // Crypto surface
+      20: '#2a2e39',        // Crypto border
+      30: '#3a3e49',        // Slightly lighter
+      50: '#787b86',        // Crypto text secondary
+      70: '#a1a4ae',        // Mid light
+      90: '#d1d4dc',        // Crypto text primary
+      95: '#e8eaed',        // Near white
+      100: '#FFFFFF',       // Pure white
     },
     
     semantic: {
-      buy: '#00D084',           // Accessible green
-      sell: '#FF3366',          // Accessible red
-      neutral: '#7A7A7A',       // Mid gray
+      buy: '#26a69a',           // Crypto success green
+      sell: '#ef5350',          // Crypto danger red
+      neutral: '#787b86',       // Crypto text secondary
       
-      success: '#00D084',
-      danger: '#FF3366',
+      success: '#26a69a',       // Crypto success green
+      danger: '#ef5350',        // Crypto danger red
       warning: '#FFB800',
-      info: '#0084FF',
+      info: '#2962ff',          // Crypto primary blue
       
-      primary: '#0084FF',
-      secondary: '#7A7A7A',
-      disabled: '#3A3A3A',
+      primary: '#2962ff',       // Crypto primary blue
+      secondary: '#787b86',     // Crypto text secondary
+      disabled: '#3a3e49',
       
       background: {
-        primary: '#0A0A0A',
-        secondary: '#141414',
-        tertiary: '#1F1F1F',
-        overlay: 'rgba(0, 0, 0, 0.8)',
+        primary: '#0d0e14',     // Crypto dark background
+        secondary: '#1e222d',   // Crypto surface
+        tertiary: '#2a2e39',    // Crypto border as background
+        overlay: 'rgba(13, 14, 20, 0.8)',
       },
       
       patterns: {
-        profit: 'url("data:image/svg+xml,%3Csvg width="4" height="4" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 0L4 4M0 4L4 0" stroke="%2300D084" stroke-width="0.5" /%3E%3C/svg%3E")',
-        loss: 'url("data:image/svg+xml,%3Csvg width="4" height="4" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 2L4 2M2 0L2 4" stroke="%23FF3366" stroke-width="0.5" /%3E%3C/svg%3E")',
+        profit: 'url("data:image/svg+xml,%3Csvg width="4" height="4" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 0L4 4M0 4L4 0" stroke="%2326a69a" stroke-width="0.5" /%3E%3C/svg%3E")',
+        loss: 'url("data:image/svg+xml,%3Csvg width="4" height="4" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 2L4 2M2 0L2 4" stroke="%23ef5350" stroke-width="0.5" /%3E%3C/svg%3E")',
       },
     },
   },

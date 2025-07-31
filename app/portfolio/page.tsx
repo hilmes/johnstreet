@@ -3,7 +3,6 @@
 export const dynamic = 'force-dynamic'
 
 import React, { useState, useEffect } from 'react'
-import { dieterRamsDesign as ds, designHelpers } from '@/lib/design/DieterRamsDesignSystem'
 import { Line, Doughnut, Bar } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -31,6 +30,61 @@ ChartJS.register(
   Legend,
   Filler
 )
+
+// Crypto-dark theme colors
+const theme = {
+  colors: {
+    background: '#0d0e14',
+    surface: '#1e222d',
+    border: '#2a2e39',
+    text: {
+      primary: '#d1d4dc',
+      secondary: '#787b86'
+    },
+    success: '#26a69a',
+    danger: '#ef5350',
+    // Additional semantic colors for trading
+    buy: '#26a69a',
+    sell: '#ef5350',
+    primary: '#4a9eff',
+    warning: '#ffa726'
+  },
+  spacing: {
+    mini: '4px',
+    small: '8px',
+    medium: '16px',
+    large: '24px',
+    xlarge: '32px',
+    xxlarge: '48px'
+  },
+  typography: {
+    families: {
+      interface: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      data: '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", monospace'
+    },
+    sizes: {
+      mini: '10px',
+      small: '12px',
+      medium: '14px',
+      large: '16px',
+      xlarge: '20px',
+      xxlarge: '24px',
+      xxxlarge: '32px'
+    },
+    weights: {
+      normal: 400,
+      medium: 500,
+      semibold: 600,
+      bold: 700
+    }
+  },
+  radius: {
+    small: '4px',
+    medium: '6px',
+    large: '8px',
+    pill: '999px'
+  }
+}
 
 interface Position {
   id: string
@@ -307,8 +361,8 @@ export default function PortfolioPage() {
       datasets: [{
         label: 'Portfolio Value',
         data: values,
-        borderColor: ds.colors.semantic.primary,
-        backgroundColor: `${ds.colors.semantic.primary}10`,
+        borderColor: theme.colors.primary,
+        backgroundColor: `${theme.colors.primary}10`,
         fill: true,
         tension: 0.1,
         borderWidth: 2,
@@ -323,17 +377,17 @@ export default function PortfolioPage() {
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: ds.colors.semantic.background.secondary,
-          titleColor: ds.colors.grayscale[90],
-          bodyColor: ds.colors.grayscale[90],
-          borderColor: ds.colors.grayscale[30],
+          backgroundColor: theme.colors.surface,
+          titleColor: theme.colors.text.primary,
+          bodyColor: theme.colors.text.primary,
+          borderColor: theme.colors.border,
           borderWidth: 1,
           titleFont: {
-            family: ds.typography.families.interface,
+            family: theme.typography.families.interface,
             size: 12,
           },
           bodyFont: {
-            family: ds.typography.families.data,
+            family: theme.typography.families.data,
             size: 11,
           },
           padding: 12,
@@ -343,24 +397,24 @@ export default function PortfolioPage() {
       scales: {
         x: {
           ticks: {
-            color: ds.colors.grayscale[70],
+            color: theme.colors.text.secondary,
             font: {
-              family: ds.typography.families.data,
+              family: theme.typography.families.data,
               size: 10,
             },
             maxRotation: 45,
             minRotation: 45,
           },
           grid: {
-            color: ds.colors.grayscale[20],
+            color: theme.colors.border,
             drawBorder: false,
           }
         },
         y: {
           ticks: {
-            color: ds.colors.grayscale[70],
+            color: theme.colors.text.secondary,
             font: {
-              family: ds.typography.families.data,
+              family: theme.typography.families.data,
               size: 10,
             },
             callback: function(value: any) {
@@ -368,7 +422,7 @@ export default function PortfolioPage() {
             }
           },
           grid: {
-            color: ds.colors.grayscale[20],
+            color: theme.colors.border,
             drawBorder: false,
           }
         }
@@ -377,15 +431,16 @@ export default function PortfolioPage() {
 
     return (
       <div style={{
-        backgroundColor: ds.colors.semantic.background.secondary,
-        borderRadius: ds.interactive.radius.medium,
-        padding: ds.spacing.large,
-        border: `1px solid ${ds.colors.grayscale[20]}`,
+        backgroundColor: theme.colors.surface,
+        borderRadius: theme.radius.medium,
+        padding: theme.spacing.large,
+        border: `1px solid ${theme.colors.border}`,
       }}>
         <h3 style={{
-          fontSize: ds.typography.scale.medium,
-          fontWeight: ds.typography.weights.semibold,
-          marginBottom: ds.spacing.large,
+          fontSize: theme.typography.sizes.medium,
+          fontWeight: theme.typography.weights.semibold,
+          marginBottom: theme.spacing.large,
+          color: theme.colors.text.primary,
         }}>
           Portfolio Performance
         </h3>
@@ -404,14 +459,14 @@ export default function PortfolioPage() {
       datasets: [{
         data: allocationData.byAsset.map(a => a.value),
         backgroundColor: [
-          ds.colors.semantic.primary,
-          ds.colors.semantic.info,
-          ds.colors.semantic.success,
-          ds.colors.semantic.warning,
-          ds.colors.semantic.error,
-          ds.colors.grayscale[60],
+          theme.colors.primary,
+          theme.colors.success,
+          theme.colors.warning,
+          theme.colors.danger,
+          '#8b5cf6',
+          theme.colors.text.secondary,
         ],
-        borderColor: ds.colors.semantic.background.secondary,
+        borderColor: theme.colors.surface,
         borderWidth: 2,
       }]
     }
@@ -423,26 +478,26 @@ export default function PortfolioPage() {
         legend: {
           position: 'right' as const,
           labels: {
-            color: ds.colors.grayscale[90],
+            color: theme.colors.text.primary,
             font: {
-              family: ds.typography.families.interface,
+              family: theme.typography.families.interface,
               size: 11,
             },
             padding: 10,
           }
         },
         tooltip: {
-          backgroundColor: ds.colors.semantic.background.secondary,
-          titleColor: ds.colors.grayscale[90],
-          bodyColor: ds.colors.grayscale[90],
-          borderColor: ds.colors.grayscale[30],
+          backgroundColor: theme.colors.surface,
+          titleColor: theme.colors.text.primary,
+          bodyColor: theme.colors.text.primary,
+          borderColor: theme.colors.border,
           borderWidth: 1,
           titleFont: {
-            family: ds.typography.families.interface,
+            family: theme.typography.families.interface,
             size: 12,
           },
           bodyFont: {
-            family: ds.typography.families.data,
+            family: theme.typography.families.data,
             size: 11,
           },
           padding: 12,
@@ -461,15 +516,16 @@ export default function PortfolioPage() {
 
     return (
       <div style={{
-        backgroundColor: ds.colors.semantic.background.secondary,
-        borderRadius: ds.interactive.radius.medium,
-        padding: ds.spacing.large,
-        border: `1px solid ${ds.colors.grayscale[20]}`,
+        backgroundColor: theme.colors.surface,
+        borderRadius: theme.radius.medium,
+        padding: theme.spacing.large,
+        border: `1px solid ${theme.colors.border}`,
       }}>
         <h3 style={{
-          fontSize: ds.typography.scale.medium,
-          fontWeight: ds.typography.weights.semibold,
-          marginBottom: ds.spacing.large,
+          fontSize: theme.typography.sizes.medium,
+          fontWeight: theme.typography.weights.semibold,
+          marginBottom: theme.spacing.large,
+          color: theme.colors.text.primary,
         }}>
           Asset Allocation
         </h3>
@@ -482,42 +538,43 @@ export default function PortfolioPage() {
 
   return (
     <div style={{
-      backgroundColor: ds.colors.semantic.background.primary,
-      color: ds.colors.grayscale[90],
+      backgroundColor: theme.colors.background,
+      color: theme.colors.text.primary,
       minHeight: '100vh',
-      fontFamily: ds.typography.families.interface,
+      fontFamily: theme.typography.families.interface,
     }}>
       {/* Header */}
       <header style={{
-        paddingLeft: ds.spacing.small, // Minimal left padding, sidebar offset handled by layout
-        paddingRight: ds.spacing.large,
-        paddingTop: ds.spacing.large,
-        paddingBottom: ds.spacing.large,
-        borderBottom: `1px solid ${ds.colors.grayscale[20]}`,
-        backgroundColor: ds.colors.semantic.background.secondary,
+        paddingLeft: theme.spacing.small, // Minimal left padding, sidebar offset handled by layout
+        paddingRight: theme.spacing.large,
+        paddingTop: theme.spacing.large,
+        paddingBottom: theme.spacing.large,
+        borderBottom: `1px solid ${theme.colors.border}`,
+        backgroundColor: theme.colors.surface,
       }}>
         <div style={{
-          maxWidth: ds.grid.maxWidth,
+          maxWidth: '1200px',
           margin: '0 auto',
         }}>
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'flex-start',
-            marginBottom: ds.spacing.large,
+            marginBottom: theme.spacing.large,
           }}>
             <div>
               <h1 style={{
-                fontSize: ds.typography.scale.xlarge,
-                fontWeight: ds.typography.weights.semibold,
+                fontSize: theme.typography.sizes.xlarge,
+                fontWeight: theme.typography.weights.semibold,
                 margin: 0,
-                marginBottom: ds.spacing.mini,
+                marginBottom: theme.spacing.mini,
+                color: theme.colors.text.primary,
               }}>
                 Portfolio Overview
               </h1>
               <p style={{
-                fontSize: ds.typography.scale.small,
-                color: ds.colors.grayscale[70],
+                fontSize: theme.typography.sizes.small,
+                color: theme.colors.text.secondary,
                 margin: 0,
               }}>
                 Track your investments and performance
@@ -525,21 +582,21 @@ export default function PortfolioPage() {
             </div>
 
             {/* Timeframe Selector */}
-            <div style={{ display: 'flex', gap: ds.spacing.mini }}>
+            <div style={{ display: 'flex', gap: theme.spacing.mini }}>
               {(['1D', '1W', '1M', '3M', '1Y', 'ALL'] as const).map(tf => (
                 <button
                   key={tf}
                   onClick={() => setTimeframe(tf)}
                   style={{
-                    padding: `${ds.spacing.small} ${ds.spacing.medium}`,
-                    backgroundColor: timeframe === tf ? ds.colors.semantic.primary : 'transparent',
-                    color: timeframe === tf ? ds.colors.grayscale[5] : ds.colors.grayscale[70],
-                    border: `1px solid ${timeframe === tf ? ds.colors.semantic.primary : ds.colors.grayscale[30]}`,
-                    borderRadius: ds.interactive.radius.medium,
-                    fontSize: ds.typography.scale.small,
-                    fontWeight: ds.typography.weights.medium,
+                    padding: `${theme.spacing.small} ${theme.spacing.medium}`,
+                    backgroundColor: timeframe === tf ? theme.colors.primary : 'transparent',
+                    color: timeframe === tf ? theme.colors.background : theme.colors.text.secondary,
+                    border: `1px solid ${timeframe === tf ? theme.colors.primary : theme.colors.border}`,
+                    borderRadius: theme.radius.medium,
+                    fontSize: theme.typography.sizes.small,
+                    fontWeight: theme.typography.weights.medium,
                     cursor: 'pointer',
-                    transition: designHelpers.animate('all', ds.animation.durations.fast),
+                    transition: 'all 0.2s ease',
                   }}
                 >
                   {tf}
@@ -553,22 +610,23 @@ export default function PortfolioPage() {
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: ds.spacing.large,
+              gap: theme.spacing.large,
             }}>
               <div>
                 <div style={{
-                  fontSize: ds.typography.scale.small,
-                  color: ds.colors.grayscale[70],
-                  marginBottom: ds.spacing.small,
+                  fontSize: theme.typography.sizes.small,
+                  color: theme.colors.text.secondary,
+                  marginBottom: theme.spacing.small,
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
                 }}>
                   Total Value
                 </div>
                 <div style={{
-                  fontSize: ds.typography.scale.xxlarge,
-                  fontWeight: ds.typography.weights.semibold,
-                  fontFamily: ds.typography.families.data,
+                  fontSize: theme.typography.sizes.xxlarge,
+                  fontWeight: theme.typography.weights.semibold,
+                  fontFamily: theme.typography.families.data,
+                  color: theme.colors.text.primary,
                 }}>
                   {formatCurrency(portfolioStats.totalValue)}
                 </div>
@@ -576,24 +634,24 @@ export default function PortfolioPage() {
 
               <div>
                 <div style={{
-                  fontSize: ds.typography.scale.small,
-                  color: ds.colors.grayscale[70],
-                  marginBottom: ds.spacing.small,
+                  fontSize: theme.typography.sizes.small,
+                  color: theme.colors.text.secondary,
+                  marginBottom: theme.spacing.small,
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
                 }}>
                   Total P&L
                 </div>
                 <div style={{
-                  fontSize: ds.typography.scale.xxlarge,
-                  fontWeight: ds.typography.weights.semibold,
-                  fontFamily: ds.typography.families.data,
-                  color: portfolioStats.totalPnL >= 0 ? ds.colors.semantic.buy : ds.colors.semantic.sell,
+                  fontSize: theme.typography.sizes.xxlarge,
+                  fontWeight: theme.typography.weights.semibold,
+                  fontFamily: theme.typography.families.data,
+                  color: portfolioStats.totalPnL >= 0 ? theme.colors.success : theme.colors.danger,
                 }}>
                   {portfolioStats.totalPnL >= 0 ? '+' : ''}{formatCurrency(portfolioStats.totalPnL)}
                   <span style={{
-                    fontSize: ds.typography.scale.medium,
-                    marginLeft: ds.spacing.small,
+                    fontSize: theme.typography.sizes.medium,
+                    marginLeft: theme.spacing.small,
                   }}>
                     ({portfolioStats.totalPnLPercent.toFixed(2)}%)
                   </span>
@@ -602,24 +660,24 @@ export default function PortfolioPage() {
 
               <div>
                 <div style={{
-                  fontSize: ds.typography.scale.small,
-                  color: ds.colors.grayscale[70],
-                  marginBottom: ds.spacing.small,
+                  fontSize: theme.typography.sizes.small,
+                  color: theme.colors.text.secondary,
+                  marginBottom: theme.spacing.small,
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
                 }}>
                   Day Change
                 </div>
                 <div style={{
-                  fontSize: ds.typography.scale.xxlarge,
-                  fontWeight: ds.typography.weights.semibold,
-                  fontFamily: ds.typography.families.data,
-                  color: portfolioStats.dayChange >= 0 ? ds.colors.semantic.buy : ds.colors.semantic.sell,
+                  fontSize: theme.typography.sizes.xxlarge,
+                  fontWeight: theme.typography.weights.semibold,
+                  fontFamily: theme.typography.families.data,
+                  color: portfolioStats.dayChange >= 0 ? theme.colors.success : theme.colors.danger,
                 }}>
                   {portfolioStats.dayChange >= 0 ? '+' : ''}{formatCurrency(portfolioStats.dayChange)}
                   <span style={{
-                    fontSize: ds.typography.scale.medium,
-                    marginLeft: ds.spacing.small,
+                    fontSize: theme.typography.sizes.medium,
+                    marginLeft: theme.spacing.small,
                   }}>
                     ({portfolioStats.dayChangePercent.toFixed(2)}%)
                   </span>
@@ -628,21 +686,21 @@ export default function PortfolioPage() {
 
               <div>
                 <div style={{
-                  fontSize: ds.typography.scale.small,
-                  color: ds.colors.grayscale[70],
-                  marginBottom: ds.spacing.small,
+                  fontSize: theme.typography.sizes.small,
+                  color: theme.colors.text.secondary,
+                  marginBottom: theme.spacing.small,
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
                 }}>
                   Sharpe Ratio
                 </div>
                 <div style={{
-                  fontSize: ds.typography.scale.xxlarge,
-                  fontWeight: ds.typography.weights.semibold,
-                  fontFamily: ds.typography.families.data,
-                  color: portfolioStats.sharpeRatio > 1.5 ? ds.colors.semantic.success : 
-                         portfolioStats.sharpeRatio > 0.5 ? ds.colors.semantic.warning :
-                         ds.colors.semantic.error,
+                  fontSize: theme.typography.sizes.xxlarge,
+                  fontWeight: theme.typography.weights.semibold,
+                  fontFamily: theme.typography.families.data,
+                  color: portfolioStats.sharpeRatio > 1.5 ? theme.colors.success : 
+                         portfolioStats.sharpeRatio > 0.5 ? theme.colors.warning :
+                         theme.colors.danger,
                 }}>
                   {portfolioStats.sharpeRatio.toFixed(2)}
                 </div>
@@ -654,50 +712,51 @@ export default function PortfolioPage() {
 
       {/* Main Content */}
       <main style={{
-        maxWidth: ds.grid.maxWidth,
+        maxWidth: '1200px',
         margin: '0 auto',
-        paddingLeft: ds.spacing.small, // Minimal left padding, sidebar offset handled by layout
-        paddingRight: ds.spacing.large,
-        paddingTop: ds.spacing.large,
-        paddingBottom: ds.spacing.large,
+        paddingLeft: theme.spacing.small, // Minimal left padding, sidebar offset handled by layout
+        paddingRight: theme.spacing.large,
+        paddingTop: theme.spacing.large,
+        paddingBottom: theme.spacing.large,
       }}>
         {/* Charts */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: '2fr 1fr',
-          gap: ds.spacing.large,
-          marginBottom: ds.spacing.xlarge,
+          gap: theme.spacing.large,
+          marginBottom: theme.spacing.xlarge,
         }}>
           {renderPortfolioChart()}
           {renderAllocationChart()}
         </div>
 
         {/* Positions Table */}
-        <section style={{ marginBottom: ds.spacing.xlarge }}>
+        <section style={{ marginBottom: theme.spacing.xlarge }}>
           <div style={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            marginBottom: ds.spacing.large,
+            marginBottom: theme.spacing.large,
           }}>
             <h2 style={{
-              fontSize: ds.typography.scale.large,
-              fontWeight: ds.typography.weights.semibold,
+              fontSize: theme.typography.sizes.large,
+              fontWeight: theme.typography.weights.semibold,
+              color: theme.colors.text.primary,
             }}>
               Current Positions
             </h2>
             <button
               onClick={() => setShowTransactions(!showTransactions)}
               style={{
-                padding: `${ds.spacing.small} ${ds.spacing.medium}`,
+                padding: `${theme.spacing.small} ${theme.spacing.medium}`,
                 backgroundColor: 'transparent',
-                color: ds.colors.semantic.primary,
-                border: `1px solid ${ds.colors.grayscale[30]}`,
-                borderRadius: ds.interactive.radius.medium,
-                fontSize: ds.typography.scale.small,
-                fontWeight: ds.typography.weights.medium,
+                color: theme.colors.primary,
+                border: `1px solid ${theme.colors.border}`,
+                borderRadius: theme.radius.medium,
+                fontSize: theme.typography.sizes.small,
+                fontWeight: theme.typography.weights.medium,
                 cursor: 'pointer',
-                transition: designHelpers.animate('all', ds.animation.durations.fast),
+                transition: 'all 0.2s ease',
               }}
             >
               {showTransactions ? 'Show Positions' : 'Show Transactions'}
@@ -706,80 +765,80 @@ export default function PortfolioPage() {
 
           {!showTransactions ? (
             <div style={{
-              backgroundColor: ds.colors.semantic.background.secondary,
-              borderRadius: ds.interactive.radius.medium,
+              backgroundColor: theme.colors.surface,
+              borderRadius: theme.radius.medium,
               overflow: 'hidden',
             }}>
               <table style={{
                 width: '100%',
                 borderCollapse: 'collapse',
-                fontSize: ds.typography.scale.small,
+                fontSize: theme.typography.sizes.small,
               }}>
                 <thead>
                   <tr style={{
-                    backgroundColor: ds.colors.semantic.background.tertiary,
+                    backgroundColor: theme.colors.background,
                   }}>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'left',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Asset
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'right',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Amount
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'right',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Avg Cost
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'right',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Current Price
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'right',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Value
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'right',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       P&L
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'right',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Day Change
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'right',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Allocation
                     </th>
@@ -791,28 +850,29 @@ export default function PortfolioPage() {
                       key={position.id}
                       style={{
                         cursor: 'pointer',
-                        transition: designHelpers.animate('background-color', ds.animation.durations.fast),
+                        transition: 'background-color 0.2s ease',
                       }}
                       onClick={() => setSelectedAsset(selectedAsset === position.id ? null : position.id)}
                     >
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                       }}>
                         <div style={{
                           display: 'flex',
                           alignItems: 'center',
-                          gap: ds.spacing.small,
+                          gap: theme.spacing.small,
                         }}>
                           <div>
                             <div style={{
-                              fontWeight: ds.typography.weights.medium,
+                              fontWeight: theme.typography.weights.medium,
+                              color: theme.colors.text.primary,
                             }}>
                               {position.asset}
                             </div>
                             <div style={{
-                              fontSize: ds.typography.scale.mini,
-                              color: ds.colors.grayscale[60],
+                              fontSize: theme.typography.sizes.mini,
+                              color: theme.colors.text.secondary,
                             }}>
                               {position.symbol}
                             </div>
@@ -820,95 +880,100 @@ export default function PortfolioPage() {
                         </div>
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                         textAlign: 'right',
-                        fontFamily: ds.typography.families.data,
+                        fontFamily: theme.typography.families.data,
+                        color: theme.colors.text.primary,
                       }}>
                         {position.amount}
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                         textAlign: 'right',
-                        fontFamily: ds.typography.families.data,
+                        fontFamily: theme.typography.families.data,
+                        color: theme.colors.text.primary,
                       }}>
                         {formatCurrency(position.avgCost)}
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                         textAlign: 'right',
-                        fontFamily: ds.typography.families.data,
+                        fontFamily: theme.typography.families.data,
+                        color: theme.colors.text.primary,
                       }}>
                         {formatCurrency(position.currentPrice)}
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                         textAlign: 'right',
-                        fontFamily: ds.typography.families.data,
-                        fontWeight: ds.typography.weights.medium,
+                        fontFamily: theme.typography.families.data,
+                        fontWeight: theme.typography.weights.medium,
+                        color: theme.colors.text.primary,
                       }}>
                         {formatCurrency(position.value)}
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                         textAlign: 'right',
-                        fontFamily: ds.typography.families.data,
-                        color: position.pnl >= 0 ? ds.colors.semantic.buy : ds.colors.semantic.sell,
-                        fontWeight: ds.typography.weights.medium,
+                        fontFamily: theme.typography.families.data,
+                        color: position.pnl >= 0 ? theme.colors.success : theme.colors.danger,
+                        fontWeight: theme.typography.weights.medium,
                       }}>
                         {position.pnl >= 0 ? '+' : ''}{formatCurrency(position.pnl)}
                         <div style={{
-                          fontSize: ds.typography.scale.mini,
+                          fontSize: theme.typography.sizes.mini,
                         }}>
                           ({position.pnlPercent.toFixed(2)}%)
                         </div>
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                         textAlign: 'right',
-                        fontFamily: ds.typography.families.data,
-                        color: position.dayChange >= 0 ? ds.colors.semantic.buy : ds.colors.semantic.sell,
+                        fontFamily: theme.typography.families.data,
+                        color: position.dayChange >= 0 ? theme.colors.success : theme.colors.danger,
                       }}>
                         {position.dayChange >= 0 ? '+' : ''}{formatCurrency(position.dayChange)}
                         <div style={{
-                          fontSize: ds.typography.scale.mini,
+                          fontSize: theme.typography.sizes.mini,
                         }}>
                           ({position.dayChangePercent.toFixed(2)}%)
                         </div>
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                         textAlign: 'right',
                       }}>
                         <div style={{
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'flex-end',
-                          gap: ds.spacing.small,
+                          gap: theme.spacing.small,
                         }}>
                           <div style={{
                             width: '60px',
                             height: '6px',
-                            backgroundColor: ds.colors.grayscale[20],
-                            borderRadius: ds.interactive.radius.pill,
+                            backgroundColor: theme.colors.border,
+                            borderRadius: theme.radius.pill,
                             overflow: 'hidden',
                           }}>
                             <div style={{
                               width: `${position.allocation}%`,
                               height: '100%',
-                              backgroundColor: ds.colors.semantic.primary,
+                              backgroundColor: theme.colors.primary,
                             }} />
                           </div>
                           <span style={{
-                            fontSize: ds.typography.scale.small,
-                            fontFamily: ds.typography.families.data,
+                            fontSize: theme.typography.sizes.small,
+                            fontFamily: theme.typography.families.data,
                             minWidth: '45px',
+                            color: theme.colors.text.primary,
                           }}>
                             {position.allocation.toFixed(1)}%
                           </span>
@@ -922,72 +987,72 @@ export default function PortfolioPage() {
           ) : (
             // Transactions Table
             <div style={{
-              backgroundColor: ds.colors.semantic.background.secondary,
-              borderRadius: ds.interactive.radius.medium,
+              backgroundColor: theme.colors.surface,
+              borderRadius: theme.radius.medium,
               overflow: 'hidden',
             }}>
               <table style={{
                 width: '100%',
                 borderCollapse: 'collapse',
-                fontSize: ds.typography.scale.small,
+                fontSize: theme.typography.sizes.small,
               }}>
                 <thead>
                   <tr style={{
-                    backgroundColor: ds.colors.semantic.background.tertiary,
+                    backgroundColor: theme.colors.background,
                   }}>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'left',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Date
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'left',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Type
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'left',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Asset
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'right',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Amount
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'right',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Price
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'right',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Total
                     </th>
                     <th style={{
-                      padding: ds.spacing.medium,
+                      padding: theme.spacing.medium,
                       textAlign: 'left',
-                      fontWeight: ds.typography.weights.medium,
-                      color: ds.colors.grayscale[70],
+                      fontWeight: theme.typography.weights.medium,
+                      color: theme.colors.text.secondary,
                     }}>
                       Description
                     </th>
@@ -997,32 +1062,33 @@ export default function PortfolioPage() {
                   {transactions.map((transaction) => (
                     <tr key={transaction.id}>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
-                        fontSize: ds.typography.scale.small,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
+                        fontSize: theme.typography.sizes.small,
+                        color: theme.colors.text.primary,
                       }}>
                         {formatTimestamp(transaction.timestamp)}
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                       }}>
                         <span style={{
                           display: 'inline-block',
-                          padding: `${ds.spacing.mini} ${ds.spacing.small}`,
+                          padding: `${theme.spacing.mini} ${theme.spacing.small}`,
                           backgroundColor: transaction.type === 'buy' || transaction.type === 'deposit' ? 
-                            `${ds.colors.semantic.buy}20` : 
+                            `${theme.colors.success}20` : 
                             transaction.type === 'sell' || transaction.type === 'withdrawal' ?
-                            `${ds.colors.semantic.sell}20` :
-                            `${ds.colors.semantic.info}20`,
+                            `${theme.colors.danger}20` :
+                            `${theme.colors.primary}20`,
                           color: transaction.type === 'buy' || transaction.type === 'deposit' ? 
-                            ds.colors.semantic.buy : 
+                            theme.colors.success : 
                             transaction.type === 'sell' || transaction.type === 'withdrawal' ?
-                            ds.colors.semantic.sell :
-                            ds.colors.semantic.info,
-                          borderRadius: ds.interactive.radius.small,
-                          fontSize: ds.typography.scale.mini,
-                          fontWeight: ds.typography.weights.medium,
+                            theme.colors.danger :
+                            theme.colors.primary,
+                          borderRadius: theme.radius.small,
+                          fontSize: theme.typography.sizes.mini,
+                          fontWeight: theme.typography.weights.medium,
                           textTransform: 'uppercase',
                           letterSpacing: '0.05em',
                         }}>
@@ -1030,43 +1096,47 @@ export default function PortfolioPage() {
                         </span>
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
-                        fontFamily: ds.typography.families.data,
-                        fontWeight: ds.typography.weights.medium,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
+                        fontFamily: theme.typography.families.data,
+                        fontWeight: theme.typography.weights.medium,
+                        color: theme.colors.text.primary,
                       }}>
                         {transaction.asset || '-'}
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                         textAlign: 'right',
-                        fontFamily: ds.typography.families.data,
+                        fontFamily: theme.typography.families.data,
+                        color: theme.colors.text.primary,
                       }}>
                         {transaction.amount}
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                         textAlign: 'right',
-                        fontFamily: ds.typography.families.data,
+                        fontFamily: theme.typography.families.data,
+                        color: theme.colors.text.primary,
                       }}>
                         {transaction.price ? formatCurrency(transaction.price) : '-'}
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
                         textAlign: 'right',
-                        fontFamily: ds.typography.families.data,
-                        fontWeight: ds.typography.weights.medium,
+                        fontFamily: theme.typography.families.data,
+                        fontWeight: theme.typography.weights.medium,
+                        color: theme.colors.text.primary,
                       }}>
                         {formatCurrency(transaction.total)}
                       </td>
                       <td style={{
-                        padding: ds.spacing.medium,
-                        borderBottom: `1px solid ${ds.colors.grayscale[10]}`,
-                        fontSize: ds.typography.scale.small,
-                        color: ds.colors.grayscale[70],
+                        padding: theme.spacing.medium,
+                        borderBottom: `1px solid ${theme.colors.border}`,
+                        fontSize: theme.typography.sizes.small,
+                        color: theme.colors.text.secondary,
                       }}>
                         {transaction.description}
                       </td>
@@ -1081,9 +1151,10 @@ export default function PortfolioPage() {
         {/* Quick Actions */}
         <section>
           <h2 style={{
-            fontSize: ds.typography.scale.large,
-            fontWeight: ds.typography.weights.semibold,
-            marginBottom: ds.spacing.large,
+            fontSize: theme.typography.sizes.large,
+            fontWeight: theme.typography.weights.semibold,
+            marginBottom: theme.spacing.large,
+            color: theme.colors.text.primary,
           }}>
             Quick Actions
           </h2>
@@ -1091,75 +1162,75 @@ export default function PortfolioPage() {
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: ds.spacing.medium,
+            gap: theme.spacing.medium,
           }}>
             <button style={{
-              padding: ds.spacing.large,
-              backgroundColor: ds.colors.semantic.background.secondary,
-              color: ds.colors.grayscale[90],
-              border: `1px solid ${ds.colors.grayscale[20]}`,
-              borderRadius: ds.interactive.radius.medium,
-              fontSize: ds.typography.scale.small,
-              fontWeight: ds.typography.weights.medium,
+              padding: theme.spacing.large,
+              backgroundColor: theme.colors.surface,
+              color: theme.colors.text.primary,
+              border: `1px solid ${theme.colors.border}`,
+              borderRadius: theme.radius.medium,
+              fontSize: theme.typography.sizes.small,
+              fontWeight: theme.typography.weights.medium,
               cursor: 'pointer',
-              transition: designHelpers.animate('all', ds.animation.durations.fast),
+              transition: 'all 0.2s ease',
               textAlign: 'center',
             }}>
-              <div style={{ fontSize: ds.typography.scale.xlarge, marginBottom: ds.spacing.small }}>
+              <div style={{ fontSize: theme.typography.sizes.xlarge, marginBottom: theme.spacing.small }}>
                 💰
               </div>
               Add Funds
             </button>
             
             <button style={{
-              padding: ds.spacing.large,
-              backgroundColor: ds.colors.semantic.background.secondary,
-              color: ds.colors.grayscale[90],
-              border: `1px solid ${ds.colors.grayscale[20]}`,
-              borderRadius: ds.interactive.radius.medium,
-              fontSize: ds.typography.scale.small,
-              fontWeight: ds.typography.weights.medium,
+              padding: theme.spacing.large,
+              backgroundColor: theme.colors.surface,
+              color: theme.colors.text.primary,
+              border: `1px solid ${theme.colors.border}`,
+              borderRadius: theme.radius.medium,
+              fontSize: theme.typography.sizes.small,
+              fontWeight: theme.typography.weights.medium,
               cursor: 'pointer',
-              transition: designHelpers.animate('all', ds.animation.durations.fast),
+              transition: 'all 0.2s ease',
               textAlign: 'center',
             }}>
-              <div style={{ fontSize: ds.typography.scale.xlarge, marginBottom: ds.spacing.small }}>
+              <div style={{ fontSize: theme.typography.sizes.xlarge, marginBottom: theme.spacing.small }}>
                 🏦
               </div>
               Withdraw
             </button>
             
             <button style={{
-              padding: ds.spacing.large,
-              backgroundColor: ds.colors.semantic.background.secondary,
-              color: ds.colors.grayscale[90],
-              border: `1px solid ${ds.colors.grayscale[20]}`,
-              borderRadius: ds.interactive.radius.medium,
-              fontSize: ds.typography.scale.small,
-              fontWeight: ds.typography.weights.medium,
+              padding: theme.spacing.large,
+              backgroundColor: theme.colors.surface,
+              color: theme.colors.text.primary,
+              border: `1px solid ${theme.colors.border}`,
+              borderRadius: theme.radius.medium,
+              fontSize: theme.typography.sizes.small,
+              fontWeight: theme.typography.weights.medium,
               cursor: 'pointer',
-              transition: designHelpers.animate('all', ds.animation.durations.fast),
+              transition: 'all 0.2s ease',
               textAlign: 'center',
             }}>
-              <div style={{ fontSize: ds.typography.scale.xlarge, marginBottom: ds.spacing.small }}>
+              <div style={{ fontSize: theme.typography.sizes.xlarge, marginBottom: theme.spacing.small }}>
                 ⚖️
               </div>
               Rebalance
             </button>
             
             <button style={{
-              padding: ds.spacing.large,
-              backgroundColor: ds.colors.semantic.background.secondary,
-              color: ds.colors.grayscale[90],
-              border: `1px solid ${ds.colors.grayscale[20]}`,
-              borderRadius: ds.interactive.radius.medium,
-              fontSize: ds.typography.scale.small,
-              fontWeight: ds.typography.weights.medium,
+              padding: theme.spacing.large,
+              backgroundColor: theme.colors.surface,
+              color: theme.colors.text.primary,
+              border: `1px solid ${theme.colors.border}`,
+              borderRadius: theme.radius.medium,
+              fontSize: theme.typography.sizes.small,
+              fontWeight: theme.typography.weights.medium,
               cursor: 'pointer',
-              transition: designHelpers.animate('all', ds.animation.durations.fast),
+              transition: 'all 0.2s ease',
               textAlign: 'center',
             }}>
-              <div style={{ fontSize: ds.typography.scale.xlarge, marginBottom: ds.spacing.small }}>
+              <div style={{ fontSize: theme.typography.sizes.xlarge, marginBottom: theme.spacing.small }}>
                 📊
               </div>
               Export Report

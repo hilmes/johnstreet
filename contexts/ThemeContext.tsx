@@ -39,13 +39,13 @@ export const themes: Record<ThemeName, Theme> = {
       primary: '#2962ff',
       secondary: '#1976d2',
       accent: '#00bcd4',
-      background: '#131722',
+      background: '#0d0e14',
       surface: '#1e222d',
       text: '#d1d4dc',
       textSecondary: '#787b86',
-      success: '#4caf50',
+      success: '#26a69a',
       warning: '#ff9800',
-      error: '#f44336',
+      error: '#ef5350',
       border: '#2a2e39'
     },
     fonts: {
@@ -147,7 +147,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [currentThemeName, setCurrentThemeName] = useState<ThemeName>('financial-excellence-dark')
+  const [currentThemeName, setCurrentThemeName] = useState<ThemeName>('cryptowatch')
 
   useEffect(() => {
     // Load theme from localStorage
@@ -155,8 +155,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (savedTheme && themes[savedTheme]) {
       setCurrentThemeName(savedTheme)
     } else {
-      // If no saved theme, ensure we use financial-excellence-dark
-      setCurrentThemeName('financial-excellence-dark')
+      // If no saved theme, ensure we use cryptowatch as default
+      setCurrentThemeName('cryptowatch')
     }
   }, [])
 

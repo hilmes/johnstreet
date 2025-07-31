@@ -7191,3 +7191,1208 @@
 2025-07-31T14:02:06:  GET / 500 in 20ms
 2025-07-31T14:03:06: Auth middleware: undefined
 2025-07-31T14:03:06:  GET / 500 in 24ms
+2025-07-31T14:04:06: Auth middleware: undefined
+2025-07-31T14:04:06:  GET / 500 in 33ms
+2025-07-31T14:05:06: Auth middleware: undefined
+2025-07-31T14:05:06:  GET / 500 in 9ms
+2025-07-31T14:05:41: Auth middleware: undefined
+2025-07-31T14:05:41:  GET / 500 in 15ms
+2025-07-31T14:05:48: Auth middleware: undefined
+2025-07-31T14:05:48:  GET / 500 in 23ms
+2025-07-31T14:05:58: Auth middleware: undefined
+2025-07-31T14:05:58:  GET / 500 in 21ms
+2025-07-31T14:06:08: Auth middleware: undefined
+2025-07-31T14:06:08:  GET / 500 in 20ms
+2025-07-31T14:06:18: Auth middleware: undefined
+2025-07-31T14:06:18:  GET / 500 in 15ms
+2025-07-31T14:06:28: Auth middleware: undefined
+2025-07-31T14:06:28:  GET / 500 in 17ms
+2025-07-31T14:06:38: Auth middleware: undefined
+2025-07-31T14:06:38:  GET / 500 in 21ms
+2025-07-31T14:06:48: Auth middleware: undefined
+2025-07-31T14:06:48:  GET / 500 in 21ms
+2025-07-31T14:07:03: Auth middleware: undefined
+2025-07-31T14:07:03:  GET / 500 in 17ms
+2025-07-31T14:07:30: Auth middleware: undefined
+2025-07-31T14:07:30:  GET / 500 in 22ms
+2025-07-31T14:07:34: Auth middleware: undefined
+2025-07-31T14:07:34:  GET / 500 in 47ms
+2025-07-31T14:07:40: Auth middleware: undefined
+2025-07-31T14:07:40:  GET / 500 in 14ms
+2025-07-31T14:07:51: Auth middleware: undefined
+2025-07-31T14:07:51:  GET / 500 in 17ms
+2025-07-31T14:08:10: Auth middleware: undefined
+2025-07-31T14:08:10:  GET / 500 in 23ms
+2025-07-31T14:08:23: Auth middleware: undefined
+2025-07-31T14:08:23:  GET / 500 in 22ms
+2025-07-31T14:09:02: Auth middleware: undefined
+2025-07-31T14:09:02:  GET / 500 in 15ms
+2025-07-31T14:10:03: Auth middleware: undefined
+2025-07-31T14:10:03:  GET / 500 in 20ms
+2025-07-31T14:10:42: Auth middleware: undefined
+2025-07-31T14:10:42:  GET / 500 in 44ms
+2025-07-31T14:12:02: Auth middleware: undefined
+2025-07-31T14:12:02:  GET / 500 in 11ms
+2025-07-31T14:13:22: Auth middleware: undefined
+2025-07-31T14:13:22:  GET / 500 in 13ms
+2025-07-31T14:14:42: Auth middleware: undefined
+2025-07-31T14:14:42:  GET / 500 in 12ms
+2025-07-31T14:31:50: Auth middleware: undefined
+2025-07-31T14:31:50:  GET / 500 in 20ms
+2025-07-31T14:32:00: Auth middleware: undefined
+2025-07-31T14:32:00:  GET / 500 in 24ms
+2025-07-31T14:32:12: Auth middleware: undefined
+2025-07-31T14:32:12:  GET / 500 in 16ms
+2025-07-31T14:32:22: Auth middleware: undefined
+2025-07-31T14:32:22:  GET / 500 in 16ms
+2025-07-31T14:32:39: Auth middleware: undefined
+2025-07-31T14:32:39:  GET / 500 in 24ms
+2025-07-31T14:33:06: Auth middleware: undefined
+2025-07-31T14:33:06:  GET / 500 in 11ms
+2025-07-31T14:34:03: Auth middleware: undefined
+2025-07-31T14:34:03:  GET / 500 in 17ms
+2025-07-31T14:35:03: Auth middleware: undefined
+2025-07-31T14:35:03:  GET / 500 in 11ms
+2025-07-31T14:36:03: Auth middleware: undefined
+2025-07-31T14:36:03:  GET / 500 in 21ms
+2025-07-31T14:37:03: Auth middleware: undefined
+2025-07-31T14:37:03:  GET / 500 in 21ms
+2025-07-31T14:38:03: Auth middleware: undefined
+2025-07-31T14:38:03:  GET / 500 in 18ms
+2025-07-31T14:39:03: Auth middleware: undefined
+2025-07-31T14:39:03:  GET / 500 in 13ms
+2025-07-31T14:39:13: Auth middleware: undefined
+2025-07-31T14:39:13:  GET / 500 in 16ms
+2025-07-31T14:39:23: Auth middleware: undefined
+2025-07-31T14:39:23:  GET / 500 in 14ms
+2025-07-31T14:39:33: Auth middleware: undefined
+2025-07-31T14:39:33:  GET / 500 in 25ms
+2025-07-31T14:39:48: Auth middleware: undefined
+2025-07-31T14:39:48:  GET / 500 in 11ms
+2025-07-31T14:40:06: Auth middleware: undefined
+2025-07-31T14:40:06:  GET / 500 in 21ms
+2025-07-31T14:40:40: Auth middleware: undefined
+2025-07-31T14:40:40:  GET / 500 in 19ms
+2025-07-31T14:41:01: Auth middleware: undefined
+2025-07-31T14:41:01:  GET / 500 in 25ms
+2025-07-31T14:42:11: Auth middleware: undefined
+2025-07-31T14:42:12:  GET / 500 in 20ms
+2025-07-31T14:42:42: Auth middleware: undefined
+2025-07-31T14:42:42:  GET / 500 in 12ms
+2025-07-31T14:44:02: Auth middleware: undefined
+2025-07-31T14:44:02:  GET / 500 in 26ms
+2025-07-31T14:45:22: Auth middleware: undefined
+2025-07-31T14:45:22:  GET / 500 in 17ms
+2025-07-31T14:46:42: Auth middleware: undefined
+2025-07-31T14:46:42:  GET / 500 in 69ms
+2025-07-31T15:12:47: Auth middleware: undefined
+2025-07-31T15:12:47:  GET / 500 in 16ms
+2025-07-31T15:12:57: Auth middleware: undefined
+2025-07-31T15:12:57:  GET / 500 in 9ms
+2025-07-31T15:13:07: Auth middleware: undefined
+2025-07-31T15:13:07:  GET / 500 in 24ms
+2025-07-31T15:13:21: Auth middleware: undefined
+2025-07-31T15:13:21:  GET / 500 in 14ms
+2025-07-31T15:13:39: Auth middleware: undefined
+2025-07-31T15:13:39:  GET / 500 in 27ms
+2025-07-31T15:14:00: Auth middleware: undefined
+2025-07-31T15:14:00:  GET / 500 in 20ms
+2025-07-31T15:14:34: Auth middleware: undefined
+2025-07-31T15:14:34:  GET / 500 in 19ms
+2025-07-31T15:15:03: Auth middleware: undefined
+2025-07-31T15:15:03:  GET / 500 in 18ms
+2025-07-31T15:16:03: Auth middleware: undefined
+2025-07-31T15:16:03:  GET / 500 in 23ms
+2025-07-31T15:17:03: Auth middleware: undefined
+2025-07-31T15:17:03:  GET / 500 in 16ms
+2025-07-31T15:18:03: Auth middleware: undefined
+2025-07-31T15:18:03:  GET / 500 in 17ms
+2025-07-31T15:19:03: Auth middleware: undefined
+2025-07-31T15:19:03:  GET / 500 in 18ms
+2025-07-31T15:20:03: Auth middleware: undefined
+2025-07-31T15:20:03:  GET / 500 in 14ms
+2025-07-31T15:20:15: Auth middleware: undefined
+2025-07-31T15:20:15:  GET / 500 in 17ms
+2025-07-31T15:20:25: Auth middleware: undefined
+2025-07-31T15:20:25:  GET / 500 in 24ms
+2025-07-31T15:20:36: Auth middleware: undefined
+2025-07-31T15:20:36:  GET / 500 in 20ms
+2025-07-31T15:20:48: Auth middleware: undefined
+2025-07-31T15:20:48:  GET / 500 in 16ms
+2025-07-31T15:21:05: Auth middleware: undefined
+2025-07-31T15:21:05:  GET / 500 in 18ms
+2025-07-31T15:21:41: Auth middleware: undefined
+2025-07-31T15:21:41:  GET / 500 in 19ms
+2025-07-31T15:22:03: Auth middleware: undefined
+2025-07-31T15:22:03:  GET / 500 in 9ms
+2025-07-31T15:23:03: Auth middleware: undefined
+2025-07-31T15:23:03:  GET / 500 in 19ms
+2025-07-31T15:24:03: Auth middleware: undefined
+2025-07-31T15:24:03:  GET / 500 in 12ms
+2025-07-31T15:24:36: Auth middleware: undefined
+2025-07-31T15:24:36:  GET / 500 in 20ms
+2025-07-31T15:24:46: Auth middleware: undefined
+2025-07-31T15:24:46:  GET / 500 in 33ms
+2025-07-31T15:25:02: Auth middleware: undefined
+2025-07-31T15:25:02:  GET / 500 in 16ms
+2025-07-31T15:25:13: Auth middleware: undefined
+2025-07-31T15:25:13:  GET / 500 in 9ms
+2025-07-31T15:25:28: Auth middleware: undefined
+2025-07-31T15:25:28:  GET / 500 in 10ms
+2025-07-31T15:25:41: Auth middleware: undefined
+2025-07-31T15:25:41:  GET / 500 in 24ms
+2025-07-31T15:25:51: Auth middleware: undefined
+2025-07-31T15:25:51:  GET / 500 in 10ms
+2025-07-31T15:26:03: Auth middleware: undefined
+2025-07-31T15:26:03:  GET / 500 in 18ms
+2025-07-31T15:26:20: Auth middleware: undefined
+2025-07-31T15:26:20:  GET / 500 in 31ms
+2025-07-31T15:26:47: Auth middleware: undefined
+2025-07-31T15:26:47:  GET / 500 in 10ms
+2025-07-31T15:27:21: Auth middleware: undefined
+2025-07-31T15:27:22:  GET / 500 in 15ms
+2025-07-31T15:27:31: Auth middleware: undefined
+2025-07-31T15:27:31:  GET / 500 in 16ms
+2025-07-31T15:27:42: Auth middleware: undefined
+2025-07-31T15:27:42:  GET / 500 in 28ms
+2025-07-31T15:27:53: Auth middleware: undefined
+2025-07-31T15:27:53:  GET / 500 in 24ms
+2025-07-31T15:32:47: Auth middleware: undefined
+2025-07-31T15:32:47:  GET / 500 in 12ms
+2025-07-31T15:32:48: Auth middleware: undefined
+2025-07-31T15:32:48:  GET / 500 in 9ms
+2025-07-31T15:32:58: Auth middleware: undefined
+2025-07-31T15:32:58:  GET / 500 in 21ms
+2025-07-31T15:33:10: Auth middleware: undefined
+2025-07-31T15:33:10:  GET / 500 in 9ms
+2025-07-31T15:33:20: Auth middleware: undefined
+2025-07-31T15:33:20:  GET / 500 in 19ms
+2025-07-31T15:33:30: Auth middleware: undefined
+2025-07-31T15:33:30:  GET / 500 in 15ms
+2025-07-31T15:33:40: Auth middleware: undefined
+2025-07-31T15:33:40:  GET / 500 in 15ms
+2025-07-31T15:33:50: Auth middleware: undefined
+2025-07-31T15:33:50:  GET / 500 in 16ms
+2025-07-31T15:34:00: Auth middleware: undefined
+2025-07-31T15:34:00:  GET / 500 in 15ms
+2025-07-31T15:34:11: Auth middleware: undefined
+2025-07-31T15:34:11:  GET / 500 in 24ms
+2025-07-31T15:34:22: Auth middleware: undefined
+2025-07-31T15:34:22:  GET / 500 in 19ms
+2025-07-31T15:34:33: Auth middleware: undefined
+2025-07-31T15:34:33:  GET / 500 in 20ms
+2025-07-31T15:34:44: Auth middleware: undefined
+2025-07-31T15:34:44:  GET / 500 in 25ms
+2025-07-31T15:34:54: Auth middleware: undefined
+2025-07-31T15:34:54:  GET / 500 in 15ms
+2025-07-31T15:35:04: Auth middleware: undefined
+2025-07-31T15:35:04:  GET / 500 in 20ms
+2025-07-31T15:35:14: Auth middleware: undefined
+2025-07-31T15:35:14:  GET / 500 in 23ms
+2025-07-31T15:35:29: Auth middleware: undefined
+2025-07-31T15:35:29:  GET / 500 in 9ms
+2025-07-31T15:35:51: Auth middleware: undefined
+2025-07-31T15:35:52:  GET / 500 in 15ms
+2025-07-31T15:36:13: Auth middleware: undefined
+2025-07-31T15:36:13:  GET / 500 in 34ms
+2025-07-31T15:37:11: Auth middleware: undefined
+2025-07-31T15:37:12:  GET / 500 in 26ms
+2025-07-31T15:37:57: Auth middleware: undefined
+2025-07-31T15:37:57:  GET / 500 in 33ms
+2025-07-31T15:37:58: Auth middleware: undefined
+2025-07-31T15:37:58:  GET / 500 in 10ms
+2025-07-31T15:38:08: Auth middleware: undefined
+2025-07-31T15:38:08:  GET / 500 in 19ms
+2025-07-31T15:38:18: Auth middleware: undefined
+2025-07-31T15:38:18:  GET / 500 in 118ms
+2025-07-31T15:38:28: Auth middleware: undefined
+2025-07-31T15:38:28:  GET / 500 in 21ms
+2025-07-31T15:38:38: Auth middleware: undefined
+2025-07-31T15:38:38:  GET / 500 in 17ms
+2025-07-31T15:38:48: Auth middleware: undefined
+2025-07-31T15:38:48:  GET / 500 in 20ms
+2025-07-31T15:38:58: Auth middleware: undefined
+2025-07-31T15:38:58:  GET / 500 in 22ms
+2025-07-31T15:39:09: Auth middleware: undefined
+2025-07-31T15:39:09:  GET / 500 in 9ms
+2025-07-31T15:39:22: Auth middleware: undefined
+2025-07-31T15:39:23:  GET / 500 in 32ms
+2025-07-31T15:39:44: Auth middleware: undefined
+2025-07-31T15:39:44:  GET / 500 in 19ms
+2025-07-31T15:40:17: Auth middleware: undefined
+2025-07-31T15:40:17:  GET / 500 in 21ms
+2025-07-31T15:41:12: Auth middleware: undefined
+2025-07-31T15:41:12:  GET / 500 in 16ms
+2025-07-31T15:42:11: Auth middleware: undefined
+2025-07-31T15:42:12:  GET / 500 in 14ms
+2025-07-31T15:42:22: Auth middleware: undefined
+2025-07-31T15:42:22:  GET / 500 in 14ms
+2025-07-31T15:42:32: Auth middleware: undefined
+2025-07-31T15:42:32:  GET / 500 in 10ms
+2025-07-31T15:42:42: Auth middleware: undefined
+2025-07-31T15:42:42:  GET / 500 in 11ms
+2025-07-31T15:42:52: Auth middleware: undefined
+2025-07-31T15:42:52:  GET / 500 in 12ms
+2025-07-31T15:43:02: Auth middleware: undefined
+2025-07-31T15:43:02:  GET / 500 in 15ms
+2025-07-31T15:43:12: Auth middleware: undefined
+2025-07-31T15:43:12:  GET / 500 in 20ms
+2025-07-31T15:43:22: Auth middleware: undefined
+2025-07-31T15:43:22:  GET / 500 in 23ms
+2025-07-31T15:43:32: Auth middleware: undefined
+2025-07-31T15:43:32:  GET / 500 in 24ms
+2025-07-31T15:43:43: Auth middleware: undefined
+2025-07-31T15:43:43:  GET / 500 in 12ms
+2025-07-31T15:43:54: Auth middleware: undefined
+2025-07-31T15:43:54:  GET / 500 in 7ms
+2025-07-31T15:44:05: Auth middleware: undefined
+2025-07-31T15:44:05:  GET / 500 in 21ms
+2025-07-31T15:44:16: Auth middleware: undefined
+2025-07-31T15:44:16:  GET / 500 in 22ms
+2025-07-31T15:44:27: Auth middleware: undefined
+2025-07-31T15:44:27:  GET / 500 in 8ms
+2025-07-31T15:44:38: Auth middleware: undefined
+2025-07-31T15:44:38:  GET / 500 in 19ms
+2025-07-31T15:44:48: Auth middleware: undefined
+2025-07-31T15:44:48:  GET / 500 in 28ms
+2025-07-31T15:44:58: Auth middleware: undefined
+2025-07-31T15:44:58:  GET / 500 in 10ms
+2025-07-31T15:45:08: Auth middleware: undefined
+2025-07-31T15:45:08:  GET / 500 in 17ms
+2025-07-31T15:45:18: Auth middleware: undefined
+2025-07-31T15:45:18:  GET / 500 in 14ms
+2025-07-31T15:45:28: Auth middleware: undefined
+2025-07-31T15:45:28:  GET / 500 in 22ms
+2025-07-31T15:45:38: Auth middleware: undefined
+2025-07-31T15:45:38:  GET / 500 in 19ms
+2025-07-31T15:45:48: Auth middleware: undefined
+2025-07-31T15:45:48:  GET / 500 in 12ms
+2025-07-31T15:45:58: Auth middleware: undefined
+2025-07-31T15:45:58:  GET / 500 in 21ms
+2025-07-31T15:46:08: Auth middleware: undefined
+2025-07-31T15:46:08:  GET / 500 in 14ms
+2025-07-31T15:46:18: Auth middleware: undefined
+2025-07-31T15:46:18:  GET / 500 in 18ms
+2025-07-31T15:46:28: Auth middleware: undefined
+2025-07-31T15:46:28:  GET / 500 in 16ms
+2025-07-31T15:46:38: Auth middleware: undefined
+2025-07-31T15:46:38:  GET / 500 in 16ms
+2025-07-31T15:46:48: Auth middleware: undefined
+2025-07-31T15:46:48:  GET / 500 in 17ms
+2025-07-31T15:46:58: Auth middleware: undefined
+2025-07-31T15:46:58:  GET / 500 in 16ms
+2025-07-31T15:47:08: Auth middleware: undefined
+2025-07-31T15:47:08:  GET / 500 in 13ms
+2025-07-31T15:47:18: Auth middleware: undefined
+2025-07-31T15:47:18:  GET / 500 in 17ms
+2025-07-31T15:47:28: Auth middleware: undefined
+2025-07-31T15:47:28:  GET / 500 in 22ms
+2025-07-31T15:47:38: Auth middleware: undefined
+2025-07-31T15:47:38:  GET / 500 in 20ms
+2025-07-31T15:47:48: Auth middleware: undefined
+2025-07-31T15:47:48:  GET / 500 in 23ms
+2025-07-31T15:47:58: Auth middleware: undefined
+2025-07-31T15:47:58:  GET / 500 in 20ms
+2025-07-31T15:48:08: Auth middleware: undefined
+2025-07-31T15:48:08:  GET / 500 in 19ms
+2025-07-31T15:48:19: Auth middleware: undefined
+2025-07-31T15:48:19:  GET / 500 in 18ms
+2025-07-31T15:48:30: Auth middleware: undefined
+2025-07-31T15:48:30:  GET / 500 in 16ms
+2025-07-31T15:48:41: Auth middleware: undefined
+2025-07-31T15:48:41:  GET / 500 in 21ms
+2025-07-31T15:48:52: Auth middleware: undefined
+2025-07-31T15:48:52:  GET / 500 in 12ms
+2025-07-31T15:49:03: Auth middleware: undefined
+2025-07-31T15:49:03:  GET / 500 in 16ms
+2025-07-31T15:49:14: Auth middleware: undefined
+2025-07-31T15:49:14:  GET / 500 in 17ms
+2025-07-31T15:49:25: Auth middleware: undefined
+2025-07-31T15:49:25:  GET / 500 in 12ms
+2025-07-31T15:49:36: Auth middleware: undefined
+2025-07-31T15:49:36:  GET / 500 in 15ms
+2025-07-31T15:49:47: Auth middleware: undefined
+2025-07-31T15:49:47:  GET / 500 in 10ms
+2025-07-31T15:49:58: Auth middleware: undefined
+2025-07-31T15:49:58:  GET / 500 in 52ms
+2025-07-31T15:50:09: Auth middleware: undefined
+2025-07-31T15:50:09:  GET / 500 in 14ms
+2025-07-31T15:50:20: Auth middleware: undefined
+2025-07-31T15:50:20:  GET / 500 in 18ms
+2025-07-31T15:50:31: Auth middleware: undefined
+2025-07-31T15:50:31:  GET / 500 in 15ms
+2025-07-31T15:50:42: Auth middleware: undefined
+2025-07-31T15:50:42:  GET / 500 in 24ms
+2025-07-31T15:50:53: Auth middleware: undefined
+2025-07-31T15:50:53:  GET / 500 in 27ms
+2025-07-31T15:51:04: Auth middleware: undefined
+2025-07-31T15:51:04:  GET / 500 in 28ms
+2025-07-31T15:51:15: Auth middleware: undefined
+2025-07-31T15:51:15:  GET / 500 in 14ms
+2025-07-31T15:51:26: Auth middleware: undefined
+2025-07-31T15:51:26:  GET / 500 in 19ms
+2025-07-31T15:51:37: Auth middleware: undefined
+2025-07-31T15:51:37:  GET / 500 in 35ms
+2025-07-31T15:51:48: Auth middleware: undefined
+2025-07-31T15:51:48:  GET / 500 in 29ms
+2025-07-31T15:51:59: Auth middleware: undefined
+2025-07-31T15:51:59:  GET / 500 in 8ms
+2025-07-31T15:52:10: Auth middleware: undefined
+2025-07-31T15:52:10:  GET / 500 in 14ms
+2025-07-31T15:52:21: Auth middleware: undefined
+2025-07-31T15:52:21:  GET / 500 in 15ms
+2025-07-31T15:52:32: Auth middleware: undefined
+2025-07-31T15:52:32:  GET / 500 in 48ms
+2025-07-31T15:52:43: Auth middleware: undefined
+2025-07-31T15:52:43:  GET / 500 in 15ms
+2025-07-31T15:52:54: Auth middleware: undefined
+2025-07-31T15:52:54:  GET / 500 in 18ms
+2025-07-31T15:53:05: Auth middleware: undefined
+2025-07-31T15:53:05:  GET / 500 in 16ms
+2025-07-31T15:53:15: Auth middleware: undefined
+2025-07-31T15:53:15:  GET / 500 in 9ms
+2025-07-31T15:53:25: Auth middleware: undefined
+2025-07-31T15:53:25:  GET / 500 in 14ms
+2025-07-31T15:53:35: Auth middleware: undefined
+2025-07-31T15:53:35:  GET / 500 in 59ms
+2025-07-31T15:53:45: Auth middleware: undefined
+2025-07-31T15:53:45:  GET / 500 in 31ms
+2025-07-31T15:53:55: Auth middleware: undefined
+2025-07-31T15:53:55:  GET / 500 in 9ms
+2025-07-31T15:54:05: Auth middleware: undefined
+2025-07-31T15:54:05:  GET / 500 in 26ms
+2025-07-31T15:54:15: Auth middleware: undefined
+2025-07-31T15:54:15:  GET / 500 in 15ms
+2025-07-31T15:54:25: Auth middleware: undefined
+2025-07-31T15:54:25:  GET / 500 in 20ms
+2025-07-31T15:54:35: Auth middleware: undefined
+2025-07-31T15:54:35:  GET / 500 in 10ms
+2025-07-31T15:54:46: Auth middleware: undefined
+2025-07-31T15:54:46:  GET / 500 in 11ms
+2025-07-31T15:54:57: Auth middleware: undefined
+2025-07-31T15:54:57:  GET / 500 in 14ms
+2025-07-31T15:55:07: Auth middleware: undefined
+2025-07-31T15:55:07:  GET / 500 in 19ms
+2025-07-31T15:55:17: Auth middleware: undefined
+2025-07-31T15:55:17:  GET / 500 in 19ms
+2025-07-31T15:55:27: Auth middleware: undefined
+2025-07-31T15:55:27:  GET / 500 in 17ms
+2025-07-31T15:55:37: Auth middleware: undefined
+2025-07-31T15:55:37:  GET / 500 in 11ms
+2025-07-31T15:55:47: Auth middleware: undefined
+2025-07-31T15:55:47:  GET / 500 in 12ms
+2025-07-31T15:55:57: Auth middleware: undefined
+2025-07-31T15:55:57:  GET / 500 in 11ms
+2025-07-31T15:56:07: Auth middleware: undefined
+2025-07-31T15:56:07:  GET / 500 in 17ms
+2025-07-31T15:56:18: Auth middleware: undefined
+2025-07-31T15:56:18:  GET / 500 in 13ms
+2025-07-31T15:56:28: Auth middleware: undefined
+2025-07-31T15:56:28:  GET / 500 in 10ms
+2025-07-31T15:56:31: Auth middleware: undefined
+2025-07-31T15:56:31:  GET / 500 in 31ms
+2025-07-31T15:56:41: Auth middleware: undefined
+2025-07-31T15:56:41:  GET / 500 in 11ms
+2025-07-31T15:56:51: Auth middleware: undefined
+2025-07-31T15:56:51:  GET / 500 in 27ms
+2025-07-31T15:57:01: Auth middleware: undefined
+2025-07-31T15:57:01:  GET / 500 in 11ms
+2025-07-31T15:57:11: Auth middleware: undefined
+2025-07-31T15:57:11:  GET / 500 in 14ms
+2025-07-31T15:57:21: Auth middleware: undefined
+2025-07-31T15:57:21:  GET / 500 in 9ms
+2025-07-31T15:57:31: Auth middleware: undefined
+2025-07-31T15:57:31:  GET / 500 in 8ms
+2025-07-31T15:58:11: Auth middleware: undefined
+2025-07-31T15:58:11:  GET / 500 in 31ms
+2025-07-31T15:58:50: Auth middleware: undefined
+2025-07-31T15:58:50:  GET / 500 in 9ms
+2025-07-31T15:59:30: Auth middleware: undefined
+2025-07-31T15:59:30:  GET / 500 in 28ms
+2025-07-31T16:00:10: Auth middleware: undefined
+2025-07-31T16:00:10:  GET / 500 in 12ms
+2025-07-31T16:00:50: Auth middleware: undefined
+2025-07-31T16:00:50:  GET / 500 in 46ms
+2025-07-31T16:01:30: Auth middleware: undefined
+2025-07-31T16:01:30:  GET / 500 in 13ms
+2025-07-31T16:02:10: Auth middleware: undefined
+2025-07-31T16:02:10:  GET / 500 in 9ms
+2025-07-31T16:02:50: Auth middleware: undefined
+2025-07-31T16:02:50:  GET / 500 in 25ms
+2025-07-31T16:03:30: Auth middleware: undefined
+2025-07-31T16:03:30:  GET / 500 in 21ms
+2025-07-31T16:04:10: Auth middleware: undefined
+2025-07-31T16:04:10:  GET / 500 in 10ms
+2025-07-31T16:04:50: Auth middleware: undefined
+2025-07-31T16:04:50:  GET / 500 in 15ms
+2025-07-31T16:12:01: Auth middleware: undefined
+2025-07-31T16:12:01:  GET / 500 in 11ms
+2025-07-31T16:12:11: Auth middleware: undefined
+2025-07-31T16:12:11:  GET / 500 in 19ms
+2025-07-31T16:12:21: Auth middleware: undefined
+2025-07-31T16:12:21:  GET / 500 in 10ms
+2025-07-31T16:12:31: Auth middleware: undefined
+2025-07-31T16:12:31:  GET / 500 in 18ms
+2025-07-31T16:12:41: Auth middleware: undefined
+2025-07-31T16:12:41:  GET / 500 in 13ms
+2025-07-31T16:12:51: Auth middleware: undefined
+2025-07-31T16:12:51:  GET / 500 in 20ms
+2025-07-31T16:13:01: Auth middleware: undefined
+2025-07-31T16:13:01:  GET / 500 in 14ms
+2025-07-31T16:13:11: Auth middleware: undefined
+2025-07-31T16:13:11:  GET / 500 in 21ms
+2025-07-31T16:13:21: Auth middleware: undefined
+2025-07-31T16:13:21:  GET / 500 in 18ms
+2025-07-31T16:13:31: Auth middleware: undefined
+2025-07-31T16:13:31:  GET / 500 in 14ms
+2025-07-31T16:13:41: Auth middleware: undefined
+2025-07-31T16:13:41:  GET / 500 in 20ms
+2025-07-31T16:13:51: Auth middleware: undefined
+2025-07-31T16:13:51:  GET / 500 in 20ms
+2025-07-31T16:14:01: Auth middleware: undefined
+2025-07-31T16:14:01:  GET / 500 in 22ms
+2025-07-31T16:14:12: Auth middleware: undefined
+2025-07-31T16:14:12:  GET / 500 in 20ms
+2025-07-31T16:14:23: Auth middleware: undefined
+2025-07-31T16:14:23:  GET / 500 in 20ms
+2025-07-31T16:14:34: Auth middleware: undefined
+2025-07-31T16:14:34:  GET / 500 in 8ms
+2025-07-31T16:14:45: Auth middleware: undefined
+2025-07-31T16:14:45:  GET / 500 in 20ms
+2025-07-31T16:14:56: Auth middleware: undefined
+2025-07-31T16:14:56:  GET / 500 in 18ms
+2025-07-31T16:15:07: Auth middleware: undefined
+2025-07-31T16:15:07:  GET / 500 in 16ms
+2025-07-31T16:15:18: Auth middleware: undefined
+2025-07-31T16:15:18:  GET / 500 in 12ms
+2025-07-31T16:15:29: Auth middleware: undefined
+2025-07-31T16:15:29:  GET / 500 in 12ms
+2025-07-31T16:15:40: Auth middleware: undefined
+2025-07-31T16:15:40:  GET / 500 in 27ms
+2025-07-31T16:15:51: Auth middleware: undefined
+2025-07-31T16:15:51:  GET / 500 in 25ms
+2025-07-31T16:16:02: Auth middleware: undefined
+2025-07-31T16:16:02:  GET / 500 in 20ms
+2025-07-31T16:16:13: Auth middleware: undefined
+2025-07-31T16:16:13:  GET / 500 in 19ms
+2025-07-31T16:16:24: Auth middleware: undefined
+2025-07-31T16:16:24:  GET / 500 in 21ms
+2025-07-31T16:16:35: Auth middleware: undefined
+2025-07-31T16:16:35:  GET / 500 in 24ms
+2025-07-31T16:16:46: Auth middleware: undefined
+2025-07-31T16:16:46:  GET / 500 in 17ms
+2025-07-31T16:16:57: Auth middleware: undefined
+2025-07-31T16:16:57:  GET / 500 in 19ms
+2025-07-31T16:17:08: Auth middleware: undefined
+2025-07-31T16:17:08:  GET / 500 in 18ms
+2025-07-31T16:17:19: Auth middleware: undefined
+2025-07-31T16:17:19:  GET / 500 in 37ms
+2025-07-31T16:17:30: Auth middleware: undefined
+2025-07-31T16:17:30:  GET / 500 in 23ms
+2025-07-31T16:17:41: Auth middleware: undefined
+2025-07-31T16:17:41:  GET / 500 in 17ms
+2025-07-31T16:17:52: Auth middleware: undefined
+2025-07-31T16:17:52:  GET / 500 in 19ms
+2025-07-31T16:18:03: Auth middleware: undefined
+2025-07-31T16:18:03:  GET / 500 in 21ms
+2025-07-31T16:18:14: Auth middleware: undefined
+2025-07-31T16:18:14:  GET / 500 in 20ms
+2025-07-31T16:18:25: Auth middleware: undefined
+2025-07-31T16:18:25:  GET / 500 in 19ms
+2025-07-31T16:18:36: Auth middleware: undefined
+2025-07-31T16:18:36:  GET / 500 in 19ms
+2025-07-31T16:18:47: Auth middleware: undefined
+2025-07-31T16:18:47:  GET / 500 in 12ms
+2025-07-31T16:18:58: Auth middleware: undefined
+2025-07-31T16:18:58:  GET / 500 in 11ms
+2025-07-31T16:19:08: Auth middleware: undefined
+2025-07-31T16:19:08:  GET / 500 in 15ms
+2025-07-31T16:19:18: Auth middleware: undefined
+2025-07-31T16:19:18:  GET / 500 in 18ms
+2025-07-31T16:19:28: Auth middleware: undefined
+2025-07-31T16:19:28:  GET / 500 in 23ms
+2025-07-31T16:19:38: Auth middleware: undefined
+2025-07-31T16:19:38:  GET / 500 in 15ms
+2025-07-31T16:19:48: Auth middleware: undefined
+2025-07-31T16:19:48:  GET / 500 in 21ms
+2025-07-31T16:19:58: Auth middleware: undefined
+2025-07-31T16:19:58:  GET / 500 in 18ms
+2025-07-31T16:20:08: Auth middleware: undefined
+2025-07-31T16:20:08:  GET / 500 in 19ms
+2025-07-31T16:20:19: Auth middleware: undefined
+2025-07-31T16:20:19:  GET / 500 in 26ms
+2025-07-31T16:20:30: Auth middleware: undefined
+2025-07-31T16:20:30:  GET / 500 in 19ms
+2025-07-31T16:20:40: Auth middleware: undefined
+2025-07-31T16:20:40:  GET / 500 in 26ms
+2025-07-31T16:20:50: Auth middleware: undefined
+2025-07-31T16:20:50:  GET / 500 in 19ms
+2025-07-31T16:21:02: Auth middleware: undefined
+2025-07-31T16:21:02:  GET / 500 in 27ms
+2025-07-31T16:21:12: Auth middleware: undefined
+2025-07-31T16:21:12:  GET / 500 in 19ms
+2025-07-31T16:21:29: Auth middleware: undefined
+2025-07-31T16:21:29:  GET / 500 in 20ms
+2025-07-31T16:21:42: Auth middleware: undefined
+2025-07-31T16:21:42:  GET / 500 in 17ms
+2025-07-31T16:22:16: Auth middleware: undefined
+2025-07-31T16:22:16:  GET / 500 in 27ms
+2025-07-31T16:22:38: Auth middleware: undefined
+2025-07-31T16:22:38:  GET / 500 in 30ms
+2025-07-31T16:22:48: Auth middleware: undefined
+2025-07-31T16:22:48:  GET / 500 in 18ms
+2025-07-31T16:23:01: Auth middleware: undefined
+2025-07-31T16:23:01:  GET / 500 in 28ms
+2025-07-31T16:23:14: Auth middleware: undefined
+2025-07-31T16:23:14:  GET / 500 in 18ms
+2025-07-31T16:23:31: Auth middleware: undefined
+2025-07-31T16:23:31:  GET / 500 in 15ms
+2025-07-31T16:24:07: Auth middleware: undefined
+2025-07-31T16:24:07:  GET / 500 in 19ms
+2025-07-31T16:24:50: Auth middleware: undefined
+2025-07-31T16:24:50:  GET / 500 in 199ms
+2025-07-31T16:25:30: Auth middleware: undefined
+2025-07-31T16:25:30:  GET / 500 in 26ms
+2025-07-31T16:26:10: Auth middleware: undefined
+2025-07-31T16:26:10:  GET / 500 in 19ms
+2025-07-31T16:26:50: Auth middleware: undefined
+2025-07-31T16:26:50:  GET / 500 in 17ms
+2025-07-31T16:27:30: Auth middleware: undefined
+2025-07-31T16:27:30:  GET / 500 in 15ms
+2025-07-31T16:28:10: Auth middleware: undefined
+2025-07-31T16:28:10:  GET / 500 in 19ms
+2025-07-31T16:28:50: Auth middleware: undefined
+2025-07-31T16:28:50:  GET / 500 in 17ms
+2025-07-31T16:29:30: Auth middleware: undefined
+2025-07-31T16:29:30:  GET / 500 in 19ms
+2025-07-31T16:30:10: Auth middleware: undefined
+2025-07-31T16:30:10:  GET / 500 in 14ms
+2025-07-31T16:42:23: Auth middleware: undefined
+2025-07-31T16:42:23:  GET / 500 in 18ms
+2025-07-31T16:42:25: Auth middleware: undefined
+2025-07-31T16:42:26:  GET / 500 in 51ms
+2025-07-31T16:42:36: Auth middleware: undefined
+2025-07-31T16:42:36:  GET / 500 in 18ms
+2025-07-31T16:42:46: Auth middleware: undefined
+2025-07-31T16:42:46:  GET / 500 in 16ms
+2025-07-31T16:42:56: Auth middleware: undefined
+2025-07-31T16:42:56:  GET / 500 in 27ms
+2025-07-31T16:43:06: Auth middleware: undefined
+2025-07-31T16:43:06:  GET / 500 in 18ms
+2025-07-31T16:43:16: Auth middleware: undefined
+2025-07-31T16:43:16:  GET / 500 in 19ms
+2025-07-31T16:43:26: Auth middleware: undefined
+2025-07-31T16:43:26:  GET / 500 in 19ms
+2025-07-31T16:43:49: Auth middleware: undefined
+2025-07-31T16:43:49:  GET / 500 in 24ms
+2025-07-31T16:44:10: Auth middleware: undefined
+2025-07-31T16:44:10:  GET / 500 in 9ms
+2025-07-31T16:44:50: Auth middleware: undefined
+2025-07-31T16:44:50:  GET / 500 in 20ms
+2025-07-31T16:45:30: Auth middleware: undefined
+2025-07-31T16:45:30:  GET / 500 in 14ms
+2025-07-31T16:46:10: Auth middleware: undefined
+2025-07-31T16:46:10:  GET / 500 in 13ms
+2025-07-31T16:46:50: Auth middleware: undefined
+2025-07-31T16:46:50:  GET / 500 in 18ms
+2025-07-31T16:47:30: Auth middleware: undefined
+2025-07-31T16:47:30:  GET / 500 in 22ms
+2025-07-31T16:48:10: Auth middleware: undefined
+2025-07-31T16:48:10:  GET / 500 in 22ms
+2025-07-31T16:48:50: Auth middleware: undefined
+2025-07-31T16:48:50:  GET / 500 in 20ms
+2025-07-31T16:49:30: Auth middleware: undefined
+2025-07-31T16:49:30:  GET / 500 in 17ms
+2025-07-31T16:50:10: Auth middleware: undefined
+2025-07-31T16:50:10:  GET / 500 in 23ms
+2025-07-31T17:25:45: Auth middleware: undefined
+2025-07-31T17:25:45:  GET / 500 in 23ms
+2025-07-31T17:25:55: Auth middleware: undefined
+2025-07-31T17:25:55:  GET / 500 in 24ms
+2025-07-31T17:26:06: Auth middleware: undefined
+2025-07-31T17:26:06:  GET / 500 in 19ms
+2025-07-31T17:26:28: Auth middleware: undefined
+2025-07-31T17:26:28:  GET / 500 in 15ms
+2025-07-31T17:27:04: Auth middleware: undefined
+2025-07-31T17:27:04:  GET / 500 in 40ms
+2025-07-31T17:27:26: Auth middleware: undefined
+2025-07-31T17:27:26:  GET / 500 in 15ms
+2025-07-31T17:27:36: Auth middleware: undefined
+2025-07-31T17:27:36:  GET / 500 in 27ms
+2025-07-31T17:27:47: Auth middleware: undefined
+2025-07-31T17:27:47:  GET / 500 in 16ms
+2025-07-31T17:28:04: Auth middleware: undefined
+2025-07-31T17:28:04:  GET / 500 in 13ms
+2025-07-31T17:28:26: Auth middleware: undefined
+2025-07-31T17:28:26:  GET / 500 in 19ms
+2025-07-31T17:29:01: Auth middleware: undefined
+2025-07-31T17:29:01:  GET / 500 in 21ms
+2025-07-31T17:29:12: Auth middleware: undefined
+2025-07-31T17:29:12:  GET / 500 in 24ms
+2025-07-31T17:30:12: Auth middleware: undefined
+2025-07-31T17:30:12:  GET / 500 in 26ms
+2025-07-31T17:31:12: Auth middleware: undefined
+2025-07-31T17:31:12:  GET / 500 in 16ms
+2025-07-31T17:32:12: Auth middleware: undefined
+2025-07-31T17:32:12:  GET / 500 in 14ms
+2025-07-31T17:33:12: Auth middleware: undefined
+2025-07-31T17:33:12:  GET / 500 in 11ms
+2025-07-31T17:34:12: Auth middleware: undefined
+2025-07-31T17:34:12:  GET / 500 in 18ms
+2025-07-31T17:35:12: Auth middleware: undefined
+2025-07-31T17:35:12:  GET / 500 in 21ms
+2025-07-31T17:43:56: Auth middleware: undefined
+2025-07-31T17:43:56:  GET / 500 in 17ms
+2025-07-31T17:44:06: Auth middleware: undefined
+2025-07-31T17:44:06:  GET / 500 in 35ms
+2025-07-31T17:44:16: Auth middleware: undefined
+2025-07-31T17:44:16:  GET / 500 in 10ms
+2025-07-31T17:44:30: Auth middleware: undefined
+2025-07-31T17:44:30:  GET / 500 in 19ms
+2025-07-31T17:44:57: Auth middleware: undefined
+2025-07-31T17:44:57:  GET / 500 in 37ms
+2025-07-31T17:45:22: Auth middleware: undefined
+2025-07-31T17:45:22:  GET / 500 in 54ms
+2025-07-31T17:45:55: Auth middleware: undefined
+2025-07-31T17:45:55:  GET / 500 in 17ms
+2025-07-31T17:46:05: Auth middleware: undefined
+2025-07-31T17:46:05:  GET / 500 in 56ms
+2025-07-31T17:46:15: Auth middleware: undefined
+2025-07-31T17:46:15:  GET / 500 in 10ms
+2025-07-31T17:46:26: Auth middleware: undefined
+2025-07-31T17:46:26:  GET / 500 in 20ms
+2025-07-31T17:46:43: Auth middleware: undefined
+2025-07-31T17:46:43:  GET / 500 in 21ms
+2025-07-31T17:47:22: Auth middleware: undefined
+2025-07-31T17:47:22:  GET / 500 in 22ms
+2025-07-31T17:47:23: [?25h
+2025-07-31T17:47:24: 
+2025-07-31T17:47:24: > johnstreet@0.1.0 dev
+2025-07-31T17:47:24: > next dev -p 3005
+2025-07-31T17:47:24: 
+2025-07-31T17:47:25:   ▲ Next.js 14.2.5
+2025-07-31T17:47:25:   - Local:        http://localhost:3005
+2025-07-31T17:47:25:   - Environments: .env.local, .env
+2025-07-31T17:47:25:   - Experiments (use with caution):
+2025-07-31T17:47:25:     · missingSuspenseWithCSRBailout
+2025-07-31T17:47:25: 
+2025-07-31T17:47:25:  ✓ Starting...
+2025-07-31T17:47:26:  ✓ Ready in 1846ms
+2025-07-31T17:48:02:  ✓ Compiled /middleware in 160ms (219 modules)
+2025-07-31T17:48:02: Auth middleware: undefined
+2025-07-31T17:48:03:  ○ Compiling / ...
+2025-07-31T17:48:05:  ✓ Compiled / in 2.4s (1393 modules)
+2025-07-31T17:48:05:  GET / 307 in 2689ms
+2025-07-31T17:48:05: Auth middleware: undefined
+2025-07-31T17:48:05:  ✓ Compiled /dashboard in 714ms (1402 modules)
+2025-07-31T17:48:06:  GET /dashboard 200 in 533ms
+2025-07-31T17:48:12: Auth middleware: undefined
+2025-07-31T17:48:12:  GET / 307 in 41ms
+2025-07-31T17:48:12: Auth middleware: undefined
+2025-07-31T17:48:12:  GET /dashboard 200 in 21ms
+2025-07-31T17:48:28: Auth middleware: undefined
+2025-07-31T17:48:28:  GET / 307 in 33ms
+2025-07-31T17:48:28: Auth middleware: undefined
+2025-07-31T17:48:28:  GET /dashboard 200 in 25ms
+2025-07-31T17:48:53: Auth middleware: undefined
+2025-07-31T17:48:53:  GET / 307 in 31ms
+2025-07-31T17:48:53: Auth middleware: undefined
+2025-07-31T17:48:53:  GET /dashboard 200 in 22ms
+2025-07-31T17:49:27: Auth middleware: undefined
+2025-07-31T17:49:27:  GET / 307 in 49ms
+2025-07-31T17:49:27: Auth middleware: undefined
+2025-07-31T17:49:27:  GET /dashboard 200 in 30ms
+2025-07-31T17:50:12: Auth middleware: undefined
+2025-07-31T17:50:12:  GET / 307 in 34ms
+2025-07-31T17:50:12: Auth middleware: undefined
+2025-07-31T17:50:12:  GET /dashboard 200 in 26ms
+2025-07-31T17:51:12: Auth middleware: undefined
+2025-07-31T17:51:12:  GET / 307 in 40ms
+2025-07-31T17:51:12: Auth middleware: undefined
+2025-07-31T17:51:12:  GET /dashboard 200 in 19ms
+2025-07-31T17:52:13: Auth middleware: undefined
+2025-07-31T17:52:13:  GET / 307 in 25ms
+2025-07-31T17:52:13: Auth middleware: undefined
+2025-07-31T17:52:14:  GET /dashboard 200 in 19ms
+2025-07-31T17:53:55: Auth middleware: undefined
+2025-07-31T17:53:55:  GET / 307 in 28ms
+2025-07-31T17:53:55: Auth middleware: undefined
+2025-07-31T17:53:55:  GET /dashboard 200 in 20ms
+2025-07-31T17:55:35: Auth middleware: undefined
+2025-07-31T17:55:35:  GET / 307 in 30ms
+2025-07-31T17:55:35: Auth middleware: undefined
+2025-07-31T17:55:35:  GET /dashboard 200 in 19ms
+2025-07-31T18:03:23: Auth middleware: undefined
+2025-07-31T18:03:23:  GET / 307 in 27ms
+2025-07-31T18:03:23: Auth middleware: undefined
+2025-07-31T18:03:23:  GET /dashboard 200 in 21ms
+2025-07-31T18:03:33: Auth middleware: undefined
+2025-07-31T18:03:33:  GET / 307 in 40ms
+2025-07-31T18:03:33: Auth middleware: undefined
+2025-07-31T18:03:33:  GET /dashboard 200 in 23ms
+2025-07-31T18:03:43: Auth middleware: undefined
+2025-07-31T18:03:43:  GET / 307 in 34ms
+2025-07-31T18:03:43: Auth middleware: undefined
+2025-07-31T18:03:43:  GET /dashboard 200 in 22ms
+2025-07-31T18:03:54: Auth middleware: undefined
+2025-07-31T18:03:54:  GET / 307 in 26ms
+2025-07-31T18:03:54: Auth middleware: undefined
+2025-07-31T18:03:54:  GET /dashboard 200 in 20ms
+2025-07-31T18:04:11: Auth middleware: undefined
+2025-07-31T18:04:11:  GET / 307 in 33ms
+2025-07-31T18:04:11: Auth middleware: undefined
+2025-07-31T18:04:11:  GET /dashboard 200 in 23ms
+2025-07-31T18:04:25: Auth middleware: undefined
+2025-07-31T18:04:25:  GET / 307 in 35ms
+2025-07-31T18:04:25: Auth middleware: undefined
+2025-07-31T18:04:25:  GET /dashboard 200 in 18ms
+2025-07-31T18:04:53: Auth middleware: undefined
+2025-07-31T18:04:53:  GET / 307 in 26ms
+2025-07-31T18:04:53: Auth middleware: undefined
+2025-07-31T18:04:53:  GET /dashboard 200 in 22ms
+2025-07-31T18:05:22: Auth middleware: undefined
+2025-07-31T18:05:22:  GET / 307 in 40ms
+2025-07-31T18:05:22: Auth middleware: undefined
+2025-07-31T18:05:22:  GET /dashboard 200 in 23ms
+2025-07-31T18:05:35: Auth middleware: undefined
+2025-07-31T18:05:35:  GET / 307 in 30ms
+2025-07-31T18:05:35: Auth middleware: undefined
+2025-07-31T18:05:35:  GET /dashboard 200 in 18ms
+2025-07-31T18:05:48: Auth middleware: undefined
+2025-07-31T18:05:48:  GET / 307 in 27ms
+2025-07-31T18:05:48: Auth middleware: undefined
+2025-07-31T18:05:48:  GET /dashboard 200 in 17ms
+2025-07-31T18:05:58: Auth middleware: undefined
+2025-07-31T18:05:58:  GET / 307 in 34ms
+2025-07-31T18:05:58: Auth middleware: undefined
+2025-07-31T18:05:58:  GET /dashboard 200 in 24ms
+2025-07-31T18:06:08: Auth middleware: undefined
+2025-07-31T18:06:08:  GET / 307 in 57ms
+2025-07-31T18:06:08: Auth middleware: undefined
+2025-07-31T18:06:08:  GET /dashboard 200 in 15ms
+2025-07-31T18:06:23: Auth middleware: undefined
+2025-07-31T18:06:23:  GET / 307 in 27ms
+2025-07-31T18:06:23: Auth middleware: undefined
+2025-07-31T18:06:23:  GET /dashboard 200 in 20ms
+2025-07-31T18:06:44: Auth middleware: undefined
+2025-07-31T18:06:44:  GET / 307 in 52ms
+2025-07-31T18:06:44: Auth middleware: undefined
+2025-07-31T18:06:44:  GET /dashboard 200 in 16ms
+2025-07-31T18:07:27: Auth middleware: undefined
+2025-07-31T18:07:27:  GET / 307 in 27ms
+2025-07-31T18:07:27: Auth middleware: undefined
+2025-07-31T18:07:27:  GET /dashboard 200 in 22ms
+2025-07-31T18:08:39: Auth middleware: undefined
+2025-07-31T18:08:39:  GET / 307 in 37ms
+2025-07-31T18:08:39: Auth middleware: undefined
+2025-07-31T18:08:39:  GET /dashboard 200 in 21ms
+2025-07-31T18:09:43: Auth middleware: undefined
+2025-07-31T18:09:43:  GET / 307 in 31ms
+2025-07-31T18:09:43: Auth middleware: undefined
+2025-07-31T18:09:43:  GET /dashboard 200 in 21ms
+2025-07-31T18:10:52: Auth middleware: undefined
+2025-07-31T18:10:53:  GET / 307 in 40ms
+2025-07-31T18:10:53: Auth middleware: undefined
+2025-07-31T18:10:53:  GET /dashboard 200 in 21ms
+2025-07-31T18:11:03: Auth middleware: undefined
+2025-07-31T18:11:03:  GET / 307 in 28ms
+2025-07-31T18:11:03: Auth middleware: undefined
+2025-07-31T18:11:03:  GET /dashboard 200 in 21ms
+2025-07-31T18:11:13: Auth middleware: undefined
+2025-07-31T18:11:13:  GET / 307 in 29ms
+2025-07-31T18:11:13: Auth middleware: undefined
+2025-07-31T18:11:13:  GET /dashboard 200 in 19ms
+2025-07-31T18:11:25: Auth middleware: undefined
+2025-07-31T18:11:25:  GET / 307 in 31ms
+2025-07-31T18:11:25: Auth middleware: undefined
+2025-07-31T18:11:25:  GET /dashboard 200 in 22ms
+2025-07-31T18:11:35: Auth middleware: undefined
+2025-07-31T18:11:35:  GET / 307 in 26ms
+2025-07-31T18:11:35: Auth middleware: undefined
+2025-07-31T18:11:35:  GET /dashboard 200 in 20ms
+2025-07-31T18:11:45: Auth middleware: undefined
+2025-07-31T18:11:45:  GET / 307 in 30ms
+2025-07-31T18:11:45: Auth middleware: undefined
+2025-07-31T18:11:45:  GET /dashboard 200 in 20ms
+2025-07-31T18:11:55: Auth middleware: undefined
+2025-07-31T18:11:55:  GET / 307 in 36ms
+2025-07-31T18:11:55: Auth middleware: undefined
+2025-07-31T18:11:55:  GET /dashboard 200 in 23ms
+2025-07-31T18:12:05: Auth middleware: undefined
+2025-07-31T18:12:05:  GET / 307 in 42ms
+2025-07-31T18:12:05: Auth middleware: undefined
+2025-07-31T18:12:05:  GET /dashboard 200 in 24ms
+2025-07-31T18:12:15: Auth middleware: undefined
+2025-07-31T18:12:15:  GET / 307 in 33ms
+2025-07-31T18:12:15: Auth middleware: undefined
+2025-07-31T18:12:15:  GET /dashboard 200 in 22ms
+2025-07-31T18:12:25: Auth middleware: undefined
+2025-07-31T18:12:25:  GET / 307 in 34ms
+2025-07-31T18:12:25: Auth middleware: undefined
+2025-07-31T18:12:25:  GET /dashboard 200 in 19ms
+2025-07-31T18:12:35: Auth middleware: undefined
+2025-07-31T18:12:35:  GET / 307 in 20ms
+2025-07-31T18:12:35: Auth middleware: undefined
+2025-07-31T18:12:35:  GET /dashboard 200 in 22ms
+2025-07-31T18:12:45: Auth middleware: undefined
+2025-07-31T18:12:46:  GET / 307 in 43ms
+2025-07-31T18:12:46: Auth middleware: undefined
+2025-07-31T18:12:46:  GET /dashboard 200 in 23ms
+2025-07-31T18:13:00: Auth middleware: undefined
+2025-07-31T18:13:00:  GET / 307 in 33ms
+2025-07-31T18:13:00: Auth middleware: undefined
+2025-07-31T18:13:00:  GET /dashboard 200 in 21ms
+2025-07-31T18:13:18: Auth middleware: undefined
+2025-07-31T18:13:18:  GET / 307 in 27ms
+2025-07-31T18:13:18: Auth middleware: undefined
+2025-07-31T18:13:18:  GET /dashboard 200 in 19ms
+2025-07-31T18:13:38: Auth middleware: undefined
+2025-07-31T18:13:38:  GET / 307 in 26ms
+2025-07-31T18:13:38: Auth middleware: undefined
+2025-07-31T18:13:38:  GET /dashboard 200 in 21ms
+2025-07-31T18:14:13: Auth middleware: undefined
+2025-07-31T18:14:13:  GET / 307 in 34ms
+2025-07-31T18:14:13: Auth middleware: undefined
+2025-07-31T18:14:13:  GET /dashboard 200 in 18ms
+2025-07-31T18:15:00: Auth middleware: undefined
+2025-07-31T18:15:00:  GET / 307 in 25ms
+2025-07-31T18:15:00: Auth middleware: undefined
+2025-07-31T18:15:00:  GET /dashboard 200 in 19ms
+2025-07-31T18:16:11: Auth middleware: undefined
+2025-07-31T18:16:11:  GET / 307 in 30ms
+2025-07-31T18:16:11: Auth middleware: undefined
+2025-07-31T18:16:11:  GET /dashboard 200 in 28ms
+2025-07-31T18:16:22: Auth middleware: undefined
+2025-07-31T18:16:22:  GET / 307 in 29ms
+2025-07-31T18:16:22: Auth middleware: undefined
+2025-07-31T18:16:22:  GET /dashboard 200 in 20ms
+2025-07-31T18:18:42: Auth middleware: undefined
+2025-07-31T18:18:43:  GET / 307 in 37ms
+2025-07-31T18:18:43: Auth middleware: undefined
+2025-07-31T18:18:43:  GET /dashboard 200 in 21ms
+2025-07-31T18:20:23: Auth middleware: undefined
+2025-07-31T18:20:23:  GET / 307 in 38ms
+2025-07-31T18:20:23: Auth middleware: undefined
+2025-07-31T18:20:23:  GET /dashboard 200 in 19ms
+2025-07-31T18:36:43: Auth middleware: undefined
+2025-07-31T18:36:43:  GET / 307 in 33ms
+2025-07-31T18:36:43: Auth middleware: undefined
+2025-07-31T18:36:43:  GET /dashboard 200 in 18ms
+2025-07-31T18:36:53: Auth middleware: undefined
+2025-07-31T18:36:53:  GET / 307 in 60ms
+2025-07-31T18:36:53: Auth middleware: undefined
+2025-07-31T18:36:53:  GET /dashboard 200 in 21ms
+2025-07-31T18:37:04: Auth middleware: undefined
+2025-07-31T18:37:04:  GET / 307 in 34ms
+2025-07-31T18:37:04: Auth middleware: undefined
+2025-07-31T18:37:04:  GET /dashboard 200 in 20ms
+2025-07-31T18:37:18:  ✓ Compiled in 302ms (1402 modules)
+2025-07-31T18:37:22: Auth middleware: undefined
+2025-07-31T18:37:22:  GET / 307 in 139ms
+2025-07-31T18:37:22: Auth middleware: undefined
+2025-07-31T18:37:22:  GET /dashboard 200 in 29ms
+2025-07-31T18:37:38:  ✓ Compiled in 155ms (1402 modules)
+2025-07-31T18:37:43: Auth middleware: undefined
+2025-07-31T18:37:43:  GET / 307 in 93ms
+2025-07-31T18:37:43: Auth middleware: undefined
+2025-07-31T18:37:43:  GET /dashboard 200 in 25ms
+2025-07-31T18:37:46:  ✓ Compiled in 487ms (1429 modules)
+2025-07-31T18:37:52:  ✓ Compiled in 143ms (1402 modules)
+2025-07-31T18:38:08: Auth middleware: undefined
+2025-07-31T18:38:08:  GET / 307 in 69ms
+2025-07-31T18:38:09: Auth middleware: undefined
+2025-07-31T18:38:09:  GET /dashboard 200 in 28ms
+2025-07-31T18:38:37:  ✓ Compiled in 181ms (709 modules)
+2025-07-31T18:38:47:  ✓ Compiled in 148ms (709 modules)
+2025-07-31T18:38:53:  ✓ Compiled in 138ms (709 modules)
+2025-07-31T18:39:04:  ✓ Compiled in 146ms (709 modules)
+2025-07-31T18:39:10:  ✓ Compiled in 163ms (709 modules)
+2025-07-31T18:39:16:  ✓ Compiled in 189ms (709 modules)
+2025-07-31T18:39:26:  ✓ Compiled in 142ms (709 modules)
+2025-07-31T18:39:28: Auth middleware: undefined
+2025-07-31T18:39:28:  GET / 307 in 35ms
+2025-07-31T18:39:28: Auth middleware: undefined
+2025-07-31T18:39:28:  GET /dashboard 200 in 29ms
+2025-07-31T18:39:32:  ✓ Compiled in 207ms (709 modules)
+2025-07-31T18:39:36:  ✓ Compiled in 287ms (709 modules)
+2025-07-31T18:39:46:  ✓ Compiled in 177ms (709 modules)
+2025-07-31T18:39:55:  ✓ Compiled in 223ms (709 modules)
+2025-07-31T18:40:02:  ✓ Compiled in 169ms (709 modules)
+2025-07-31T18:40:10:  ✓ Compiled in 170ms (709 modules)
+2025-07-31T18:40:17:  ✓ Compiled in 238ms (709 modules)
+2025-07-31T18:40:25:  ✓ Compiled in 127ms (709 modules)
+2025-07-31T18:40:31:  ✓ Compiled in 139ms (709 modules)
+2025-07-31T18:40:41:  ✓ Compiled in 175ms (709 modules)
+2025-07-31T18:40:46:  ✓ Compiled in 145ms (709 modules)
+2025-07-31T18:41:00:  ✓ Compiled in 164ms (709 modules)
+2025-07-31T18:41:28:  ✓ Compiled in 156ms (709 modules)
+2025-07-31T18:41:34:  ✓ Compiled in 148ms (709 modules)
+2025-07-31T18:41:47:  ✓ Compiled in 113ms (709 modules)
+2025-07-31T18:41:59: Auth middleware: undefined
+2025-07-31T18:41:59:  GET / 307 in 33ms
+2025-07-31T18:41:59: Auth middleware: undefined
+2025-07-31T18:41:59:  GET /dashboard 200 in 27ms
+2025-07-31T18:42:09:  ✓ Compiled in 198ms (709 modules)
+2025-07-31T18:42:28:  ✓ Compiled in 159ms (709 modules)
+2025-07-31T18:44:23: Auth middleware: undefined
+2025-07-31T18:44:23:  GET / 307 in 30ms
+2025-07-31T18:44:23: Auth middleware: undefined
+2025-07-31T18:44:23:  GET /dashboard 200 in 24ms
+2025-07-31T18:51:18:  ✓ Compiled in 200ms (709 modules)
+2025-07-31T18:51:26:  ✓ Compiled in 121ms (709 modules)
+2025-07-31T18:51:51:  ✓ Compiled in 130ms (709 modules)
+2025-07-31T18:52:10:  ✓ Compiled in 208ms (709 modules)
+2025-07-31T18:52:12: Auth middleware: undefined
+2025-07-31T18:52:12:  GET / 307 in 35ms
+2025-07-31T18:52:12: Auth middleware: undefined
+2025-07-31T18:52:12:  GET /dashboard 200 in 28ms
+2025-07-31T18:52:22: Auth middleware: undefined
+2025-07-31T18:52:22:  GET / 307 in 25ms
+2025-07-31T18:52:22: Auth middleware: undefined
+2025-07-31T18:52:22:  GET /dashboard 200 in 24ms
+2025-07-31T18:52:25:  ✓ Compiled in 215ms (709 modules)
+2025-07-31T18:52:36:  ✓ Compiled in 180ms (709 modules)
+2025-07-31T18:52:39: Auth middleware: undefined
+2025-07-31T18:52:39:  GET / 307 in 34ms
+2025-07-31T18:52:39: Auth middleware: undefined
+2025-07-31T18:52:39:  GET /dashboard 200 in 27ms
+2025-07-31T18:52:50: Auth middleware: undefined
+2025-07-31T18:52:50:  GET / 307 in 45ms
+2025-07-31T18:52:50: Auth middleware: undefined
+2025-07-31T18:52:50:  GET /dashboard 200 in 22ms
+2025-07-31T18:53:01: Auth middleware: undefined
+2025-07-31T18:53:01:  GET / 307 in 55ms
+2025-07-31T18:53:01: Auth middleware: undefined
+2025-07-31T18:53:01:  GET /dashboard 200 in 22ms
+2025-07-31T18:53:21: Auth middleware: undefined
+2025-07-31T18:53:22:  GET / 307 in 33ms
+2025-07-31T18:53:22: Auth middleware: undefined
+2025-07-31T18:53:22:  GET /dashboard 200 in 23ms
+2025-07-31T18:53:32: Auth middleware: undefined
+2025-07-31T18:53:32:  GET / 307 in 31ms
+2025-07-31T18:53:32: Auth middleware: undefined
+2025-07-31T18:53:32:  GET /dashboard 200 in 26ms
+2025-07-31T18:53:46: Auth middleware: undefined
+2025-07-31T18:53:46:  GET / 307 in 37ms
+2025-07-31T18:53:46: Auth middleware: undefined
+2025-07-31T18:53:46:  GET /dashboard 200 in 26ms
+2025-07-31T18:54:09: Auth middleware: undefined
+2025-07-31T18:54:09:  GET / 307 in 28ms
+2025-07-31T18:54:09: Auth middleware: undefined
+2025-07-31T18:54:09:  GET /dashboard 200 in 19ms
+2025-07-31T18:54:40: Auth middleware: undefined
+2025-07-31T18:54:40:  GET / 307 in 27ms
+2025-07-31T18:54:40: Auth middleware: undefined
+2025-07-31T18:54:40:  GET /dashboard 200 in 22ms
+2025-07-31T18:55:24: Auth middleware: undefined
+2025-07-31T18:55:24:  GET / 307 in 29ms
+2025-07-31T18:55:24: Auth middleware: undefined
+2025-07-31T18:55:24:  GET /dashboard 200 in 24ms
+2025-07-31T18:55:43:  ✓ Compiled in 235ms (709 modules)
+2025-07-31T18:55:55: Auth middleware: undefined
+2025-07-31T18:55:55:  GET / 307 in 34ms
+2025-07-31T18:55:55: Auth middleware: undefined
+2025-07-31T18:55:55:  GET /dashboard 200 in 22ms
+2025-07-31T18:56:41: Auth middleware: undefined
+2025-07-31T18:56:41:  GET / 307 in 24ms
+2025-07-31T18:56:41: Auth middleware: undefined
+2025-07-31T18:56:41:  GET /dashboard 200 in 21ms
+2025-07-31T18:56:47:  ✓ Compiled in 197ms (709 modules)
+2025-07-31T18:56:53:  ✓ Compiled in 157ms (709 modules)
+2025-07-31T18:56:58:  ✓ Compiled in 147ms (709 modules)
+2025-07-31T18:57:07:  ✓ Compiled in 141ms (709 modules)
+2025-07-31T18:57:15:  ✓ Compiled in 128ms (709 modules)
+2025-07-31T18:57:20:  ✓ Compiled in 133ms (709 modules)
+2025-07-31T18:57:32:  ✓ Compiled in 151ms (709 modules)
+2025-07-31T18:57:37:  ✓ Compiled in 137ms (709 modules)
+2025-07-31T18:57:47:  ✓ Compiled in 151ms (709 modules)
+2025-07-31T18:58:20:  ✓ Compiled in 187ms (709 modules)
+2025-07-31T18:58:30:  ✓ Compiled in 151ms (709 modules)
+2025-07-31T18:58:42:  ✓ Compiled in 170ms (709 modules)
+2025-07-31T18:58:48:  ✓ Compiled in 241ms (709 modules)
+2025-07-31T18:59:03: Auth middleware: undefined
+2025-07-31T18:59:03:  GET / 307 in 33ms
+2025-07-31T18:59:03: Auth middleware: undefined
+2025-07-31T18:59:04:  GET /dashboard 200 in 23ms
+2025-07-31T18:59:10:  ✓ Compiled in 123ms (709 modules)
+2025-07-31T18:59:18:  ✓ Compiled in 165ms (709 modules)
+2025-07-31T18:59:38:  ✓ Compiled in 188ms (709 modules)
+2025-07-31T18:59:48:  ✓ Compiled in 151ms (709 modules)
+2025-07-31T19:00:04:  ✓ Compiled in 146ms (709 modules)
+2025-07-31T19:00:13:  ✓ Compiled in 138ms (709 modules)
+2025-07-31T19:00:21: Auth middleware: undefined
+2025-07-31T19:00:21:  GET / 307 in 30ms
+2025-07-31T19:00:21: Auth middleware: undefined
+2025-07-31T19:00:21:  GET /dashboard 200 in 20ms
+2025-07-31T19:00:21:  ✓ Compiled in 146ms (709 modules)
+2025-07-31T19:00:32:  ✓ Compiled in 134ms (709 modules)
+2025-07-31T19:00:48:  ✓ Compiled in 142ms (709 modules)
+2025-07-31T19:01:49:  ✓ Compiled in 249ms (709 modules)
+2025-07-31T19:02:06:  ✓ Compiled in 142ms (709 modules)
+2025-07-31T19:03:07:  ✓ Compiled in 208ms (709 modules)
+2025-07-31T19:03:12:  ✓ Compiled in 122ms (709 modules)
+2025-07-31T19:03:24:  ✓ Compiled in 151ms (709 modules)
+2025-07-31T19:03:34:  ✓ Compiled in 173ms (709 modules)
+2025-07-31T19:03:46:  ✓ Compiled in 139ms (709 modules)
+2025-07-31T19:03:50:  ✓ Compiled in 129ms (709 modules)
+2025-07-31T19:04:01:  ✓ Compiled in 169ms (709 modules)
+2025-07-31T19:04:10:  ✓ Compiled in 143ms (709 modules)
+2025-07-31T19:04:27:  ✓ Compiled in 132ms (709 modules)
+2025-07-31T19:04:38:  ✓ Compiled in 191ms (709 modules)
+2025-07-31T19:04:45:  ✓ Compiled in 132ms (709 modules)
+2025-07-31T19:04:57:  ✓ Compiled in 127ms (709 modules)
+2025-07-31T19:05:08:  ✓ Compiled in 153ms (709 modules)
+2025-07-31T19:05:24:  ✓ Compiled in 159ms (709 modules)
+2025-07-31T19:05:34:  ✓ Compiled in 140ms (709 modules)
+2025-07-31T19:05:52:  ✓ Compiled in 157ms (709 modules)
+2025-07-31T19:07:42:  ✓ Compiled in 278ms (709 modules)
+2025-07-31T19:10:37:  ✓ Compiled in 296ms (914 modules)
+2025-07-31T19:11:17: Auth middleware: undefined
+2025-07-31T19:11:18:  ✓ Compiled / in 99ms (694 modules)
+2025-07-31T19:11:18:  GET / 307 in 277ms
+2025-07-31T19:11:18: Auth middleware: undefined
+2025-07-31T19:11:18:  ✓ Compiled /dashboard in 53ms (707 modules)
+2025-07-31T19:11:18:  GET /dashboard 200 in 171ms
+2025-07-31T19:11:26:  ✓ Compiled in 185ms (709 modules)
+2025-07-31T19:11:37:  ✓ Compiled in 168ms (709 modules)
+2025-07-31T19:11:44:  ✓ Compiled in 161ms (709 modules)
+2025-07-31T19:11:50:  ✓ Compiled in 176ms (709 modules)
+2025-07-31T19:11:52: Auth middleware: undefined
+2025-07-31T19:11:52:  GET / 307 in 61ms
+2025-07-31T19:11:52: Auth middleware: undefined
+2025-07-31T19:11:52:  GET /dashboard 200 in 23ms
+2025-07-31T19:11:55:  ✓ Compiled in 169ms (709 modules)
+2025-07-31T19:12:01:  ✓ Compiled in 285ms (709 modules)
+2025-07-31T19:12:02: Auth middleware: undefined
+2025-07-31T19:12:02:  GET / 307 in 33ms
+2025-07-31T19:12:02: Auth middleware: undefined
+2025-07-31T19:12:02:  GET /dashboard 200 in 24ms
+2025-07-31T19:12:06:  ✓ Compiled in 134ms (709 modules)
+2025-07-31T19:12:10:  ✓ Compiled in 176ms (709 modules)
+2025-07-31T19:12:12: Auth middleware: undefined
+2025-07-31T19:12:12:  GET / 307 in 37ms
+2025-07-31T19:12:12: Auth middleware: undefined
+2025-07-31T19:12:12:  GET /dashboard 200 in 26ms
+2025-07-31T19:12:14:  ✓ Compiled in 146ms (709 modules)
+2025-07-31T19:12:19:  ✓ Compiled in 142ms (709 modules)
+2025-07-31T19:12:22: Auth middleware: undefined
+2025-07-31T19:12:22:  GET / 307 in 46ms
+2025-07-31T19:12:22: Auth middleware: undefined
+2025-07-31T19:12:22:  GET /dashboard 200 in 44ms
+2025-07-31T19:12:23:  ✓ Compiled in 175ms (709 modules)
+2025-07-31T19:12:28:  ✓ Compiled in 210ms (709 modules)
+2025-07-31T19:12:32: Auth middleware: undefined
+2025-07-31T19:12:32:  GET / 307 in 34ms
+2025-07-31T19:12:32: Auth middleware: undefined
+2025-07-31T19:12:32:  GET /dashboard 200 in 26ms
+2025-07-31T19:12:34:  ✓ Compiled in 172ms (709 modules)
+2025-07-31T19:12:40:  ✓ Compiled in 181ms (709 modules)
+2025-07-31T19:12:42: Auth middleware: undefined
+2025-07-31T19:12:42:  GET / 307 in 28ms
+2025-07-31T19:12:42: Auth middleware: undefined
+2025-07-31T19:12:42:  GET /dashboard 200 in 25ms
+2025-07-31T19:12:45:  ✓ Compiled in 143ms (709 modules)
+2025-07-31T19:12:50:  ✓ Compiled in 143ms (709 modules)
+2025-07-31T19:12:52: Auth middleware: undefined
+2025-07-31T19:12:52:  GET / 307 in 32ms
+2025-07-31T19:12:52: Auth middleware: undefined
+2025-07-31T19:12:52:  GET /dashboard 200 in 48ms
+2025-07-31T19:12:54:  ✓ Compiled in 165ms (709 modules)
+2025-07-31T19:12:59:  ✓ Compiled in 214ms (709 modules)
+2025-07-31T19:13:03: Auth middleware: undefined
+2025-07-31T19:13:03:  GET / 307 in 33ms
+2025-07-31T19:13:03: Auth middleware: undefined
+2025-07-31T19:13:03:  GET /dashboard 200 in 26ms
+2025-07-31T19:13:04:  ✓ Compiled in 187ms (709 modules)
+2025-07-31T19:13:13:  ✓ Compiled in 166ms (709 modules)
+2025-07-31T19:13:14: Auth middleware: undefined
+2025-07-31T19:13:14:  GET / 307 in 38ms
+2025-07-31T19:13:14: Auth middleware: undefined
+2025-07-31T19:13:14:  GET /dashboard 200 in 25ms
+2025-07-31T19:13:25: Auth middleware: undefined
+2025-07-31T19:13:25:  GET / 307 in 37ms
+2025-07-31T19:13:25: Auth middleware: undefined
+2025-07-31T19:13:25:  GET /dashboard 200 in 21ms
+2025-07-31T19:13:32:  ✓ Compiled in 154ms (709 modules)
+2025-07-31T19:13:36: Auth middleware: undefined
+2025-07-31T19:13:36:  GET / 307 in 32ms
+2025-07-31T19:13:36: Auth middleware: undefined
+2025-07-31T19:13:36:  GET /dashboard 200 in 32ms
+2025-07-31T19:13:38:  ✓ Compiled in 155ms (709 modules)
+2025-07-31T19:13:44:  ✓ Compiled in 205ms (709 modules)
+2025-07-31T19:13:47: Auth middleware: undefined
+2025-07-31T19:13:47:  GET / 307 in 32ms
+2025-07-31T19:13:47: Auth middleware: undefined
+2025-07-31T19:13:47:  GET /dashboard 200 in 22ms
+2025-07-31T19:13:49:  ✓ Compiled in 145ms (709 modules)
+2025-07-31T19:13:54:  ✓ Compiled in 185ms (709 modules)
+2025-07-31T19:13:58: Auth middleware: undefined
+2025-07-31T19:13:58:  GET / 307 in 49ms
+2025-07-31T19:13:58: Auth middleware: undefined
+2025-07-31T19:13:58:  GET /dashboard 200 in 30ms
+2025-07-31T19:13:59:  ✓ Compiled in 135ms (709 modules)
+2025-07-31T19:14:09: Auth middleware: undefined
+2025-07-31T19:14:09:  GET / 307 in 33ms
+2025-07-31T19:14:09: Auth middleware: undefined
+2025-07-31T19:14:09:  GET /dashboard 200 in 25ms
+2025-07-31T19:14:11:  ✓ Compiled in 164ms (709 modules)
+2025-07-31T19:14:17:  ✓ Compiled in 195ms (709 modules)
+2025-07-31T19:14:20: Auth middleware: undefined
+2025-07-31T19:14:20:  GET / 307 in 38ms
+2025-07-31T19:14:20: Auth middleware: undefined
+2025-07-31T19:14:20:  GET /dashboard 200 in 22ms
+2025-07-31T19:14:22:  ✓ Compiled in 142ms (709 modules)
+2025-07-31T19:14:26:  ✓ Compiled in 162ms (709 modules)
+2025-07-31T19:14:31: Auth middleware: undefined
+2025-07-31T19:14:31:  GET / 307 in 32ms
+2025-07-31T19:14:31: Auth middleware: undefined
+2025-07-31T19:14:31:  GET /dashboard 200 in 22ms
+2025-07-31T19:14:37:  ✓ Compiled in 180ms (709 modules)
+2025-07-31T19:14:41:  ✓ Compiled in 164ms (709 modules)
+2025-07-31T19:14:42: Auth middleware: undefined
+2025-07-31T19:14:42:  GET / 307 in 39ms
+2025-07-31T19:14:42: Auth middleware: undefined
+2025-07-31T19:14:42:  GET /dashboard 200 in 27ms
+2025-07-31T19:14:48:  ✓ Compiled in 223ms (709 modules)
+2025-07-31T19:14:53: Auth middleware: undefined
+2025-07-31T19:14:53:  GET / 307 in 29ms
+2025-07-31T19:14:53: Auth middleware: undefined
+2025-07-31T19:14:53:  GET /dashboard 200 in 24ms
+2025-07-31T19:14:54:  ✓ Compiled in 133ms (709 modules)
+2025-07-31T19:15:04: Auth middleware: undefined
+2025-07-31T19:15:04:  GET / 307 in 35ms
+2025-07-31T19:15:04: Auth middleware: undefined
+2025-07-31T19:15:04:  GET /dashboard 200 in 23ms
+2025-07-31T19:15:10:  ✓ Compiled in 111ms (709 modules)
+2025-07-31T19:15:15: Auth middleware: undefined
+2025-07-31T19:15:15:  GET / 307 in 30ms
+2025-07-31T19:15:15: Auth middleware: undefined
+2025-07-31T19:15:15:  GET /dashboard 200 in 24ms
+2025-07-31T19:15:26: Auth middleware: undefined
+2025-07-31T19:15:26:  GET / 307 in 59ms
+2025-07-31T19:15:26: Auth middleware: undefined
+2025-07-31T19:15:26:  GET /dashboard 200 in 23ms
+2025-07-31T19:15:37: Auth middleware: undefined
+2025-07-31T19:15:37:  GET / 307 in 31ms
+2025-07-31T19:15:37: Auth middleware: undefined
+2025-07-31T19:15:37:  GET /dashboard 200 in 34ms
+2025-07-31T19:15:48: Auth middleware: undefined
+2025-07-31T19:15:48:  GET / 307 in 40ms
+2025-07-31T19:15:48: Auth middleware: undefined
+2025-07-31T19:15:48:  GET /dashboard 200 in 21ms
+2025-07-31T19:15:59: Auth middleware: undefined
+2025-07-31T19:15:59:  GET / 307 in 50ms
+2025-07-31T19:15:59: Auth middleware: undefined
+2025-07-31T19:15:59:  GET /dashboard 200 in 20ms
+2025-07-31T19:16:09: Auth middleware: undefined
+2025-07-31T19:16:09:  GET / 307 in 36ms
+2025-07-31T19:16:09: Auth middleware: undefined
+2025-07-31T19:16:09:  GET /dashboard 200 in 26ms
+2025-07-31T19:16:19: Auth middleware: undefined
+2025-07-31T19:16:19:  GET / 307 in 29ms
+2025-07-31T19:16:19: Auth middleware: undefined
+2025-07-31T19:16:19:  GET /dashboard 200 in 22ms
+2025-07-31T19:16:31: Auth middleware: undefined
+2025-07-31T19:16:31:  GET / 307 in 42ms
+2025-07-31T19:16:31: Auth middleware: undefined
+2025-07-31T19:16:31:  GET /dashboard 200 in 38ms
