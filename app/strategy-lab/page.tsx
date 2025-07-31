@@ -7,6 +7,8 @@
 
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import React from 'react'
 import { swissTrading, layout } from '@/lib/design/SwissTradingDesignSystem'
 

@@ -11,7 +11,7 @@ import {
   Typography,
   Box
 } from '@mui/material'
-import { DesignSystem } from '@/lib/design/DesignSystem'
+import { DesignSystem } from '@/lib/design'
 import Sparkline from './Sparkline'
 
 interface Column {
@@ -34,7 +34,7 @@ interface DataTableProps {
   highlightRow?: (row: any) => boolean
 }
 
-export default function DataTable({
+function DataTable({
   columns,
   data,
   dense = false,
@@ -72,7 +72,7 @@ export default function DataTable({
         sx={{
           borderCollapse: 'collapse',
           '& .MuiTableCell-root': {
-            fontFamily: DesignSystem.typography.secondary.fontFamily,
+            fontFamily: DesignSystem.typography.fonts.secondary,
             fontSize: dense ? '0.75rem' : '0.875rem',
             lineHeight: 1.5,
             borderBottom: `1px solid ${DesignSystem.colors.neutral[200]}`,
@@ -88,8 +88,8 @@ export default function DataTable({
                 align={column.align || 'left'}
                 style={{ width: column.width }}
                 sx={{
-                  fontFamily: `${DesignSystem.typography.primary.fontFamily} !important`,
-                  fontWeight: DesignSystem.typography.primary.weights.semibold,
+                  fontFamily: `${DesignSystem.typography.fonts.primary} !important`,
+                  fontWeight: DesignSystem.typography.weights.semibold,
                   fontSize: '0.75rem !important',
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
@@ -150,11 +150,11 @@ export default function DataTable({
                           <Typography 
                             variant="body2" 
                             sx={{ 
-                              fontFamily: DesignSystem.typography.secondary.fontFamily,
+                              fontFamily: DesignSystem.typography.fonts.secondary,
                               color: value[value.length - 1] > value[0] 
                                 ? DesignSystem.colors.market.up 
                                 : DesignSystem.colors.market.down,
-                              fontWeight: DesignSystem.typography.primary.weights.medium
+                              fontWeight: DesignSystem.typography.weights.medium
                             }}
                           >
                             {column.format ? column.format(value[value.length - 1]) : value[value.length - 1]}
@@ -174,3 +174,8 @@ export default function DataTable({
     </TableContainer>
   )
 }
+
+export default DataTable
+
+// Re-export variants
+export { TradesTable, PositionsTable, OrdersTable, AnalyticsTable } from './DataTableVariants'

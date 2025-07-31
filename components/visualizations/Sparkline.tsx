@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react'
 import { Box } from '@mui/material'
-import { DesignSystem } from '@/lib/design/DesignSystem'
+import { DesignSystem } from '@/lib/design'
 
 interface SparklineProps {
   data: number[]
@@ -15,7 +15,7 @@ interface SparklineProps {
   reference?: number // Reference line (e.g., zero line)
 }
 
-export default function Sparkline({
+function Sparkline({
   data,
   width = 100,
   height = 20,
@@ -116,3 +116,8 @@ export default function Sparkline({
     </Box>
   )
 }
+
+export default Sparkline
+
+// Re-export variants
+export { PriceSparkline, VolumeSparkline, TrendSparkline, MinimalSparkline } from './SparklineVariants'

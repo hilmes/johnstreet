@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { typography, ds } from '@/lib/design/TufteDesignSystem'
+import { typography, ds } from '@/lib/design'
 
 // Base typography component with semantic variants
 interface TypographyProps {

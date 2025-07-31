@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import React from 'react'
 import { Typography, Paper, Box } from '@mui/material'
 import { AutoGraph } from '@mui/icons-material'

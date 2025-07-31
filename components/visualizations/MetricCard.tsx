@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { Box, Typography, Card } from '@mui/material'
-import { DesignSystem } from '@/lib/design/DesignSystem'
+import { DesignSystem } from '@/lib/design'
 import Sparkline from './Sparkline'
 import { TrendingUp, TrendingDown, TrendingFlat, ErrorOutline, CheckCircleOutline } from '@mui/icons-material'
 
@@ -24,7 +24,7 @@ interface MetricCardProps {
   interactive?: boolean
 }
 
-export default function MetricCard({
+function MetricCard({
   title,
   value,
   change,
@@ -64,9 +64,9 @@ export default function MetricCard({
 
   const getStatusColor = () => {
     switch (status) {
-      case 'critical': return DesignSystem.colors.semantic?.critical || '#dc2626'
-      case 'warning': return DesignSystem.colors.semantic?.warning || '#f59e0b'
-      case 'success': return DesignSystem.colors.semantic?.success || '#10b981'
+      case 'critical': return DesignSystem.colors.semantic.critical
+      case 'warning': return DesignSystem.colors.semantic.warning
+      case 'success': return DesignSystem.colors.semantic.success
       default: return 'transparent'
     }
   }
@@ -113,8 +113,8 @@ export default function MetricCard({
             sx={{
               width: 24,
               height: 24,
-              border: `2px solid ${DesignSystem.colors.neutral[300]}`,
-              borderTop: `2px solid ${DesignSystem.colors.primary[500] || '#3b82f6'}`,
+              border: `2px solid ${DesignSystem.colors.neutral[300] || '#e4e4e7'}`,
+              borderTop: `2px solid ${DesignSystem.colors.primary[500]}`,
               borderRadius: '50%',
               animation: 'spin 1s linear infinite',
               '@keyframes spin': {
@@ -207,10 +207,10 @@ export default function MetricCard({
           'translateY(-2px)' : 'translateY(0)',
         '&:hover': interactive && onClick ? {
           boxShadow: DesignSystem.shadows.md,
-          borderColor: status !== 'normal' ? getStatusColor() : DesignSystem.colors.primary[400] || '#60a5fa',
+          borderColor: status !== 'normal' ? getStatusColor() : DesignSystem.colors.primary[400],
         } : {},
         '&:focus': {
-          outline: `2px solid ${DesignSystem.colors.primary[500] || '#3b82f6'}`,
+          outline: `2px solid ${DesignSystem.colors.primary[500]}`,
           outlineOffset: '2px',
         },
         '&:active': interactive && onClick ? {
@@ -231,7 +231,7 @@ export default function MetricCard({
             width: 0,
             height: 0,
             borderLeft: '16px solid transparent',
-            borderTop: `16px solid ${DesignSystem.colors.warning || '#f59e0b'}`,
+            borderTop: `16px solid ${DesignSystem.colors.semantic.warning}`,
           }}
         />
       )}
@@ -244,7 +244,7 @@ export default function MetricCard({
             sx={{
               color: DesignSystem.colors.neutral[600],
               fontSize: DesignSystem.typography.scale.xs,
-              fontWeight: DesignSystem.typography.primary.weights.medium,
+              fontWeight: DesignSystem.typography.weights.medium,
               textTransform: 'uppercase',
               letterSpacing: '0.05em',
             }}
@@ -260,10 +260,10 @@ export default function MetricCard({
             variant={dense ? 'h5' : 'h4'}
             sx={{
               color: DesignSystem.colors.neutral.black,
-              fontWeight: DesignSystem.typography.primary.weights.semibold,
+              fontWeight: DesignSystem.typography.weights.semibold,
               fontSize: dense ? DesignSystem.typography.scale.lg : DesignSystem.typography.scale.xl,
               lineHeight: 1,
-              fontFamily: DesignSystem.typography.secondary.fontFamily,
+              fontFamily: DesignSystem.typography.fonts.secondary,
               letterSpacing: '-0.02em',
             }}
           >
@@ -293,8 +293,8 @@ export default function MetricCard({
                   sx={{
                     color: getChangeColor(),
                     fontSize: DesignSystem.typography.scale.sm,
-                    fontWeight: DesignSystem.typography.primary.weights.medium,
-                    fontFamily: DesignSystem.typography.secondary.fontFamily,
+                    fontWeight: DesignSystem.typography.weights.medium,
+                    fontFamily: DesignSystem.typography.fonts.secondary,
                   }}
                 >
                   {isPositive && '+'}
@@ -363,3 +363,8 @@ export default function MetricCard({
     </Card>
   )
 }
+
+export default MetricCard
+
+// Re-export variants
+export { PrimaryMetricCard, SecondaryMetricCard, StatusMetricCard, CriticalMetricCard } from './MetricCardVariants'

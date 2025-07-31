@@ -1,7 +1,9 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import React, { useState, useCallback, useMemo } from 'react'
-import { dieterRamsDesign as ds, designHelpers } from '@/lib/design/DieterRamsDesignSystem'
+import { dieterRamsDesign as ds, designHelpers } from '@/lib/design'
 
 // Types
 interface MarketMetrics {

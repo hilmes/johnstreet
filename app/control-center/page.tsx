@@ -6,6 +6,8 @@
 
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import React, { useState, useEffect } from 'react'
 import { swissTrading, layout, typography } from '@/lib/design/SwissTradingDesignSystem'
 import { usePortfolioData } from '@/app/hooks/usePortfolioData'

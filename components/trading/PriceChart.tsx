@@ -17,7 +17,7 @@ import {
 } from 'chart.js'
 import 'chartjs-adapter-date-fns'
 import { useLivePrice } from '@/app/hooks/useLivePrices'
-import { ds } from '@/lib/design/TufteDesignSystem'
+import { ds } from '@/lib/design'
 
 ChartJS.register(
   CategoryScale,

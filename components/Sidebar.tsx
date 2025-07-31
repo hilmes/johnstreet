@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { swissTrading as ds } from '@/lib/design/SwissTradingDesignSystem'
+import { swissTrading as ds } from '@/lib/design'
 import {
   Box,
   Drawer,
@@ -28,6 +28,8 @@ import {
   Settings as SettingsIcon,
   Menu as MenuIcon,
   ChevronLeft as ChevronLeftIcon,
+  ExpandLess,
+  ExpandMore,
 } from '@mui/icons-material'
 
 const DRAWER_WIDTH = 220
@@ -231,9 +233,9 @@ export default function Sidebar({ open, onToggle }: SidebarProps) {
           <Typography 
             variant="h6" 
             sx={{ 
-              color: ds.trading.colors.textPrimary, 
-              fontWeight: ds.trading.typography.weights.bold,
-              fontFamily: ds.trading.typography.interface,
+              color: ds.colors.text.primary, 
+              fontWeight: ds.typography.weights.bold,
+              fontFamily: ds.typography.fonts.interface,
               textTransform: 'uppercase',
               letterSpacing: '0.1em',
             }}
@@ -242,13 +244,13 @@ export default function Sidebar({ open, onToggle }: SidebarProps) {
           </Typography>
         ) : (
           <Box sx={{ 
-            color: ds.trading.colors.profit, 
-            fontFamily: ds.trading.typography.trading, 
+            color: ds.colors.trading.profit, 
+            fontFamily: ds.typography.fonts.data, 
             fontSize: '8px', 
-            fontWeight: ds.trading.typography.weights.bold, 
+            fontWeight: ds.typography.weights.bold, 
             lineHeight: 1.0,
             textAlign: 'center',
-            textShadow: `0 0 8px ${ds.trading.colors.profit}`,
+            textShadow: `0 0 8px ${ds.colors.trading.profit}`,
           }}>
             <pre style={{ margin: 0, color: 'inherit' }}>{`
 ██ ██
@@ -284,9 +286,9 @@ export default function Sidebar({ open, onToggle }: SidebarProps) {
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: DRAWER_WIDTH,
-            backgroundColor: ds.trading.colors.surface,
-            borderRight: `1px solid ${ds.trading.colors.border}`,
-            color: ds.trading.colors.textPrimary,
+            backgroundColor: ds.colors.surface.background,
+            borderRight: `1px solid ${ds.colors.surface.border}`,
+            color: ds.colors.text.primary,
           },
         }}
       >
@@ -308,9 +310,9 @@ export default function Sidebar({ open, onToggle }: SidebarProps) {
               duration: theme.transitions.duration.enteringScreen,
             }),
             boxSizing: 'border-box',
-            backgroundColor: ds.trading.colors.surface,
-            borderRight: `1px solid ${ds.trading.colors.border}`,
-            color: ds.trading.colors.textPrimary,
+            backgroundColor: ds.colors.surface.background,
+            borderRight: `1px solid ${ds.colors.surface.border}`,
+            color: ds.colors.text.primary,
             overflowX: 'hidden',
             height: '100vh',
             top: 0,

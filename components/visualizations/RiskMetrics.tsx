@@ -2,9 +2,8 @@
 
 import React from 'react'
 import { Box, LinearProgress, Chip } from '@mui/material'
-import { DesignSystem } from '@/lib/design/DesignSystem'
-import Typography, { DataLabel } from '../typography/Typography'
-import ZenCard from '../layout/ZenCard'
+import { DesignSystem } from '@/lib/design'
+import { Typography as MuiTypography } from '@mui/material'
 import { Warning, CheckCircle, Error } from '@mui/icons-material'
 
 interface RiskMetric {
@@ -68,12 +67,12 @@ export default function RiskMetrics({ metrics, overallRisk, riskScore }: RiskMet
         borderBottom: `1px solid ${DesignSystem.colors.neutral[200]}`
       }}>
         <Box>
-          <Typography variant="h5" sx={{ marginBottom: 1 }}>
+          <MuiTypography variant="h5" sx={{ marginBottom: 1 }}>
             Risk Assessment
-          </Typography>
-          <Typography variant="body2" color="muted" sx={{ marginBottom: 0 }}>
+          </MuiTypography>
+          <MuiTypography variant="body2" sx={{ marginBottom: 0, color: DesignSystem.colors.text.muted }}>
             Real-time portfolio risk analysis
-          </Typography>
+          </MuiTypography>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Chip
@@ -81,7 +80,7 @@ export default function RiskMetrics({ metrics, overallRisk, riskScore }: RiskMet
             sx={{
               backgroundColor: config.backgroundColor,
               color: config.color,
-              fontWeight: DesignSystem.typography.primary.weights.medium,
+              fontWeight: DesignSystem.typography.weights.medium,
               fontSize: DesignSystem.typography.scale.sm,
             }}
           />
@@ -92,7 +91,7 @@ export default function RiskMetrics({ metrics, overallRisk, riskScore }: RiskMet
               sx={{ 
                 marginBottom: 0,
                 color: config.color,
-                fontWeight: DesignSystem.typography.primary.weights.semibold
+                fontWeight: DesignSystem.typography.weights.semibold
               }}
             >
               {riskScore}
@@ -199,7 +198,7 @@ export function RiskIndicator({ label, value, max, status, compact = false }: Ri
             marginBottom: 0, 
             color: config.color,
             fontSize: DesignSystem.typography.scale.xs,
-            fontWeight: DesignSystem.typography.primary.weights.medium
+            fontWeight: DesignSystem.typography.weights.medium
           }}
         >
           {value.toFixed(1)}

@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { dieterRamsDesign as ds, designHelpers } from '@/lib/design/DieterRamsDesignSystem'
 import { OrderForm } from '@/components/trading/OrderForm'

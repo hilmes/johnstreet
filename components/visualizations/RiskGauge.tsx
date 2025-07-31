@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Box, Typography } from '@mui/material'
-import { DesignSystem } from '@/lib/design/DesignSystem'
+import { DesignSystem } from '@/lib/design'
 
 interface RiskGaugeProps {
   value: number // 0-100
@@ -129,9 +129,9 @@ export default function RiskGauge({
               y={size / 2 - 10}
               textAnchor="middle"
               fontSize={DesignSystem.typography.scale.xl}
-              fontWeight={DesignSystem.typography.primary.weights.semibold}
+              fontWeight={DesignSystem.typography.weights.semibold}
               fill={DesignSystem.colors.neutral.black}
-              fontFamily={DesignSystem.typography.secondary.fontFamily}
+              fontFamily={DesignSystem.typography.fonts.secondary}
             >
               {format ? format(clampedValue) : Math.round(clampedValue)}
             </text>
@@ -141,7 +141,7 @@ export default function RiskGauge({
               textAnchor="middle"
               fontSize={DesignSystem.typography.scale.xs}
               fill={DesignSystem.colors.neutral[600]}
-              fontFamily={DesignSystem.typography.primary.fontFamily}
+              fontFamily={DesignSystem.typography.fonts.primary}
             >
               RISK SCORE
             </text>

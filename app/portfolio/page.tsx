@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import React, { useState, useEffect } from 'react'
 import { dieterRamsDesign as ds, designHelpers } from '@/lib/design/DieterRamsDesignSystem'
 import { Line, Doughnut, Bar } from 'react-chartjs-2'

@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Box, Typography, Grid, Card, CardContent, Chip, LinearProgress, IconButton, Switch, FormControlLabel, Button, Select, MenuItem, FormControl, InputLabel, Collapse, TextField, Slider, Alert } from '@mui/material'
 import { PlayArrow, Pause, Refresh, TrendingUp, TrendingDown, Warning, ViewList, ViewModule, Sort, ExpandMore, ExpandLess, Settings, CheckCircle, Error as ErrorIcon, SyncAlt } from '@mui/icons-material'
