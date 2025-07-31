@@ -2,11 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  trailingSlash: false,
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
+  },
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
   },
   
   // Environment variables that should be available on the client side

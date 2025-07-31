@@ -41795,3 +41795,215 @@
 2025-07-31T13:21:06: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
 2025-07-31T13:21:06: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
 2025-07-31T13:21:06: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:21:52:  ⚠ Found a change in next.config.js. Restarting the server to apply the changes...
+2025-07-31T13:22:06: [33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev
+2025-07-31T13:22:06: (node:79349) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2025-07-31T13:22:06: (Use `node --trace-deprecation ...` to show where the warning was created)
+2025-07-31T13:22:08: Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
+2025-07-31T13:22:08:   npx update-browserslist-db@latest
+2025-07-31T13:22:08:   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+2025-07-31T13:22:09:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:22:09:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:22:09:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:22:09: digest: "578368144"
+2025-07-31T13:22:09: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:22:09: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:22:09: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:22:09: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:22:09: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:22:09: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:22:09: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:23:06:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:23:06:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:23:06:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:23:06: digest: "578368144"
+2025-07-31T13:23:06: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:23:06: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:23:06: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:23:06: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:23:06: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:23:06: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:23:06: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:23:34:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:23:34:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:23:34:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:23:34: digest: "578368144"
+2025-07-31T13:23:34: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:23:34: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:23:34: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:23:34: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:23:34: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:23:34: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:23:34: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:23:41:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:23:41:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:23:41:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:23:41: digest: "578368144"
+2025-07-31T13:23:41: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:23:41: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:23:41: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:23:41: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:23:41: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:23:41: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:23:41: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:23:51:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:23:51:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:23:51:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:23:51: digest: "578368144"
+2025-07-31T13:23:51: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:23:51: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:23:51: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:23:51: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:23:51: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:23:51: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:23:51: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:24:01:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:24:01:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:24:01:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:24:01: digest: "578368144"
+2025-07-31T13:24:01: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:24:01: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:24:01: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:24:01: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:24:01: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:24:01: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:24:01: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:24:04:  ⚠ Found a change in next.config.js. Restarting the server to apply the changes...
+2025-07-31T13:24:11: [33m[auth][warn][debug-enabled][0m Read more: https://warnings.authjs.dev
+2025-07-31T13:24:11: (node:80744) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2025-07-31T13:24:11: (Use `node --trace-deprecation ...` to show where the warning was created)
+2025-07-31T13:24:13: Browserslist: browsers data (caniuse-lite) is 7 months old. Please run:
+2025-07-31T13:24:13:   npx update-browserslist-db@latest
+2025-07-31T13:24:13:   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+2025-07-31T13:24:14:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:24:14:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:24:14:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:24:14: digest: "578368144"
+2025-07-31T13:24:14: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:24:14: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:24:14: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:24:14: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:24:14: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:24:14: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:24:14: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:24:21:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:24:21:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:24:21:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:24:21: digest: "578368144"
+2025-07-31T13:24:21: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:24:21: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:24:21: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:24:21: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:24:21: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:24:21: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:24:21: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:24:31:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:24:31:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:24:31:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:24:31: digest: "578368144"
+2025-07-31T13:24:31: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:24:31: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:24:31: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:24:31: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:24:31: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:24:31: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:24:31: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:24:41:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:24:41:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:24:41:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:24:41: digest: "578368144"
+2025-07-31T13:24:41: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:24:41: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:24:41: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:24:41: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:24:41: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:24:41: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:24:41: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:24:51:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:24:51:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:24:51:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:24:51: digest: "578368144"
+2025-07-31T13:24:51: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:24:51: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:24:51: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:24:51: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:24:51: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:24:51: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:24:51: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:25:01:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:25:01:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:25:01:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:25:01: digest: "578368144"
+2025-07-31T13:25:01: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:25:01: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:25:01: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:25:01: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:25:01: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:25:01: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:25:01: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:25:11:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:25:11:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:25:11:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:25:11: digest: "578368144"
+2025-07-31T13:25:11: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:25:11: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:25:11: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:25:11: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:25:11: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:25:11: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:25:11: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:25:21:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:25:21:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:25:21:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:25:21: digest: "578368144"
+2025-07-31T13:25:21: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:25:21: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:25:21: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:25:21: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:25:21: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:25:21: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:25:21: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:25:31:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:25:31:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:25:31:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:25:31: digest: "578368144"
+2025-07-31T13:25:31: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:25:31: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:25:31: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:25:31: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:25:31: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:25:31: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:25:31: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:25:41:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:25:41:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:25:41:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:25:41: digest: "578368144"
+2025-07-31T13:25:41: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:25:41: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:25:41: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:25:41: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:25:41: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:25:41: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:25:41: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:25:51:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:25:51:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:25:51:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:25:51: digest: "578368144"
+2025-07-31T13:25:51: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:25:51: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:25:51: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:25:51: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:25:51: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:25:51: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:25:51: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
+2025-07-31T13:26:06:  ⨯ components/Sidebar.tsx (234:33) @ colors
+2025-07-31T13:26:06:  ⨯ TypeError: Cannot read properties of undefined (reading 'colors')
+2025-07-31T13:26:06:     at Sidebar (./components/Sidebar.tsx:301:123)
+2025-07-31T13:26:06: digest: "578368144"
+2025-07-31T13:26:06: [0m [90m 232 |[39m             variant[33m=[39m[32m"h6"[39m [0m
+2025-07-31T13:26:06: [0m [90m 233 |[39m             sx[33m=[39m{{ [0m
+2025-07-31T13:26:06: [0m[31m[1m>[22m[39m[90m 234 |[39m               color[33m:[39m ds[33m.[39mtrading[33m.[39mcolors[33m.[39mtextPrimary[33m,[39m [0m
+2025-07-31T13:26:06: [0m [90m     |[39m                                 [31m[1m^[22m[39m[0m
+2025-07-31T13:26:06: [0m [90m 235 |[39m               fontWeight[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39mweights[33m.[39mbold[33m,[39m[0m
+2025-07-31T13:26:06: [0m [90m 236 |[39m               fontFamily[33m:[39m ds[33m.[39mtrading[33m.[39mtypography[33m.[39m[36minterface[39m[33m,[39m[0m
+2025-07-31T13:26:06: [0m [90m 237 |[39m               textTransform[33m:[39m [32m'uppercase'[39m[33m,[39m[0m
