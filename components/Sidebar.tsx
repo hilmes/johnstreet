@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { swissTradingDesignSystem as ds, tradingTheme } from '@/lib/design/SwissTradingDesignSystem'
+import { swissTrading as ds } from '@/lib/design/SwissTradingDesignSystem'
 import {
   Box,
   Drawer,

@@ -3,6 +3,18 @@ import { TradingSignal } from '../signals/SignalGenerator'
 import { PositionSize } from '../risk/PositionSizer'
 import { UnifiedExchange } from '@/lib/exchanges/UnifiedExchange'
 
+// Missing type definitions
+interface ExecutionStatus {
+  orderId: string
+  filled: boolean
+  fillPercentage: number
+  status: string
+  avgFillPrice?: number
+  remainingAmount?: number
+  fees?: number
+  message?: string
+}
+
 // Mock the UnifiedExchange
 jest.mock('@/lib/exchanges/UnifiedExchange')
 

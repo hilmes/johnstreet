@@ -1,89 +1,37 @@
 /**
- * Control Center - Primary Trading Dashboard
+ * Control Center - Real Trading Dashboard
  * 
- * The main hub for portfolio monitoring, risk management, and trading oversight.
- * Implements Swiss design principles with high data density and clear hierarchy.
- * 
- * Key Features:
- * - Real-time portfolio value and P&L
- * - High-density positions table
- * - Risk monitoring with visual gauges
- * - Active signals feed
- * - Quick order execution
- * - Critical alerts banner
+ * Updated to use real Kraken API data for portfolio monitoring
  */
 
 'use client'
 
 import React, { useState, useEffect } from 'react'
 import { swissTrading, layout, typography } from '@/lib/design/SwissTradingDesignSystem'
-import { PositionsWidget, RiskGaugeWidget, SignalsWidget, QuickOrderWidget } from '@/components/widgets/TradingWidgets'
-
-// Mock data types
-interface PortfolioData {
-  totalValue: number
-  dailyPnL: number
-  dailyPnLPercent: number
-  positions: Position[]
-  signals: TradingSignal[]
-  riskMetrics: RiskMetric[]
-  alerts: Alert[]
-}
-
-interface Position {
-  id: string
-  symbol: string
-  side: 'long' | 'short'
-  size: number
-  avgPrice: number
-  currentPrice: number
-  unrealizedPnl: number
-  unrealizedPnlPercent: number
-  dayChange: number
-  priceHistory: number[]
-}
-
-interface TradingSignal {
-  id: string
-  symbol: string
-  action: 'BUY' | 'SELL'
-  strength: number
-  timestamp: string
-  status: 'active' | 'expired' | 'executed'
-}
-
-interface RiskMetric {
-  label: string
-  value: number
-  max: number
-  unit: string
-  status: 'safe' | 'warning' | 'critical'
-}
-
-interface Alert {
-  id: string
-  type: 'info' | 'warning' | 'critical'
-  message: string
-  timestamp: string
-}
+import { usePortfolioData } from '@/app/hooks/usePortfolioData'
 
 // Hero P&L Display Component
-const HeroPnLDisplay: React.FC<{ 
+const HeroPnLDisplay: React.FC<{
   portfolioValue: number
   dailyPnL: number
   dailyPnLPercent: number
-}> = ({ portfolioValue, dailyPnL, dailyPnLPercent }) => (
+  tradingMode: string
+}> = ({ portfolioValue, dailyPnL, dailyPnLPercent, tradingMode }) => (
   <div style={{
     ...layout.flex.between,
-    padding: `${swissTrading.spacing.xl} 0`,
-    borderBottom: `2px solid ${swissTrading.colors.surface.border}`,
-    marginBottom: swissTrading.spacing.xl
+    alignItems: 'flex-end',
+    marginBottom: swissTrading.spacing.xxl,
+    padding: swissTrading.spacing.xl,
+    backgroundColor: swissTrading.colors.surface.elevated,
+    borderRadius: swissTrading.radii.md,
+    border: `1px solid ${swissTrading.colors.surface.border}`
   }}>
+    {/* Portfolio Value */}
     <div>
       <div style={{
         fontSize: swissTrading.typography.scale.critical,
         fontFamily: swissTrading.typography.fonts.data,
-        fontWeight: swissTrading.typography.weights.bold,
+        fontWeight: swissTrading.typography.weights.light,
         color: swissTrading.colors.text.primary,
         lineHeight: swissTrading.typography.lineHeights.tight,
         ...typography.tabular
@@ -101,7 +49,8 @@ const HeroPnLDisplay: React.FC<{
         Total Portfolio Value
       </div>
     </div>
-    
+
+    {/* Daily P&L */}
     <div style={{ textAlign: 'right' }}>
       <div style={{
         fontSize: swissTrading.typography.scale.primary,
@@ -133,8 +82,8 @@ const HeroPnLDisplay: React.FC<{
         Today's P&L
       </div>
     </div>
-    
-    {/* Risk Level Indicator */}
+
+    {/* Trading Mode Indicator */}
     <div style={{ textAlign: 'right' }}>
       <div style={{
         fontSize: swissTrading.typography.scale.body,
@@ -144,180 +93,297 @@ const HeroPnLDisplay: React.FC<{
         textTransform: 'uppercase',
         letterSpacing: '0.05em'
       }}>
-        Risk Level
+        Trading Mode
       </div>
-      <div style={{ display: 'flex', gap: swissTrading.spacing.xs, justifyContent: 'flex-end' }}>
-        {[1, 2, 3, 4, 5].map(dot => (
-          <div
-            key={dot}
-            style={{
-              width: '12px',
-              height: '12px',
-              borderRadius: '50%',
-              backgroundColor: dot <= 2 
-                ? swissTrading.colors.trading.profit 
-                : swissTrading.colors.surface.border,
-              transition: `background-color ${swissTrading.animations.fast}`
-            }}
-          />
-        ))}
+      <div style={{
+        padding: `${swissTrading.spacing.xs} ${swissTrading.spacing.sm}`,
+        backgroundColor: tradingMode === 'PAPER' 
+          ? swissTrading.colors.semantic.info 
+          : tradingMode === 'STAGING'
+          ? swissTrading.colors.trading.warning
+          : swissTrading.colors.trading.critical,
+        color: swissTrading.colors.text.inverse,
+        borderRadius: swissTrading.radii.sm,
+        fontSize: swissTrading.typography.scale.metadata,
+        fontFamily: swissTrading.typography.fonts.interface,
+        fontWeight: swissTrading.typography.weights.semibold,
+        textTransform: 'uppercase',
+        letterSpacing: '0.1em'
+      }}>
+        {tradingMode}
       </div>
     </div>
   </div>
 )
 
-// Critical Alerts Banner
-const AlertsBanner: React.FC<{ alerts: Alert[] }> = ({ alerts }) => {
-  if (!alerts.length) return null
-  
-  const criticalAlerts = alerts.filter(alert => alert.type === 'critical')
-  const warningAlerts = alerts.filter(alert => alert.type === 'warning')
-  
-  return (
+// Balance Table Component
+const BalanceTable: React.FC<{ balances: any[] }> = ({ balances }) => (
+  <div style={{
+    backgroundColor: swissTrading.colors.surface.elevated,
+    borderRadius: swissTrading.radii.md,
+    border: `1px solid ${swissTrading.colors.surface.border}`,
+    overflow: 'hidden'
+  }}>
     <div style={{
-      marginBottom: swissTrading.spacing.xl,
       padding: swissTrading.spacing.lg,
-      backgroundColor: criticalAlerts.length > 0 
-        ? `${swissTrading.colors.trading.critical}10`
-        : `${swissTrading.colors.trading.warning}10`,
-      border: `1px solid ${criticalAlerts.length > 0 
-        ? swissTrading.colors.trading.critical
-        : swissTrading.colors.trading.warning}`,
-      borderRadius: swissTrading.radii.md
+      borderBottom: `1px solid ${swissTrading.colors.surface.border}`,
+      backgroundColor: swissTrading.colors.surface.card
     }}>
-      <div style={{ ...layout.flex.row(swissTrading.spacing.lg) }}>
-        {criticalAlerts.map(alert => (
-          <div key={alert.id} style={{
-            color: swissTrading.colors.trading.critical,
-            fontSize: swissTrading.typography.scale.body,
+      <h3 style={{
+        fontSize: swissTrading.typography.scale.secondary,
+        fontFamily: swissTrading.typography.fonts.interface,
+        fontWeight: swissTrading.typography.weights.semibold,
+        color: swissTrading.colors.text.primary,
+        margin: 0
+      }}>
+        Account Balances
+      </h3>
+    </div>
+    
+    <div style={{ padding: swissTrading.spacing.lg }}>
+      {balances.length === 0 ? (
+        <div style={{
+          textAlign: 'center',
+          color: swissTrading.colors.text.muted,
+          fontStyle: 'italic',
+          padding: swissTrading.spacing.xl
+        }}>
+          No balances available
+        </div>
+      ) : (
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr>
+              <th style={{
+                textAlign: 'left',
+                padding: `${swissTrading.spacing.sm} 0`,
+                fontSize: swissTrading.typography.scale.metadata,
+                color: swissTrading.colors.text.muted,
+                fontFamily: swissTrading.typography.fonts.interface,
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                borderBottom: `1px solid ${swissTrading.colors.surface.border}`
+              }}>
+                Asset
+              </th>
+              <th style={{
+                textAlign: 'right',
+                padding: `${swissTrading.spacing.sm} 0`,
+                fontSize: swissTrading.typography.scale.metadata,
+                color: swissTrading.colors.text.muted,
+                fontFamily: swissTrading.typography.fonts.interface,
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                borderBottom: `1px solid ${swissTrading.colors.surface.border}`
+              }}>
+                Balance
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {balances.map((balance, index) => (
+              <tr key={balance.asset}>
+                <td style={{
+                  padding: `${swissTrading.spacing.md} 0`,
+                  fontSize: swissTrading.typography.scale.body,
+                  color: swissTrading.colors.text.primary,
+                  fontFamily: swissTrading.typography.fonts.interface,
+                  borderBottom: index < balances.length - 1 ? `1px solid ${swissTrading.colors.surface.border}` : 'none'
+                }}>
+                  <strong>{balance.name}</strong>
+                  <div style={{
+                    fontSize: swissTrading.typography.scale.metadata,
+                    color: swissTrading.colors.text.muted,
+                    marginTop: swissTrading.spacing.xs
+                  }}>
+                    {balance.asset}
+                  </div>
+                </td>
+                <td style={{
+                  textAlign: 'right',
+                  padding: `${swissTrading.spacing.md} 0`,
+                  fontSize: swissTrading.typography.scale.body,
+                  color: swissTrading.colors.text.primary,
+                  fontFamily: swissTrading.typography.fonts.data,
+                  borderBottom: index < balances.length - 1 ? `1px solid ${swissTrading.colors.surface.border}` : 'none',
+                  ...typography.tabular
+                }}>
+                  {balance.balance.toFixed(8)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  </div>
+)
+
+// Safety Status Component
+const SafetyStatus: React.FC<{ safetyStatus: any; onEmergencyStop: () => void }> = ({ 
+  safetyStatus, 
+  onEmergencyStop 
+}) => (
+  <div style={{
+    backgroundColor: swissTrading.colors.surface.elevated,
+    borderRadius: swissTrading.radii.md,
+    border: `1px solid ${swissTrading.colors.surface.border}`,
+    overflow: 'hidden'
+  }}>
+    <div style={{
+      padding: swissTrading.spacing.lg,
+      borderBottom: `1px solid ${swissTrading.colors.surface.border}`,
+      backgroundColor: swissTrading.colors.surface.card
+    }}>
+      <div style={{ ...layout.flex.between, alignItems: 'center' }}>
+        <h3 style={{
+          fontSize: swissTrading.typography.scale.secondary,
+          fontFamily: swissTrading.typography.fonts.interface,
+          fontWeight: swissTrading.typography.weights.semibold,
+          color: swissTrading.colors.text.primary,
+          margin: 0
+        }}>
+          Safety Status
+        </h3>
+        
+        <button
+          onClick={onEmergencyStop}
+          disabled={safetyStatus?.emergencyStopActive}
+          style={{
+            padding: `${swissTrading.spacing.sm} ${swissTrading.spacing.md}`,
+            backgroundColor: safetyStatus?.emergencyStopActive 
+              ? swissTrading.colors.text.muted 
+              : swissTrading.colors.trading.critical,
+            color: swissTrading.colors.text.inverse,
+            border: 'none',
+            borderRadius: swissTrading.radii.sm,
+            fontSize: swissTrading.typography.scale.metadata,
+            fontFamily: swissTrading.typography.fonts.interface,
             fontWeight: swissTrading.typography.weights.semibold,
-            fontFamily: swissTrading.typography.fonts.interface
-          }}>
-            🚨 {alert.message}
-          </div>
-        ))}
-        {warningAlerts.slice(0, 2).map(alert => (
-          <div key={alert.id} style={{
-            color: swissTrading.colors.trading.warning,
-            fontSize: swissTrading.typography.scale.body,
-            fontFamily: swissTrading.typography.fonts.interface
-          }}>
-            ⚠️ {alert.message}
-          </div>
-        ))}
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            cursor: safetyStatus?.emergencyStopActive ? 'not-allowed' : 'pointer'
+          }}
+        >
+          {safetyStatus?.emergencyStopActive ? 'STOPPED' : 'EMERGENCY STOP'}
+        </button>
       </div>
     </div>
-  )
-}
+    
+    <div style={{ padding: swissTrading.spacing.lg }}>
+      {safetyStatus?.riskMetrics?.violations?.length > 0 && (
+        <div style={{
+          backgroundColor: swissTrading.colors.semantic.error + '20',
+          border: `1px solid ${swissTrading.colors.semantic.error}`,
+          borderRadius: swissTrading.radii.sm,
+          padding: swissTrading.spacing.md,
+          marginBottom: swissTrading.spacing.lg
+        }}>
+          <h4 style={{
+            color: swissTrading.colors.semantic.error,
+            fontSize: swissTrading.typography.scale.body,
+            fontFamily: swissTrading.typography.fonts.interface,
+            fontWeight: swissTrading.typography.weights.semibold,
+            margin: `0 0 ${swissTrading.spacing.sm} 0`
+          }}>
+            Risk Violations
+          </h4>
+          {safetyStatus.riskMetrics.violations.map((violation: string, index: number) => (
+            <div key={index} style={{
+              color: swissTrading.colors.semantic.error,
+              fontSize: swissTrading.typography.scale.metadata,
+              fontFamily: swissTrading.typography.fonts.interface,
+              marginBottom: swissTrading.spacing.xs
+            }}>
+              • {violation}
+            </div>
+          ))}
+        </div>
+      )}
+      
+      <div style={{ ...layout.grid({ columns: 2, gap: swissTrading.spacing.lg }) }}>
+        <div>
+          <div style={{
+            fontSize: swissTrading.typography.scale.metadata,
+            color: swissTrading.colors.text.muted,
+            fontFamily: swissTrading.typography.fonts.interface,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            marginBottom: swissTrading.spacing.xs
+          }}>
+            Daily P&L
+          </div>
+          <div style={{
+            fontSize: swissTrading.typography.scale.body,
+            color: safetyStatus?.riskMetrics?.dailyPnLPct >= 0 
+              ? swissTrading.colors.trading.profit 
+              : swissTrading.colors.trading.loss,
+            fontFamily: swissTrading.typography.fonts.data,
+            fontWeight: swissTrading.typography.weights.semibold,
+            ...typography.tabular
+          }}>
+            {safetyStatus?.riskMetrics?.dailyPnLPct?.toFixed(2) || '0.00'}%
+          </div>
+        </div>
+        
+        <div>
+          <div style={{
+            fontSize: swissTrading.typography.scale.metadata,
+            color: swissTrading.colors.text.muted,
+            fontFamily: swissTrading.typography.fonts.interface,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            marginBottom: swissTrading.spacing.xs
+          }}>
+            Position Size
+          </div>
+          <div style={{
+            fontSize: swissTrading.typography.scale.body,
+            color: swissTrading.colors.text.primary,
+            fontFamily: swissTrading.typography.fonts.data,
+            fontWeight: swissTrading.typography.weights.semibold,
+            ...typography.tabular
+          }}>
+            {safetyStatus?.riskMetrics?.openPositionsPct?.toFixed(2) || '0.00'}%
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+)
 
 export default function ControlCenterPage() {
-  const [portfolioData, setPortfolioData] = useState<PortfolioData | null>(null)
-  const [loading, setLoading] = useState(true)
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date())
   
-  // Mock data for demonstration
+  // Use real portfolio data
+  const {
+    portfolioData,
+    safetyStatus,
+    depositHistory,
+    loading,
+    error,
+    refresh,
+    triggerEmergencyStop,
+    resetEmergencyStop
+  } = usePortfolioData(10000) // Refresh every 10 seconds
+
+  // Update last update timestamp when data changes
   useEffect(() => {
-    const mockData: PortfolioData = {
-      totalValue: 1234567.89,
-      dailyPnL: 12345.67,
-      dailyPnLPercent: 1.02,
-      positions: [
-        {
-          id: '1',
-          symbol: 'BTC-USD',
-          side: 'long',
-          size: 0.5234,
-          avgPrice: 67432,
-          currentPrice: 68123,
-          unrealizedPnl: 361.3,
-          unrealizedPnlPercent: 1.02,
-          dayChange: 1.8,
-          priceHistory: [67400, 67500, 67650, 67800, 68000, 68123]
-        },
-        {
-          id: '2',
-          symbol: 'ETH-USD',
-          side: 'short',
-          size: 2.1847,
-          avgPrice: 3567,
-          currentPrice: 3445,
-          unrealizedPnl: 266.7,
-          unrealizedPnlPercent: 3.42,
-          dayChange: -2.1,
-          priceHistory: [3600, 3580, 3550, 3520, 3480, 3445]
-        },
-        {
-          id: '3',
-          symbol: 'SOL-USD',
-          side: 'long',
-          size: 15.234,
-          avgPrice: 124.50,
-          currentPrice: 130.25,
-          unrealizedPnl: 87.5,
-          unrealizedPnlPercent: 4.62,
-          dayChange: 4.6,
-          priceHistory: [124, 125, 126, 127, 128, 130]
-        }
-      ],
-      signals: [
-        {
-          id: '1',
-          symbol: 'ADA-USD',
-          action: 'BUY',
-          strength: 87,
-          timestamp: '2 min ago',
-          status: 'active'
-        },
-        {
-          id: '2',
-          symbol: 'MATIC-USD',
-          action: 'SELL',
-          strength: 72,
-          timestamp: '5 min ago',
-          status: 'active'
-        },
-        {
-          id: '3',
-          symbol: 'LINK-USD',
-          action: 'BUY',
-          strength: 65,
-          timestamp: '8 min ago',
-          status: 'executed'
-        }
-      ],
-      riskMetrics: [
-        { label: 'Value at Risk', value: 2.1, max: 5, unit: '%', status: 'safe' },
-        { label: 'Max Drawdown', value: 0.8, max: 10, unit: '%', status: 'safe' },
-        { label: 'Position Concentration', value: 45.2, max: 100, unit: '%', status: 'warning' },
-        { label: 'Portfolio Beta', value: 1.23, max: 2, unit: '', status: 'safe' }
-      ],
-      alerts: [
-        {
-          id: '1',
-          type: 'warning',
-          message: 'BTC position approaching stop loss',
-          timestamp: '3 min ago'
-        }
-      ]
-    }
-    
-    setPortfolioData(mockData)
-    setLoading(false)
-    
-    // Simulate real-time updates
-    const interval = setInterval(() => {
+    if (portfolioData || safetyStatus) {
       setLastUpdate(new Date())
-    }, 1000)
-    
-    return () => clearInterval(interval)
-  }, [])
-  
-  const handleOrderSubmit = (order: any) => {
-    console.log('Order submitted:', order)
-    // In real implementation, send to trading API
+    }
+  }, [portfolioData, safetyStatus])
+
+  const handleEmergencyStop = async () => {
+    try {
+      await triggerEmergencyStop('Manual emergency stop triggered from Control Center')
+      alert('Emergency stop activated successfully')
+    } catch (error) {
+      alert(`Emergency stop failed: ${error}`)
+    }
   }
-  
-  if (loading || !portfolioData) {
+
+  if (loading) {
     return (
       <div style={{
         ...layout.container(),
@@ -335,7 +401,64 @@ export default function ControlCenterPage() {
       </div>
     )
   }
-  
+
+  if (error) {
+    return (
+      <div style={{
+        ...layout.container(),
+        ...layout.flex.center,
+        minHeight: '100vh',
+        backgroundColor: swissTrading.colors.surface.background
+      }}>
+        <div style={{
+          textAlign: 'center',
+          padding: swissTrading.spacing.xl,
+          backgroundColor: swissTrading.colors.surface.elevated,
+          borderRadius: swissTrading.radii.md,
+          border: `1px solid ${swissTrading.colors.semantic.error}`
+        }}>
+          <div style={{
+            fontSize: swissTrading.typography.scale.secondary,
+            color: swissTrading.colors.semantic.error,
+            fontFamily: swissTrading.typography.fonts.interface,
+            fontWeight: swissTrading.typography.weights.semibold,
+            marginBottom: swissTrading.spacing.md
+          }}>
+            Error Loading Data
+          </div>
+          <div style={{
+            fontSize: swissTrading.typography.scale.body,
+            color: swissTrading.colors.text.muted,
+            fontFamily: swissTrading.typography.fonts.interface,
+            marginBottom: swissTrading.spacing.lg
+          }}>
+            {error}
+          </div>
+          <button
+            onClick={refresh}
+            style={{
+              padding: `${swissTrading.spacing.sm} ${swissTrading.spacing.md}`,
+              backgroundColor: swissTrading.colors.semantic.info,
+              color: swissTrading.colors.text.inverse,
+              border: 'none',
+              borderRadius: swissTrading.radii.sm,
+              fontSize: swissTrading.typography.scale.body,
+              fontFamily: swissTrading.typography.fonts.interface,
+              cursor: 'pointer'
+            }}
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  const portfolioValue = portfolioData?.totalUSD || 0
+  const dailyPnL = safetyStatus?.riskMetrics?.dailyPnL || 0
+  const dailyPnLPercent = safetyStatus?.riskMetrics?.dailyPnLPct || 0
+  const tradingMode = safetyStatus?.tradingMode || 'PAPER'
+
   return (
     <div style={{
       backgroundColor: swissTrading.colors.surface.background,
@@ -367,53 +490,35 @@ export default function ControlCenterPage() {
           </div>
           <div style={{
             fontSize: swissTrading.typography.scale.metadata,
-            color: swissTrading.colors.trading.profit,
+            color: portfolioData ? swissTrading.colors.trading.profit : swissTrading.colors.text.muted,
             fontFamily: swissTrading.typography.fonts.interface,
             textTransform: 'uppercase',
             letterSpacing: '0.05em'
           }}>
-            ● LIVE
+            ● {portfolioData ? 'LIVE' : 'OFFLINE'}
           </div>
         </div>
-        
-        {/* Main Content with top margin for status bar */}
-        <div style={{ marginTop: '60px' }}>
+
+        {/* Main Content */}
+        <div style={{ paddingTop: '60px' }}>
           {/* Hero P&L Display */}
-          <HeroPnLDisplay 
-            portfolioValue={portfolioData.totalValue}
-            dailyPnL={portfolioData.dailyPnL}
-            dailyPnLPercent={portfolioData.dailyPnLPercent}
+          <HeroPnLDisplay
+            portfolioValue={portfolioValue}
+            dailyPnL={dailyPnL}
+            dailyPnLPercent={dailyPnLPercent}
+            tradingMode={tradingMode}
           />
-          
-          {/* Critical Alerts */}
-          <AlertsBanner alerts={portfolioData.alerts} />
-          
-          {/* Main Grid Layout */}
-          <div style={{
-            ...layout.grid(12, swissTrading.spacing.xl),
-            marginBottom: swissTrading.spacing.xl
-          }}>
-            {/* Left Column - Positions (8 columns) */}
-            <div style={{ gridColumn: 'span 8' }}>
-              <PositionsWidget positions={portfolioData.positions} />
+
+          {/* Grid Layout */}
+          <div style={{ ...layout.grid({ columns: 2, gap: swissTrading.spacing.xl }) }}>
+            {/* Left Column */}
+            <div>
+              <BalanceTable balances={portfolioData?.balances || []} />
             </div>
-            
-            {/* Right Column - Risk & Controls (4 columns) */}
-            <div style={{ 
-              gridColumn: 'span 4',
-              ...layout.flex.col(swissTrading.spacing.xl)
-            }}>
-              <RiskGaugeWidget metrics={portfolioData.riskMetrics} />
-              <QuickOrderWidget onSubmitOrder={handleOrderSubmit} />
-            </div>
-          </div>
-          
-          {/* Bottom Row - Signals */}
-          <div style={{
-            ...layout.grid(12, swissTrading.spacing.xl)
-          }}>
-            <div style={{ gridColumn: 'span 12' }}>
-              <SignalsWidget signals={portfolioData.signals} />
+
+            {/* Right Column */}
+            <div>
+              <SafetyStatus safetyStatus={safetyStatus} onEmergencyStop={handleEmergencyStop} />
             </div>
           </div>
         </div>

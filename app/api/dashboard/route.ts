@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
+// import { getServerSession } from 'next-auth'
 import { Portfolio, Position } from '@/types/trading'
 import { handleApiError, createApiResponse, ApiError } from '@/lib/utils/api-errors'
 

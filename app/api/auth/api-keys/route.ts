@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ApiKeyManager } from '@/lib/auth/ApiKeyManager'
 
-export const runtime = 'edge'
+// Note: Uses Node.js runtime due to crypto dependencies
 
 interface AddApiKeyRequest {
   keyId: string

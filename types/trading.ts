@@ -1,12 +1,25 @@
+export type OrderType = 'market' | 'limit'
+export type OrderStatus = 'pending' | 'open' | 'closed' | 'canceled' | 'filled' | 'cancelled' | 'rejected'
+export type TimeInForce = 'GTC' | 'IOC' | 'FOK' | 'GTD'
+
 export interface Order {
+  id: string;
   symbol: string;
-  type: 'market' | 'limit';
+  type: OrderType;
   side: 'buy' | 'sell';
   amount: number;
   price?: number;
-  status?: 'pending' | 'filled' | 'cancelled' | 'rejected';
-  timestamp?: number;
-  id?: string;
+  status: OrderStatus;
+  timestamp: number;
+  filled: number;
+  remaining: number;
+  average?: number;
+  cost?: number;
+  fee?: { cost: number; currency?: string };
+  timeInForce?: TimeInForce;
+  stopLoss?: number;
+  takeProfit?: number;
+  metadata?: Record<string, any>;
 }
 
 export interface Trade extends Order {

@@ -133,46 +133,193 @@ export const OrderForm: React.FC<OrderFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-      {/* Order Side Selector */}
+      {/* Order Context - Current Market Price */}
+      {marketData && (
+        <div style={{
+          padding: ds.spacing.medium,
+          backgroundColor: ds.colors.semantic.background.primary,
+          borderRadius: ds.interactive.radius.medium,
+          marginBottom: ds.spacing.large,
+          border: `1px solid ${ds.colors.grayscale[20]}`
+        }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: ds.spacing.small
+          }}>
+            <span style={{
+              fontSize: ds.typography.scale.small,
+              color: ds.colors.grayscale[70],
+              fontWeight: ds.typography.weights.medium
+            }}>
+              Current Market
+            </span>
+            <span style={{
+              fontSize: ds.typography.scale.mini,
+              color: ds.colors.grayscale[60],
+              fontFamily: ds.typography.families.data
+            }}>
+              Live
+            </span>
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 1fr',
+            gap: ds.spacing.medium,
+            textAlign: 'center'
+          }}>
+            <div>
+              <div style={{
+                fontSize: ds.typography.scale.mini,
+                color: ds.colors.grayscale[60],
+                marginBottom: ds.spacing.micro
+              }}>BID</div>
+              <div style={{
+                fontSize: ds.typography.scale.small,
+                fontFamily: ds.typography.families.data,
+                color: ds.colors.semantic.buy,
+                fontWeight: ds.typography.weights.semibold
+              }}>
+                ${marketData.bid.toFixed(2)}
+              </div>
+            </div>
+            <div>
+              <div style={{
+                fontSize: ds.typography.scale.mini,
+                color: ds.colors.grayscale[60],
+                marginBottom: ds.spacing.micro
+              }}>LAST</div>
+              <div style={{
+                fontSize: ds.typography.scale.small,
+                fontFamily: ds.typography.families.data,
+                color: ds.colors.grayscale[90],
+                fontWeight: ds.typography.weights.semibold
+              }}>
+                ${marketData.last.toFixed(2)}
+              </div>
+            </div>
+            <div>
+              <div style={{
+                fontSize: ds.typography.scale.mini,
+                color: ds.colors.grayscale[60],
+                marginBottom: ds.spacing.micro
+              }}>ASK</div>
+              <div style={{
+                fontSize: ds.typography.scale.small,
+                fontFamily: ds.typography.families.data,
+                color: ds.colors.semantic.sell,
+                fontWeight: ds.typography.weights.semibold
+              }}>
+                ${marketData.ask.toFixed(2)}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Enhanced Order Side Selector with Visual Feedback */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
         gap: ds.spacing.mini,
         marginBottom: ds.spacing.large,
+        padding: ds.spacing.mini,
+        backgroundColor: ds.colors.semantic.background.primary,
+        borderRadius: ds.interactive.radius.medium,
+        border: `1px solid ${ds.colors.grayscale[20]}`
       }}>
         <button
           type="button"
           onClick={() => setOrderSide('buy')}
           style={{
+            position: 'relative',
             padding: ds.spacing.medium,
-            backgroundColor: orderSide === 'buy' ? ds.colors.semantic.buy : ds.colors.semantic.background.tertiary,
+            backgroundColor: orderSide === 'buy' ? ds.colors.semantic.buy : 'transparent',
             color: orderSide === 'buy' ? ds.colors.grayscale[5] : ds.colors.grayscale[70],
-            border: 'none',
+            border: orderSide === 'buy' ? 'none' : `1px solid ${ds.colors.grayscale[30]}`,
             borderRadius: ds.interactive.radius.medium,
             fontSize: ds.typography.scale.base,
             fontWeight: ds.typography.weights.semibold,
             cursor: 'pointer',
             transition: designHelpers.animate('all', ds.animation.durations.fast),
+            minHeight: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden'
+          }}
+          onMouseEnter={(e) => {
+            if (orderSide !== 'buy') {
+              e.currentTarget.style.backgroundColor = `${ds.colors.semantic.buy}10`
+              e.currentTarget.style.color = ds.colors.semantic.buy
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (orderSide !== 'buy') {
+              e.currentTarget.style.backgroundColor = 'transparent'
+              e.currentTarget.style.color = ds.colors.grayscale[70]
+            }
           }}
         >
           BUY
+          {orderSide === 'buy' && (
+            <div style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '2px',
+              backgroundColor: ds.colors.grayscale[5],
+              opacity: 0.8
+            }} />
+          )}
         </button>
         <button
           type="button"
           onClick={() => setOrderSide('sell')}
           style={{
+            position: 'relative',
             padding: ds.spacing.medium,
-            backgroundColor: orderSide === 'sell' ? ds.colors.semantic.sell : ds.colors.semantic.background.tertiary,
+            backgroundColor: orderSide === 'sell' ? ds.colors.semantic.sell : 'transparent',
             color: orderSide === 'sell' ? ds.colors.grayscale[95] : ds.colors.grayscale[70],
-            border: 'none',
+            border: orderSide === 'sell' ? 'none' : `1px solid ${ds.colors.grayscale[30]}`,
             borderRadius: ds.interactive.radius.medium,
             fontSize: ds.typography.scale.base,
             fontWeight: ds.typography.weights.semibold,
             cursor: 'pointer',
             transition: designHelpers.animate('all', ds.animation.durations.fast),
+            minHeight: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden'
+          }}
+          onMouseEnter={(e) => {
+            if (orderSide !== 'sell') {
+              e.currentTarget.style.backgroundColor = `${ds.colors.semantic.sell}10`
+              e.currentTarget.style.color = ds.colors.semantic.sell
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (orderSide !== 'sell') {
+              e.currentTarget.style.backgroundColor = 'transparent'
+              e.currentTarget.style.color = ds.colors.grayscale[70]
+            }
           }}
         >
           SELL
+          {orderSide === 'sell' && (
+            <div style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: '2px',
+              backgroundColor: ds.colors.grayscale[95],
+              opacity: 0.8
+            }} />
+          )}
         </button>
       </div>
 
@@ -396,27 +543,165 @@ export const OrderForm: React.FC<OrderFormProps> = ({
         </div>
       </div>
 
-      {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={isValidating || Object.keys(errors).length > 0}
-        style={{
-          width: '100%',
-          padding: ds.spacing.medium,
-          backgroundColor: orderSide === 'buy' ? ds.colors.semantic.buy : ds.colors.semantic.sell,
-          color: orderSide === 'buy' ? ds.colors.grayscale[5] : ds.colors.grayscale[95],
-          border: 'none',
-          borderRadius: ds.interactive.radius.medium,
-          fontSize: ds.typography.scale.base,
-          fontWeight: ds.typography.weights.semibold,
-          cursor: isValidating || Object.keys(errors).length > 0 ? 'not-allowed' : 'pointer',
-          opacity: isValidating || Object.keys(errors).length > 0 ? 0.5 : 1,
-          transition: designHelpers.animate('all', ds.animation.durations.fast),
-          minHeight: ds.interactive.minSize.desktop,
-        }}
-      >
-        {isValidating ? 'Validating...' : `Place ${orderSide.toUpperCase()} Order`}
-      </button>
+      {/* Order Risk Assessment */}
+      <div style={{
+        padding: ds.spacing.medium,
+        backgroundColor: ds.colors.semantic.background.primary,
+        borderRadius: ds.interactive.radius.medium,
+        marginBottom: ds.spacing.large,
+        border: `1px solid ${total > availableBalance * 0.8 ? ds.colors.semantic.danger : ds.colors.grayscale[20]}`
+      }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: ds.spacing.small
+        }}>
+          <span style={{
+            fontSize: ds.typography.scale.small,
+            color: ds.colors.grayscale[70],
+            fontWeight: ds.typography.weights.medium
+          }}>
+            Risk Check
+          </span>
+          <div style={{
+            padding: `${ds.spacing.micro} ${ds.spacing.small}`,
+            backgroundColor: total > availableBalance * 0.8 ? 
+              `${ds.colors.semantic.danger}15` : `${ds.colors.semantic.buy}15`,
+            color: total > availableBalance * 0.8 ? 
+              ds.colors.semantic.danger : ds.colors.semantic.buy,
+            borderRadius: ds.interactive.radius.small,
+            fontSize: ds.typography.scale.mini,
+            fontWeight: ds.typography.weights.medium
+          }}>
+            {total > availableBalance * 0.8 ? 'HIGH RISK' : 'LOW RISK'}
+          </div>
+        </div>
+        
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: ds.spacing.medium,
+          fontSize: ds.typography.scale.small
+        }}>
+          <div>
+            <span style={{ color: ds.colors.grayscale[60] }}>Portfolio Impact:</span>
+            <div style={{
+              fontFamily: ds.typography.families.data,
+              fontWeight: ds.typography.weights.semibold,
+              color: ds.colors.grayscale[90]
+            }}>
+              {((total / availableBalance) * 100).toFixed(1)}%
+            </div>
+          </div>
+          <div>
+            <span style={{ color: ds.colors.grayscale[60] }}>Remaining Balance:</span>
+            <div style={{
+              fontFamily: ds.typography.families.data,
+              fontWeight: ds.typography.weights.semibold,
+              color: (availableBalance - total) < availableBalance * 0.1 ? 
+                ds.colors.semantic.danger : ds.colors.grayscale[90]
+            }}>
+              ${(availableBalance - total).toFixed(2)}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Enhanced Submit Button with Confirmation */}
+      <div style={{ position: 'relative' }}>
+        <button
+          type="submit"
+          disabled={isValidating || Object.keys(errors).length > 0}
+          style={{
+            width: '100%',
+            padding: ds.spacing.medium,
+            backgroundColor: 
+              isValidating ? ds.colors.grayscale[50] :
+              Object.keys(errors).length > 0 ? ds.colors.grayscale[30] :
+              orderSide === 'buy' ? ds.colors.semantic.buy : ds.colors.semantic.sell,
+            color: 
+              isValidating || Object.keys(errors).length > 0 ? ds.colors.grayscale[60] :
+              orderSide === 'buy' ? ds.colors.grayscale[5] : ds.colors.grayscale[95],
+            border: 'none',
+            borderRadius: ds.interactive.radius.medium,
+            fontSize: ds.typography.scale.base,
+            fontWeight: ds.typography.weights.semibold,
+            cursor: isValidating || Object.keys(errors).length > 0 ? 'not-allowed' : 'pointer',
+            transition: designHelpers.animate('all', ds.animation.durations.fast),
+            minHeight: '52px',
+            position: 'relative',
+            overflow: 'hidden',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: ds.spacing.small
+          }}
+          onMouseEnter={(e) => {
+            if (!isValidating && Object.keys(errors).length === 0) {
+              e.currentTarget.style.transform = 'translateY(-1px)'
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)'
+            }
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'translateY(0)'
+            e.currentTarget.style.boxShadow = 'none'
+          }}
+        >
+          {isValidating ? (
+            <>
+              <div style={{
+                width: '16px',
+                height: '16px',
+                border: '2px solid transparent',
+                borderTop: `2px solid ${ds.colors.grayscale[60]}`,
+                borderRadius: '50%',
+                animation: 'spin 1s linear infinite'
+              }} />
+              Validating Order...
+            </>
+          ) : Object.keys(errors).length > 0 ? (
+            `Fix ${Object.keys(errors).length} Error${Object.keys(errors).length > 1 ? 's' : ''}`
+          ) : (
+            <>
+              <span>{`Place ${orderSide.toUpperCase()} Order`}</span>
+              <span style={{
+                fontSize: ds.typography.scale.mini,
+                opacity: 0.8,
+                fontFamily: ds.typography.families.data
+              }}>
+                ${total.toFixed(2)}
+              </span>
+            </>
+          )}
+        </button>
+        
+        {/* Progress indicator during validation */}
+        {isValidating && (
+          <div style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            height: '2px',
+            backgroundColor: orderSide === 'buy' ? ds.colors.semantic.buy : ds.colors.semantic.sell,
+            borderRadius: '1px',
+            animation: 'progress 2s ease-in-out infinite'
+          }} />
+        )}
+      </div>
+      
+      {/* Additional styles for animations */}
+      <style jsx>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        @keyframes progress {
+          0% { width: 0%; }
+          50% { width: 70%; }
+          100% { width: 100%; }
+        }
+      `}</style>
     </form>
   )
 }

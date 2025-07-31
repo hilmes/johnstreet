@@ -1,7 +1,7 @@
 import { TradingSignal } from '../signals/SignalGenerator'
 import { PositionSize } from '../risk/PositionSizer'
 import { Order, OrderStatus, OrderType, TimeInForce } from '@/types/trading'
-import { UnifiedExchange } from '@/lib/exchanges/unified/UnifiedExchange'
+import { UnifiedExchange } from '@/lib/exchanges/UnifiedExchange'
 
 export interface ExecutionConfig {
   slippageTolerance: number // Max acceptable slippage %

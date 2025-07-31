@@ -1,54 +1,61 @@
-import { NextRequest, NextResponse } from 'next/server'
-import crypto from 'crypto'
-import axios from 'axios'
+export const runtime = 'edge';
+export const revalidate = 10; // Cache for 10 seconds
 
-export const runtime = 'edge'
+import { NextRequest, NextResponse } from 'next/server';
+import { depositManager } from '../../../../lib/trading/DepositManager';
 
-const API_KEY = process.env.KRAKEN_API_KEY!
-const API_SECRET = process.env.KRAKEN_API_SECRET!
-
-function getKrakenSignature(path: string, data: any, secret: string) {
-  const message = data.nonce + new URLSearchParams(data).toString()
-  const secret_buffer = Buffer.from(secret, 'base64')
-  const hash = crypto.createHash('sha256')
-  const hmac = crypto.createHmac('sha512', secret_buffer)
-  const hash_digest = hash.update(message).digest()
-  const hmac_digest = hmac.update(path + hash_digest).digest('base64')
-  return hmac_digest
-}
-
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const nonce = Date.now() * 1000
-    const data = { nonce }
-    const path = '/0/private/Balance'
-    const signature = getKrakenSignature(path, data, API_SECRET)
-    
-    const response = await axios.post(
-      `https://api.kraken.com${path}`,
-      new URLSearchParams(data),
-      {
-        headers: {
-          'API-Key': API_KEY,
-          'API-Sign': signature,
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }
-    )
-    
-    if (response.data.error && response.data.error.length > 0) {
-      return NextResponse.json(
-        { error: response.data.error[0] },
-        { status: 400 }
-      )
+    const { searchParams } = new URL(request.url);
+    const asset = searchParams.get('asset');
+    const format = searchParams.get('format') || 'detailed';
+
+    if (asset) {
+      // Get balance for specific asset
+      const balance = await depositManager.getBalance(asset);
+      return NextResponse.json({ 
+        asset, 
+        balance,
+        formatted: `${balance.toFixed(8)} ${depositManager.formatAssetName(asset)}`
+      });
     }
-    
-    return NextResponse.json(response.data.result)
-  } catch (error) {
-    console.error('Error fetching balance:', error)
+
+    if (format === 'usd') {
+      // Get USD equivalent balances
+      const { balances, totalUSD } = await depositManager.getUSDBalances();
+      return NextResponse.json({
+        balances,
+        totalUSD,
+        formatted: `$${totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+      });
+    }
+
+    // Get all balances with details
+    const balances = await depositManager.getBalances();
+    const formattedBalances = Object.entries(balances)
+      .filter(([_, balance]) => balance > 0.00000001) // Only show non-zero balances
+      .map(([asset, balance]) => ({
+        asset,
+        balance,
+        name: depositManager.formatAssetName(asset),
+        formatted: `${balance.toFixed(8)} ${asset}`
+      }));
+
+    return NextResponse.json({
+      balances: formattedBalances,
+      raw: balances,
+      timestamp: new Date().toISOString()
+    });
+
+  } catch (error: any) {
+    console.error('Balance API error:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch balance data' },
+      { 
+        error: 'Failed to retrieve balance',
+        details: error.message,
+        timestamp: new Date().toISOString()
+      },
       { status: 500 }
-    )
+    );
   }
 }

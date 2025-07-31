@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export const runtime = 'edge'
+// Note: Uses Node.js runtime for backend features
 
 export interface TrendsData {
   interest: Array<{

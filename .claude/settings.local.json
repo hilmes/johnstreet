@@ -39,7 +39,12 @@
       "Bash(pm2 stop:*)",
       "Bash(pm2 save:*)",
       "Bash(npx next build:*)",
-      "Bash(kill:*)"
+      "Bash(kill:*)",
+      "Bash(npm test:*)",
+      "Bash(node:*)",
+      "Bash(for file in app/api/sentiment/{pump-detector,historical,activity,reddit,subreddits,twitter}/route.ts)",
+      "Bash(do sed -i '' 's/export const runtime = ''''edge''''/\\/\\/ Note: Uses Node.js runtime due to sentiment analysis dependencies/' \"$file\")",
+      "Bash(sed:*)"
     ],
     "deny": []
   }

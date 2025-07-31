@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { SentimentAnalyzer } from '@/lib/sentiment/SentimentAnalyzer'
 
-export const runtime = 'edge'
+// Note: Uses Node.js runtime due to natural language processing dependencies
 
 export async function POST(request: NextRequest) {
   try {

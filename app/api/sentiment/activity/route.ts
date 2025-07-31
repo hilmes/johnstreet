@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { activityLoggerKV } from '@/lib/sentiment/ActivityLoggerKV'
 
-export const runtime = 'edge'
+// Note: Uses Node.js runtime due to sentiment analysis dependencies
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
